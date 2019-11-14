@@ -29,12 +29,45 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 @ini_set( 'max_execution_time', '300' );
 
 // FIX BUG IN iThemes Security path
-function sws_icon_font_path() {
-        $url=plugins_url();
-        wp_enqueue_style( 'ithemes-icon-font', $url."/better-wp-security/lib/icon-fonts/icon-fonts.css" );
+if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
+        function it_icon_font_admin_enueue_scripts() {
+		        $url=plugins_url();
 
+                if ( version_compare( $GLOBALS['wp_version'], '3.7.10', '>=' ) ) {
+                        $dir = str_replace( '\\', '/', dirname( __FILE__ ) );
+
+                        $content_dir = rtrim( str_replace( '\\', '/', WP_CONTENT_DIR ), '/' );
+                        $abspath = rtrim( str_replace( '\\', '/', ABSPATH ), '/' );
+
+                        if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
+                                $url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
+                        } else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
+                                $url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
+                        }
+
+                        if ( empty( $url ) ) {
+                                $dir = realpath( $dir );
+
+                                if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
+                                        $url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
+                                } else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
+                                        $url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
+                                }
+                        }
+
+                        if ( is_ssl() ) {
+                                $url = preg_replace( '|^http://|', 'https://', $url );
+                        } else {
+                                $url = preg_replace( '|^https://|', 'http://', $url );
+                        }
+
+
+                        wp_enqueue_style( 'ithemes-icon-font', "$url/icon-fonts.css" );
+                }
+        }
+        add_action( 'admin_enqueue_scripts', 'it_icon_font_admin_enueue_scripts' );
 }
-add_action( 'admin_enqueue_scripts', 'sws_icon_font_path' );
+
 
 // FIX  BUG IN PASSWORD RESET MSG
 add_filter("retrieve_password_message", "sws_custom_password_reset", 99, 4);
@@ -63,5 +96,12 @@ if ( !function_exists( 'wp_password_change_notification' ) ) {
 
 // Disable use XML-RPC
 add_filter( 'xmlrpc_enabled', '__return_false' );
+
+
+// ENQUEUE FONTAWESOME
+function sws_enqueue_fontawesome(){
+	wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); 
+}
+add_action('wp_enqueue_scripts','sws_enqueue_fontawesome');
 
 ?>
