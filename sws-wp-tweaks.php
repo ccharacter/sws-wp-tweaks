@@ -29,12 +29,12 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 @ini_set( 'max_execution_time', '300' );
 
 // FIX BUG IN iThemes Security path
-function it_icon_font_admin_enueue_scripts() {
+function sws_icon_font_path() {
         $url=plugins_url();
         wp_enqueue_style( 'ithemes-icon-font', $url."/better-wp-security/lib/icon-fonts/icon-fonts.css" );
 
 }
-add_action( 'admin_enqueue_scripts', 'it_icon_font_admin_enueue_scripts' );
+add_action( 'admin_enqueue_scripts', 'sws_icon_font_path' );
 
 // FIX  BUG IN PASSWORD RESET MSG
 add_filter("retrieve_password_message", "sws_custom_password_reset", 99, 4);
