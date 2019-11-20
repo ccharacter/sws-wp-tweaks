@@ -8,3 +8,4 @@ This is a catch-all plugin for tweaks that I want to make to most or all of my s
 * Disable new user notifications
 * Disable password change notifications
 * Disable xml-rpc
+* Add server tag to bottom of Home & About (blue- or green-)

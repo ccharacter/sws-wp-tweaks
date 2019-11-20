@@ -104,4 +104,31 @@ function sws_enqueue_fontawesome(){
 }
 add_action('wp_enqueue_scripts','sws_enqueue_fontawesome');
 
+
+class DisplayServerName
+{
+	public function showTag($content) {
+		if ( (is_page('home')) || (is_page('about'))) {
+			return $content.'<span style="opacity:0.02">'.gethostname().'</span>';
+		} else { 
+			return $content;
+		}
+	}
+	
+    public function register($atts, $content = null)
+    {
+        return '<span style="opacity:0.02">'.gethostname().'</span>';
+    }
+    
+	public function init()
+    {
+        add_shortcode('sws_server_tag', array($this, 'register'));
+		add_action('the_content',array($this,'showTag'));
+    }
+}
+
+
+$shortcode=new DisplayServerName();
+$shortcode->init();
+
 ?>
