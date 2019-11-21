@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           1.9
+ * Version:           2.0
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -22,6 +22,9 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	__FILE__,
 	'sws-wp-tweaks'
 );
+
+require_once plugin_dir_path(__FILE__).'inc/action_link.php';
+require_once plugin_dir_path(__FILE__).'inc/save_options.php';
 
 // FOR NON-MULTI-SITES
 @ini_set( 'upload_max_size' , '64M' );
@@ -130,5 +133,7 @@ class DisplayServerName
 
 $shortcode=new DisplayServerName();
 $shortcode->init();
+
+
 
 ?>
