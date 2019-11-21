@@ -1,6 +1,5 @@
 <?php
 if ( !class_exists('Puc_v4p8_Scheduler', false) ):
-
 	/**
 	 * The scheduler decides when and how often to check for updates.
 	 * It calls @see Puc_v4p8_UpdateChecker::checkForUpdates() to perform the actual checks.
@@ -9,16 +8,12 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 		public $checkPeriod = 12; //How often to check for updates (in hours).
 		public $throttleRedundantChecks = false; //Check less often if we already know that an update is available.
 		public $throttledCheckPeriod = 72;
-
 		protected $hourlyCheckHooks = array('load-update.php');
-
 		/**
 		 * @var Puc_v4p8_UpdateChecker
 		 */
 		protected $updateChecker;
-
 		private $cronHook = null;
-
 		/**
 		 * Scheduler constructor.
 		 *
@@ -29,11 +24,9 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 		public function __construct($updateChecker, $checkPeriod, $hourlyHooks = array('load-plugins.php')) {
 			$this->updateChecker = $updateChecker;
 			$this->checkPeriod = $checkPeriod;
-
 			//Set up the periodic update checks
 			$this->cronHook = $this->updateChecker->getUniqueName('cron_check_updates');
 			if ( $this->checkPeriod > 0 ){
-
 				//Trigger the check via Cron.
 				//Try to use one of the default schedules if possible as it's less likely to conflict
 				//with other plugins and their custom schedules.
@@ -49,9 +42,7 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 					$scheduleName = 'every' . $this->checkPeriod . 'hours';
 					add_filter('cron_schedules', array($this, '_addCustomSchedule'));
 				}
-
 				if ( !wp_next_scheduled($this->cronHook) && !defined('WP_INSTALLING') ) {
-					wp_schedule_event(time(), $scheduleName, $this->cronHook);
 					//Randomly offset the schedule to help prevent update server traffic spikes. Without this
 					//most checks may happen during times of day when people are most likely to install new plugins.
 					$firstCheckTime = time() - rand(0, max($this->checkPeriod * 3600 - 15 * 60, 1));
@@ -62,11 +53,9 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 					wp_schedule_event($firstCheckTime, $scheduleName, $this->cronHook);
 				}
 				add_action($this->cronHook, array($this, 'maybeCheckForUpdates'));
-
 				//In case Cron is disabled or unreliable, we also manually trigger
 				//the periodic checks while the user is browsing the Dashboard.
 				add_action( 'admin_init', array($this, 'maybeCheckForUpdates') );
-
 				//Like WordPress itself, we check more often on certain pages.
 				/** @see wp_update_plugins */
 				add_action('load-update-core.php', array($this, 'maybeCheckForUpdates'));
@@ -77,13 +66,11 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 				}
 				//This hook fires after a bulk update is complete.
 				add_action('upgrader_process_complete', array($this, 'upgraderProcessComplete'), 11, 2);
-
 			} else {
 				//Periodic checks are disabled.
 				wp_clear_scheduled_hook($this->cronHook);
 			}
 		}
-
 		/**
 		 * Runs upon the WP action upgrader_process_complete.
 		 *
@@ -96,7 +83,6 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 			/** @noinspection PhpUnusedParameterInspection */
 			$upgrader, $upgradeInfo
 		) {
-
 			//Sanity check and limitation to relevant types.
 			if (
 				!is_array($upgradeInfo) || !isset($upgradeInfo['type'], $upgradeInfo['action'])
@@ -104,14 +90,12 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 			) {
 				return;
 			}
-
 			//Filter out notifications of upgrades that should have no bearing upon whether or not our
 			//current info is up-to-date.
 			if ( is_a($this->updateChecker, 'Puc_v4p8_Theme_UpdateChecker') ) {
 				if ( 'theme' !== $upgradeInfo['type'] || !isset($upgradeInfo['themes']) ) {
 					return;
 				}
-
 				//Letting too many things going through for checks is not a real problem, so we compare widely.
 				if ( !in_array(
 					strtolower($this->updateChecker->directoryName),
@@ -120,12 +104,10 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 					return;
 				}
 			}
-
 			if ( is_a($this->updateChecker, 'Puc_v4p8_Plugin_UpdateChecker') ) {
 				if ( 'plugin' !== $upgradeInfo['type'] || !isset($upgradeInfo['plugins']) ) {
 					return;
 				}
-
 				//Themes pass in directory names in the information array, but plugins use the relative plugin path.
 				if ( !in_array(
 					strtolower($this->updateChecker->directoryName),
@@ -134,7 +116,6 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 					return;
 				}
 			}
-
 			$this->maybeCheckForUpdates();
 		}
 		
@@ -155,10 +136,8 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 			if ( empty($this->checkPeriod) ){
 				return;
 			}
-
 			$state = $this->updateChecker->getUpdateState();
 			$shouldCheck = ($state->timeSinceLastCheck() >= $this->getEffectiveCheckPeriod());
-
 			//Let plugin authors substitute their own algorithm.
 			$shouldCheck = apply_filters(
 				$this->updateChecker->getUniqueName('check_now'),
@@ -166,12 +145,10 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 				$state->getLastCheck(),
 				$this->checkPeriod
 			);
-
 			if ( $shouldCheck ) {
 				$this->updateChecker->checkForUpdates();
 			}
 		}
-
 		/**
 		 * Calculate the actual check period based on the current status and environment.
 		 *
@@ -196,10 +173,8 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 			} else {
 				$period = $this->checkPeriod * 3600;
 			}
-
 			return $period;
 		}
-
 		/**
 		 * Add our custom schedule to the array of Cron schedules used by WP.
 		 *
@@ -216,7 +191,6 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 			}
 			return $schedules;
 		}
-
 		/**
 		 * Remove the scheduled cron event that the library uses to check for updates.
 		 *
@@ -225,7 +199,6 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 		public function removeUpdaterCron() {
 			wp_clear_scheduled_hook($this->cronHook);
 		}
-
 		/**
 		 * Get the name of the update checker's WP-cron hook. Mostly useful for debugging.
 		 *
@@ -235,5 +208,4 @@ if ( !class_exists('Puc_v4p8_Scheduler', false) ):
 			return $this->cronHook;
 		}
 	}
-
 endif;
