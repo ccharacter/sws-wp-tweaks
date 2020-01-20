@@ -1,12 +1,12 @@
 {
 	"name": "SWS WordPress Tweaks",
-	"version": "2.0",
-	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v2.0.zip",
+	"version": "2.01",
+	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v2.01.zip",
 
 	"homepage": "https://ccharacter.com/custom-plugins/sws-wp-tweaks/",
 	"requires": "4.0",
-	"tested": "5.3",
-	"last_updated": "2019-11-20 22:17:00",
+	"tested": "5.3.2",
+	"last_updated": "2020-01-19",
 	"upgrade_notice": "Keeping up with the lastest version means fewer errors.",
 
 	"author": "Sharon Stromberg",

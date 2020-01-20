@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           2.0
+ * Version:           2.01
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -30,6 +30,15 @@ require_once plugin_dir_path(__FILE__).'inc/save_options.php';
 @ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '64M');
 @ini_set( 'max_execution_time', '300' );
+
+/* FOR MULTI-SITES, change the following in /etc/php.ini:
+
+upload_max_filesize = 1500M
+post_max_size = 1500M
+memory_limit = 1500M
+
+... then sudo systemctl restart php-fpm
+*/
 
 // FIX BUG IN iThemes Security path
 if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
@@ -65,7 +74,7 @@ if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
                         }
 
 
-                        wp_enqueue_style( 'ithemes-icon-font', "$url/icon-fonts.css" );
+                        wp_enqueue_style( 'ithemes-icon-font', "$url/better-wp-security/lib/icon-fonts/icon-fonts.css" );
                 }
         }
         add_action( 'admin_enqueue_scripts', 'it_icon_font_admin_enueue_scripts' );
