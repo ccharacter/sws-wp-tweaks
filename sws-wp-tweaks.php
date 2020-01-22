@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           2.01
+ * Version:           2.02
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -109,12 +109,6 @@ if ( !function_exists( 'wp_password_change_notification' ) ) {
 // Disable use XML-RPC
 add_filter( 'xmlrpc_enabled', '__return_false' );
 
-
-// ENQUEUE FONTAWESOME
-function sws_enqueue_fontawesome(){
-	wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); 
-}
-add_action('wp_enqueue_scripts','sws_enqueue_fontawesome');
 
 
 class DisplayServerName
