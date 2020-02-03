@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           2.05
+ * Version:           2.06
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -134,7 +134,7 @@ function sws_test_input($value) {
 }
 
 
-add_filter( 'gform_validation_2', 'custom_validation' );
+add_filter( 'gform_validation', 'custom_validation' );
 function custom_validation( $validation_result ) {
  
 	$form = $validation_result['form'];
