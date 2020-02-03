@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           2.02
+ * Version:           2.05
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -27,9 +27,9 @@ require_once plugin_dir_path(__FILE__).'inc/action_link.php';
 require_once plugin_dir_path(__FILE__).'inc/save_options.php';
 
 // FOR NON-MULTI-SITES
-@ini_set( 'upload_max_size' , '64M' );
+/*@ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '64M');
-@ini_set( 'max_execution_time', '300' );
+@ini_set( 'max_execution_time', '300' );*/
 
 /* FOR MULTI-SITES, change the following in /etc/php.ini:
 
@@ -108,6 +108,76 @@ if ( !function_exists( 'wp_password_change_notification' ) ) {
 
 // Disable use XML-RPC
 add_filter( 'xmlrpc_enabled', '__return_false' );
+
+
+
+// GRAVITY FORMS VALIDATION: FAIL HTML & FOREIGN CHARS
+function sws_test_input($value) {
+	
+	//error_log($value,0);
+	$test=""; $ret=true;
+	$testHTML=strip_tags($value);				
+	$testLang=preg_replace('/[^\00-\255]+/u', '', $value);
+	if ($value!=$testHTML) { 
+		$test=" HTML is not allowed in this field."; 
+		//error_log("HTML",0); 
+	}
+	if ($value!=$testLang) { 
+		$test= "Non-English characters are not allowed in this field."; 
+		//error_log("Non-English",0);
+	}
+	
+	
+	if (!($test=="")) { $ret=false;}
+	$retArr=array($ret,$test);
+	return $retArr;
+}
+
+
+add_filter( 'gform_validation_2', 'custom_validation' );
+function custom_validation( $validation_result ) {
+ 
+	$form = $validation_result['form'];
+ 	
+	foreach( $form['fields'] as &$field ) {
+		
+		if (!($field->failed_validation)) {
+			
+			if (is_array($field->inputs)) { 
+				$value = $field->inputs;
+			} else {  
+				$value=rgpost("input_".$field->id, true);
+			}
+			
+			
+			if (is_array($value)) { 
+				$k=1;
+				foreach ($value as $item) {
+					$itemText=rgpost("input_".$field->id."_".$k);
+					$test=sws_test_input($itemText);
+					if (!$test[0]) break;
+					$k++;
+				}
+			} else { 
+				$test=sws_test_input($value);
+			}
+
+			if ( !$test[0] ) {
+				// set the form validation to false
+				$validation_result['is_valid'] = false;
+
+				$field->failed_validation = true;
+				$field->validation_message = $field->label.' is invalid. '.$test[1];
+				return $validation_result;
+			}
+		} 
+	}
+ 
+    //Assign modified $form object back to the validation result
+    $validation_result['form'] = $form;
+    return $validation_result;
+ 
+}
 
 
 

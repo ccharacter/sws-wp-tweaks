@@ -1,19 +1,19 @@
 {
 	"name": "SWS WordPress Tweaks",
-	"version": "2.02",
-	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v2.02.zip",
+	"version": "2.05",
+	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v2.05.zip",
 
 	"homepage": "https://ccharacter.com/custom-plugins/sws-wp-tweaks/",
 	"requires": "4.0",
 	"tested": "5.3.2",
-	"last_updated": "2020-01-19",
+	"last_updated": "2020-02-02",
 	"upgrade_notice": "Keeping up with the lastest version means fewer errors.",
 
 	"author": "Sharon Stromberg",
 	"author_homepage": "http://ccharacter.com/",
 
 	"sections": {
-		"description": "This plugin is a repository for tweaks that I want to make to most or all of my sites. At present, it includes...<ul style='line-height:.8'><li>Increase default max upload size</li><li>Fix bug in password reset message</li><li>Fix bug in iThemes Security font path</li><li>Disable new user notifications</li><li>Disable password change notifications</li><li>Disable xml-rpc</li><li>Add server tag to bottom of <em>Home</em> and <em>About</em> pages</li></ul>"
+		"description": "This plugin is a repository for tweaks that I want to make to most or all of my sites. At present, it includes...<ul style='line-height:.8'><li>Increase default max upload size</li><li>Fix bug in password reset message</li><li>Fix bug in iThemes Security font path</li><li>Disable new user notifications</li><li>Disable password change notifications</li><li>Disable xml-rpc</li><li>Add server tag to bottom of <em>Home</em> and <em>About</em> pages</li><li>Fail validation for any Gravity Forms field containing HTML or non-English characters</li></ul>"
 	}
 
 }
