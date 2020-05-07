@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           2.06
+ * Version:           3.1
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -24,6 +24,7 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 );
 
 require_once plugin_dir_path(__FILE__).'options_page.php';
+require_once plugin_dir_path(__FILE__).'duplicate_pages.php';
 
 $optVals = get_option( 'sws_wp_tweaks_options' );
 
