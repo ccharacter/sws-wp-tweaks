@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           3.1
+ * Version:           3.2
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -25,6 +25,13 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 
 require_once plugin_dir_path(__FILE__).'options_page.php';
 require_once plugin_dir_path(__FILE__).'duplicate_pages.php';
+
+
+// add stylesheets
+function sws_wp_tweaks_enqueue_script() {   
+ 	wp_enqueue_style( 'swsTweakStyles', plugin_dir_url(__FILE__).'assets/style.css');
+}
+add_action('admin_enqueue_scripts', 'sws_custom_sidebar_enqueue_script');
 
 $optVals = get_option( 'sws_wp_tweaks_options' );
 
@@ -224,6 +231,16 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 	}
 }
 
+
+
+function sws_console_log($output, $with_script_tags = true) {
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
+');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
+}
 
 class DisplayServerName
 {
