@@ -8,7 +8,10 @@
 </div>
 
 */
-
+.sws-accordion {
+	font-weight: bold;
+	cursor: pointer;
+}
 
 .sws-acc-content {
     background: #E2E5F6;
@@ -22,7 +25,7 @@ input.sws-accordion[type='checkbox'] {
     display: none;
 }
 
-label.sws-accordion {
+.sws-accordion > label {
     display: block;    
     padding: 8px 22px;
     margin: 0 0 1px 0;
@@ -33,14 +36,14 @@ label.sws-accordion {
     transition: ease .5s;
 }
 
-label.sws-accordion:hover {
+.sws-accordion > label:hover {
     background: #4E8774;
 }
 
-input.sws-accordion + label.sws-accordion + .sws-acc-content {
+input.sws-accordion + .sws-accordion > label + .sws-acc-content {
     display: none;
 }
 
-input.sws-accordion:checked + label.sws-accordion + .sws-acc-content {
+input.sws-accordion:checked + .sws-accordion > label + .sws-acc-content {
     display: block;
 }
