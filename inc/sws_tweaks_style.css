@@ -1,10 +1,50 @@
 /* COLLAPSING STYLES
-
-<a href='#desc_0' data-toggle='collapse' class='sws-collapse'>Title goes here</a>
-	<div id='desc_0' class='collapse multi-collapse'>
-		Content goes here
+<div class='sws-accordion'>
+	<input type="checkbox" id="title2" class="sws-accordion"/>
+	<label for="title2">Accordion Two</label>
+	<div class="sws-acc-content">
+		<p>Your content goes here inside this division with the class "content".</p>
 	</div>
+</div>
 
 */
 
-.sws-collapse { text-decoration: none; font-weight: bold; font-size:110%; }
+.sws-acc-content {
+    background: #E2E5F6;
+    padding: 10px 25px;
+    border: 1px solid #A7A7A7;
+    margin: 0 0 1px 0;
+    border-radius: 3px;
+}
+
+.sws-accordion {
+
+	input {
+		display: none;
+	}	
+	
+	
+	label {
+		display: block;    
+		padding: 8px 22px;
+		margin: 0 0 1px 0;
+		cursor: pointer;
+		background: #6AAB95;
+		border-radius: 3px;
+		color: #FFF;
+		transition: ease .5s;
+	}
+
+	label:hover {
+		background: #4E8774;
+	}
+
+
+	input + label + .sws-acc-content {
+		display: none;
+	}
+
+	input:checked + label + .sws-acc-content {
+		display: block;
+	}
+}
