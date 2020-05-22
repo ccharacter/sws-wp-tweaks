@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           3.35
+ * Version:           3.36
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -29,7 +29,7 @@ require_once plugin_dir_path(__FILE__).'duplicate_pages.php';
 
 // add stylesheets
 function sws_wp_tweaks_enqueue_script() {   
- 	wp_enqueue_style( 'swsTweakStyles', plugin_dir_url(__FILE__).'assets/sws_tweaks_style.css');
+ 	wp_enqueue_style( 'swsTweakStyles', plugin_dir_url(__FILE__).'inc/sws_tweaks_style.css');
 }
 add_action('wp_enqueue_scripts', 'sws_wp_tweaks_enqueue_script');
 
