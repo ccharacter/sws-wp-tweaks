@@ -1,0 +1,10 @@
+/* COLLAPSING STYLES
+
+<a href='#desc_0' data-toggle='collapse' class='sws-collapse'>Title goes here</a>
+	<div id='desc_0' class='collapse multi-collapse'>
+		Content goes here
+	</div>
+
+*/
+
+.sws-collapse { text-decoration: none; font-weight: bold; font-size:110%; }
