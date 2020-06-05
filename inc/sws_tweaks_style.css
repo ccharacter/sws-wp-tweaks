@@ -1,49 +1,26 @@
 /* COLLAPSING STYLES
 <div class='sws-accordion'>
-	<input type="checkbox" id="title2" class="sws-accordion"/>
-	<label for="title2">Accordion Two</label>
-	<div class="sws-acc-content">
-		<p>Your content goes here inside this division with the class "content".</p>
-	</div>
+    <input type="checkbox" id="toggle1" class="sws-acc-ck" /><label for="toggle1">First Item</label>
+        <div class='sws-acc-content'>Lorem ipsum...</div>
 </div>
-
+<div class='sws-accordion'>
+    <input type="checkbox" id="toggle2" class="sws-acc-ck" /><label for="toggle2">Second Item</label>
+        <div class='sws-acc-content'>Lorem ipsum... second version</div>
+</div>
+NOTE that IDs have to match for checkbox and label. Otherwise, it's pretty easy 
 */
-.sws-accordion {
-	font-weight: bold;
-	cursor: pointer;
-}
-
 .sws-acc-content {
-    background: #E2E5F6;
-    padding: 10px 25px;
-    border: 1px solid #A7A7A7;
-    margin: 0 0 1px 0;
-    border-radius: 3px;
+    max-height: 0;
+    overflow: hidden;
+    transition: height 400ms linear;
+    margin-bottom: .5rem;
 }
-
-input.sws-accordion[type='checkbox'] {
+.sws-acc-ck {
     display: none;
 }
-
-.sws-accordion > label {
-    display: block;    
-    padding: 8px 22px;
-    margin: 0 0 1px 0;
-    cursor: pointer;
-    background: #6AAB95;
-    border-radius: 3px;
-    color: #FFF;
-    transition: ease .5s;
+.sws-accordion > input:checked ~ .sws-acc-content {
+    max-height: 100vh;
 }
-
-.sws-accordion > label:hover {
-    background: #4E8774;
-}
-
-input.sws-accordion + .sws-accordion > label + .sws-acc-content {
-    display: none;
-}
-
-input.sws-accordion:checked + .sws-accordion > label + .sws-acc-content {
-    display: block;
-}
+.sws-accordion > input:checked ~ label:before,
+.sws-accordion > input:checked ~ label:before { content: '\25bc'; padding-right: 1rem; }
+.sws-accordion > label:before { content: '\25b6'; padding-right: 1rem; }
