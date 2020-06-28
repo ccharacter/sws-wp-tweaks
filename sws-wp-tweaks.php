@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.1
+ * Version:           4.2
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -270,5 +270,28 @@ if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="
 	$shortcode->init();
 }
 
+function sws_accordion_func($atts) {
+	
+		$myAtts=shortcode_atts([ 'id'=>"content" ]);
+// SHORTCODE FOR COLLAPSING DIVS  
+<?php 
+<script>
+jQuery('#<?php echo $myAtts['id']; ?>').prepend("<div class='sws-magic-div'>");
+jQuery('#<?php echo $myAtts['id']; ?>').append("</div>");
+			
+jQuery(".sws-magic-div > ul").each(function (index, element) {
+	if ( jQuery( element ).children().length > 0) {
+		jQuery(element).wrap("<div class='sws-accordion'></div>");
+		jQuery(element).before( "<input type='checkbox' id='toggle" + index + "' class='sws-acc-ck' /><label for='toggle" + index + "'>&nbsp;&nbsp;&nbsp;</label>" );	
+		jQuery(element).wrap("<div class='sws-acc-content'></div>");
+		console.log('index' + index);
+	}
+    });
+		
+</script> <?
+}
+
+// register shortcode
+add_shortcode('sws_accordion', 'sws_accordion_func'); 
 
 ?>
