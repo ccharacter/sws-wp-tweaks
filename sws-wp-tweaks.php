@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.21
+ * Version:           4.22
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -274,7 +274,7 @@ function sws_accordion_func($atts) {
 	
 		$myAtts=shortcode_atts([ 'id'=>"content" ]);
 // SHORTCODE FOR COLLAPSING DIVS  
-<?php 
+?>
 <script>
 jQuery('#<?php echo $myAtts['id']; ?>').prepend("<div class='sws-magic-div'>");
 jQuery('#<?php echo $myAtts['id']; ?>').append("</div>");
