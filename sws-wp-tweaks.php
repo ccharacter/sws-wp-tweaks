@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.26
+ * Version:           4.3
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -270,11 +270,14 @@ if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="
 }
 
 // SHORTCODE FOR COLLAPSING DIVS  
-function sws_accordion_func($atts=[],$itemID=null) {
-	
+function sws_accordion_func($atts) {
+	$a=shortcode_atts(array(
+	  'item_id' => 'content',
+	  'test' => 'foobar'
+	), $atts);
+	$itemID=$a['item_id']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
 	ob_start();
-	if (is_null($itemID)) { $itemID='content'; } 
-		//sws_console_log($itemID); error_log($itemID,0);	
+	
 ?>
 <script>
 if ('#<?php echo $itemID; ?>').length()) {
