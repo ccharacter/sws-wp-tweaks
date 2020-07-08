@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.3
+ * Version:           4.31
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -95,15 +95,23 @@ if ((!(isset($optVals['fix_its_fontpath']))) || ($optVals['fix_its_fontpath']=="
 
 // ON BY DEFAULT
 if ((!(isset($optVals['fix_pw_reset_msg']))) || ($optVals['fix_pw_reset_msg']=="on")) {
+	
+	function sws_set_content_type(){
+		return "text/html";
+	}
+	add_filter( 'wp_mail_content_type','sws_set_content_type' );
+
+	
 	// FIX  BUG IN PASSWORD RESET MSG
 	add_filter("retrieve_password_message", "sws_custom_password_reset", 99, 4);
 
 	function sws_custom_password_reset($message, $key, $user_login, $user_data )    {
-		$message = "Someone has requested a password reset for the following account:\r\n\r\n" . sprintf(__('%s'), $user_data->user_email) . "\r\n\r\nIf this was a mistake, just ignore this email and nothing will happen.\r\n\r\n";
-		$message .= __( "To set your password, <a href='", 'personalize-login' ) ;
+		$message = "<p>Someone has requested a password reset for the following account:<br />" . sprintf(__('%s'), $user_data->user_email) . "<br />";
+		$message .= "If this was a mistake, just ignore this email and nothing will happen.</p>";
+		$message .= __( "<p>To set your password, <a href='", 'personalize-login' ) ;
 		$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
-		$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "\r\n\r\n";
-		$message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n\r\n~The Friendly Script";
+		$message .= __( "'>CLICK HERE</a> or visit the following address:<br />", 'personalize-login' );
+		$message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "</p><p>~The Friendly Script</p>";
 
 		return $message;
 	}
