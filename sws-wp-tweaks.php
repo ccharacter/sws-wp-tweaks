@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.23
+ * Version:           4.25
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -99,11 +99,11 @@ if ((!(isset($optVals['fix_pw_reset_msg']))) || ($optVals['fix_pw_reset_msg']=="
 	add_filter("retrieve_password_message", "sws_custom_password_reset", 99, 4);
 
 	function sws_custom_password_reset($message, $key, $user_login, $user_data )    {
-		$message = "Someone has requested a password reset for the following account:
-	" . sprintf(__('%s'), $user_data->user_email) . "
-	If this was a mistake, just ignore this email and nothing will happen.
-	To reset your password, visit the following address:
-	" . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n";
+		$message = "Someone has requested a password reset for the following account:\r\n\r\n" . sprintf(__('%s'), $user_data->user_email) . "\r\n\r\nIf this was a mistake, just ignore this email and nothing will happen.\r\n\r\n";
+		$message .= __( "To set your password, <a href='", 'personalize-login' ) ;
+		$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
+		$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "\r\n\r\n";
+		$message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n\r\n~The Friendly Script";
 
 		return $message;
 	}
@@ -137,12 +137,11 @@ if ((!(isset($optVals['disable_newUser_notice']))) || ($optVals['disable_newUser
 
 			$switched_locale = switch_to_locale( get_user_locale( $user ) );
 
-			$message = "Thank you for registering on $blogname.
-			".sprintf(__('Your username is: %s'), $user->user_login) . '
-			To set your password, visit the following URL:
-			' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "
-			
-			~The Friendly Script";
+			$message = "Thank you for registering on $blogname. \r\n".sprintf(__('Your username is: %s'), $user->user_login);
+			$message .= __( "To set your password, <a href='", 'personalize-login' ) ;
+			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
+			$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "\r\n\r\n";
+			$message.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n~The Friendly Script";
 
 			wp_mail($user->user_email, sprintf(__('[%s]: Your username and password info'), $blogname), $message);
 		}
@@ -270,17 +269,17 @@ if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="
 	$shortcode->init();
 }
 
+// SHORTCODE FOR COLLAPSING DIVS  
 function sws_accordion_func($atts=[],$itemID=null) {
 	
-		if (is_null($itemID)) { $itemID='content'; } 
-		sws_console_log($itemID);
-/*		
-// SHORTCODE FOR COLLAPSING DIVS  
+	ob_start();
+	if (is_null($itemID)) { $itemID='content'; } 
+		//sws_console_log($itemID); error_log($itemID,0);	
 ?>
 <script>
-if ('#<?php echo $myAtts['id']; ?>').length()) {
-	jQuery('#<?php echo $myAtts['id']; ?>').prepend("<div class='sws-magic-div'>");
-	jQuery('#<?php echo $myAtts['id']; ?>').append("</div>");
+if ('#<?php echo $itemID; ?>').length()) {
+	jQuery('#<?php echo $itemID; ?>').prepend("<div class='sws-magic-div'>");
+	jQuery('#<?php echo $itemID; ?>').append("</div>");
 				
 	jQuery(".sws-magic-div > ul").each(function (index, element) {
 		if ( jQuery( element ).children().length > 0) {
@@ -292,7 +291,7 @@ if ('#<?php echo $myAtts['id']; ?>').length()) {
 		});
 }		
 </script> <?php
-*/
+	ob_end_clean();
 }
 
 // register shortcode
