@@ -247,7 +247,7 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 	$tableName=$wpdb->prefix."simple_login_log";
 	$pref=$wpdb->prefix;
 	
-	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
+	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
 		$query="SELECT {$wpdb->prefix}users.ID FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)";
 		$delArr=$wpdb->get_results($query);
 		sws_console_log($delArr);
