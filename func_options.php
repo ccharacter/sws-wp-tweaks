@@ -212,7 +212,7 @@ function sws_wp_tweaks_section_developers_cb( $args ) {
 
 function sws_wp_tweaks_logofile_cb( $args ) {
  ?><p>Choose logo file that appears on login page</p>
-<input id="login_logo" type="text" name="login_logo" value="<?php echo get_option('login_logo'); ?>"  data-custom="<?php echo esc_attr( $args['sws_wp_tweaks_custom_data'] ); ?>"/>
+<input id="login_logo" type="text" name="login_logo" value="<?php echo get_option('login_logo'); ?>" />
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
  <?php
 }
