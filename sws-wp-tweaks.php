@@ -240,7 +240,7 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 }
 
 
-// OFF BY DEFAULT
+// OFF BY DEFAULT - THIS DOES NOT YET WORK!!!!
 if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
 	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
 	global $wpdb;

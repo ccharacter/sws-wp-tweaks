@@ -2,6 +2,7 @@
 
 // ENQUEUE UPLOADER JS
 function sws_tweaks_uploader_enqueue() {
+	if( empty( $_GET['page'] ) || "sws_wp_tweaks" !== $_GET['page'] ) { return; }
 	wp_enqueue_media();
 	wp_register_script('media-uploader', plugins_url('inc/upload.js' , __FILE__ ), array('jquery'));
 	wp_enqueue_script('media-uploader');
@@ -25,21 +26,6 @@ function sws_wp_tweaks_register_options_page() {
 add_action('admin_menu', 'sws_wp_tweaks_register_options_page');
 
 
-// ADD TO TOP-LEVEL MENU
-function sws_wp_tweaks_options_page() {
- // add top level menu page
- add_menu_page(
- 'manage_options',
- 'sws_wp_tweaks',
- 'sws_wp_tweaks_options_page_html'
- );
-}
- 
-/**
- * register our wporg_options_page to the admin_menu action hook
- */
-//add_action( 'admin_menu', 'sws_wp_tweaks_options_page' );
-
 
 // OPTIONS PAGE CODE
 function sws_wp_tweaks_register_settings() {
@@ -57,8 +43,7 @@ function sws_wp_tweaks_register_settings() {
 
 	 // register a new field 
 	 add_settings_field(
-	 'show_server_name', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'show_server_name', 
 	 __( 'Show server name*', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -204,7 +189,7 @@ function sws_wp_tweaks_register_settings() {
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_logofile_display',
 	 'sws_wp_tweaks',
-	 'sws_wp_tweaks_logofile_cb',
+	 'sws_wp_tweaks_section_developers',
 	 [
 	 'label_for' => 'login_logo',
 	 'input_type' => 'file',
