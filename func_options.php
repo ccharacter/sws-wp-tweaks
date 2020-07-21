@@ -201,14 +201,6 @@ function sws_wp_tweaks_register_settings() {
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
-function sws_wp_tweaks_logofile_display()
-{
-   ?>
-        <input type="file" name="login_logo" />
-        <?php echo get_option('login_logo'); ?>
-   <?php
-}
-
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
 // the values are defined at the add_settings_section() function.
@@ -220,7 +212,7 @@ function sws_wp_tweaks_section_developers_cb( $args ) {
 
 function sws_wp_tweaks_logofile_cb( $args ) {
  ?><p>Choose logo file that appears on login page</p>
-<input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
+<input id="login_logo" type="text" name="login_logo" value="<?php echo get_option('login_logo'); ?>"  data-custom="<?php echo esc_attr( $args['sws_wp_tweaks_custom_data'] ); ?>"/>
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
  <?php
 }
