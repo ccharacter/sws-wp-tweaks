@@ -180,6 +180,7 @@ function sws_wp_tweaks_register_settings() {
 	 'sws_wp_tweaks_section_developers',
 	 [
 	 'label_for' => 'login_logo',
+	 'input_type' => 'file',
 	 'class' => 'sws_wp_tweaks_row',
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
@@ -269,8 +270,8 @@ function sws_wp_tweaks_options_page_html()
 	 <div class="wrap">
 	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	 <form action="options.php" method="post">
-	 <input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
-	<input id="upload_image_button" type="button" class="button-primary" value="Insert Image" />
+	 <!--<input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
+	<input id="upload_image_button" type="button" class="button-primary" value="Insert Image" />-->
 	 <?php
 	 // output security fields for the registered setting "wporg"
 	 settings_fields( 'sws_wp_tweaks' );
