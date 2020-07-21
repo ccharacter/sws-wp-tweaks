@@ -198,8 +198,21 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 	 
+	 add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');
+
+	 
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
+
+function sws_tweaks_setting_logo_preview() {
+    $my_options = get_option( 'sws_wp_tweaks_options' );  ?>
+    <div id="upload_logo_preview" style="min-height: 100px;">
+        <img style="max-width:100%;" src="<?php echo esc_url( $my_options['login_logo'] ); ?>" />
+    </div>
+    <?php
+}
+
+
 
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
@@ -210,9 +223,20 @@ function sws_wp_tweaks_section_developers_cb( $args ) {
  <?php
 }
 
+function sws_tweaks_handle_file_upload($option)
+{
+  if(!empty($_FILES["login_logo"]["tmp_name"]))
+  {
+    $urls = wp_handle_upload($_FILES["login_logo"], array('test_form' => FALSE));
+    $temp = $urls["url"];
+    return $temp;  
+  }
+ 
+  return $option;
+}
+
 function sws_wp_tweaks_logofile_cb( $args ) {
- ?><p>Choose logo file that appears on login page</p>
-<input id="login_logo" type="text" name="login_logo" value="<?php echo get_option('login_logo'); ?>" />
+ ?><input id="login_logo" type="text" name="login_logo" value="<?php echo get_option('login_logo'); ?>" />
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
  <?php
 }
