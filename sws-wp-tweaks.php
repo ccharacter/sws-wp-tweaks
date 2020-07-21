@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.31
+ * Version:           4.4
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -307,5 +307,20 @@ if ('#<?php echo $itemID; ?>').length()) {
 
 // register shortcode
 add_shortcode('sws_accordion', 'sws_accordion_func'); 
+
+
+function sws_tweaks_login_logo() { ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            background-image: url(http://path/to/your/custom-logo.png);
+        height:100px;
+        width:300px;
+        background-size: 300px 100px;
+        background-repeat: no-repeat;
+        padding-bottom: 10px;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'sws_tweaks_login_logo' );
 
 ?>

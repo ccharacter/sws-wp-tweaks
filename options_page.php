@@ -175,9 +175,9 @@ function sws_wp_tweaks_register_settings() {
 	 add_settings_field(
 	 'login_logo', 
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks_section_logofile',
 	 'sws_wp_tweaks',
-	 'sws_wp_tweaks_section_developers',
+	 'sws_wp_tweaks_section_logofile',
 	 [
 	 'label_for' => 'login_logo',
 	 'input_type' => 'file',
@@ -196,6 +196,13 @@ add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 function sws_wp_tweaks_section_developers_cb( $args ) {
  ?>
  <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( '* Appends near-translucent <span> to content of Home & About pages', 'sws_wp_tweaks' ); ?></p>
+ <?php
+}
+
+function sws_wp_tweaks_section_logofile( $args ) {
+ ?><p>Choose logo file that appears on login page</p>
+<input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
+	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
  <?php
 }
  
@@ -270,8 +277,6 @@ function sws_wp_tweaks_options_page_html()
 	 <div class="wrap">
 	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	 <form action="options.php" method="post">
-	 <!--<input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
-	<input id="upload_image_button" type="button" class="button-primary" value="Insert Image" />-->
 	 <?php
 	 // output security fields for the registered setting "wporg"
 	 settings_fields( 'sws_wp_tweaks' );
