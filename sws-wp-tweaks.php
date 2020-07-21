@@ -312,12 +312,11 @@ add_shortcode('sws_accordion', 'sws_accordion_func');
 function sws_tweaks_login_logo() { ?>
     <style type="text/css">
         #login h1 a, .login h1 a {
-            background-image: url(/wp-content/uploads/2015/03/favicon.png);
-        height:100px;
-        width:300px;
-        background-size: 300px 100px;
-        background-repeat: no-repeat;
-        padding-bottom: 10px;
+        background-image: url('/cc-dev/wp-content/uploads/2015/03/favicon.png');
+        height:200px !important;
+        width:200px !important;
+        background-size: contain;
+        padding-bottom: -25px;
         }
     </style>
 <?php }
