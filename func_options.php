@@ -198,12 +198,33 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 	 
+     add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  
+
 	 /*add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');*/
 
 	 
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
+function demo_file_display()
+{
+   ?>
+        <input type="file" name="demo-file" />
+        <?php echo get_option('demo-file'); ?>
+   <?php
+}
+
+function handle_file_upload($option)
+{
+  if(!empty($_FILES["demo-file"]["tmp_name"]))
+  {
+    $urls = wp_handle_upload($_FILES["demo-file"], array('test_form' => FALSE));
+    $temp = $urls["url"];
+    return $temp;  
+  }
+ 
+  return $option;
+}
 
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
