@@ -187,12 +187,11 @@ function sws_wp_tweaks_register_settings() {
 	 add_settings_field(
 	 'login_logo', 
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_logofile_cb',
+	 'sws_wp_tweaks_field_txt_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',
 	 [
 	 'label_for' => 'login_logo',
-	 'input_type' => 'file',
 	 'class' => 'sws_wp_tweaks_row',
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
