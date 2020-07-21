@@ -240,8 +240,23 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 }
 
 
+// OFF BY DEFAULT
+if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
+	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
+	global $wpdb;
+	$tableName=$wpdb->prefix."simple_login_log";
+	$pref=$wpdb->prefix;
+	
+	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
+		$query="SELECT {$wpdb->prefix}users.ID FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)";
+		$delArr=$wpdb->get_results($query);
+		sws_console_log($delArr);
+	}	else { sws_console_log("Simple Login Log does not exist."); }
+}
+
 
 function sws_console_log($output, $with_script_tags = true) {
+	if (is_array($output)) { $output=var_dump($output); }
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
 ');';
     if ($with_script_tags) {

@@ -69,18 +69,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 				break;			
 			}			
 		}
-		/*$tmp2=explode($email_domain,".");
-		print_r($tmp2);
-		if (is_array($tmp2)) {
-			foreach ($tmp2 as $var) {		
-				if ((ctype_digit($var)) || (in_array($var,$ext))) {
-							$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );	
-							$valid=0;
-							break;			
-				} 
-			}
-		}
-		*/
+
 		$valid=0;
 	}
 
