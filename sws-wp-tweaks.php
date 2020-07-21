@@ -244,7 +244,7 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
 	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
 	global $wpdb;
-	$tableName=$wpdb->prefix."_simple_login_log";
+	$tableName=$wpdb->prefix."_simple_login_log"; sws_console_log($tableName);
 	$pref=$wpdb->prefix;
 	
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
