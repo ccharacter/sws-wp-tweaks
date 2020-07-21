@@ -249,10 +249,10 @@ function sws_tweaks_settings_header_text() {
     <?php
 }
  
-function wptuts_setting_logo() {
+function sws_tweaks_settings_logo() {
     $wptuts_options = get_option( 'sws_wp_tweaks_options' );
     ?>
-        <input type="text" id="logo_url" name="theme_wptuts_options[logo]" value="<?php echo esc_url( $wptuts_options['logo'] ); ?>" />
+        <input type="text" id="logo_url" name="sws_wp_tweaks_options[logo]" value="<?php echo esc_url( $wptuts_options['logo'] ); ?>" />
         <input id="upload_logo_button" type="button" class="button" value="<?php _e( 'Upload Logo', 'sws_wp_tweaks' ); ?>" />
         <span class="description"><?php _e('Upload an image for the banner.', 'sws_wp_tweaks' ); ?></span>
     <?php
