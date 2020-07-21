@@ -145,11 +145,11 @@ if ((!(isset($optVals['disable_newUser_notice']))) || ($optVals['disable_newUser
 
 			$switched_locale = switch_to_locale( get_user_locale( $user ) );
 
-			$message = "Thank you for registering on $blogname. \r\n".sprintf(__('Your username is: %s'), $user->user_login);
-			$message .= __( "To set your password, <a href='", 'personalize-login' ) ;
-			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
-			$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "\r\n\r\n";
-			$message.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "\r\n\r\n~The Friendly Script";
+			$message = "<p>Thank you for registering on $blogname.</p><p>".sprintf(__('Your username is: %s'), $user->user_login);
+			$message .= __( "</p><p>To set your password, <a href='", 'personalize-login' ) ;
+			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' );
+			$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "</p>";
+			$message.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "<br /><br />~The Friendly Script";
 
 			wp_mail($user->user_email, sprintf(__('[%s]: Your username and password info'), $blogname), $message);
 		}

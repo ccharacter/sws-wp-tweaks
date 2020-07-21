@@ -1,5 +1,14 @@
 <?php 
 
+// ENQUEUE UPLOADER JS
+function sws_tweaks_uploader_enqueue() {
+	wp_enqueue_media();
+	wp_register_script('media-uploader', plugins_url('inc/upload.js' , __FILE__ ), array('jquery'));
+	wp_enqueue_script('media-uploader');
+}
+add_action('admin_enqueue_scripts', 'sws_tweaks_uploader_enqueue');
+
+
 // ADD TO PLUGIN ENTRY
 function plugin_add_settings_link( $links ) {
     $settings_link = '<a href="' . esc_url( get_admin_url(null, 'options-general.php?page=sws_wp_tweaks') ) . '">' . __( 'Settings' ) . '</a>';
@@ -20,8 +29,6 @@ add_action('admin_menu', 'sws_wp_tweaks_register_options_page');
 function sws_wp_tweaks_options_page() {
  // add top level menu page
  add_menu_page(
- 'SWS WP Tweaks TESST',
- 'SWS WP Tweaks Options TEST',
  'manage_options',
  'sws_wp_tweaks',
  'sws_wp_tweaks_options_page_html'
@@ -37,10 +44,10 @@ function sws_wp_tweaks_options_page() {
 // OPTIONS PAGE CODE
 function sws_wp_tweaks_register_settings() {
 
-	 // register a new setting for "wporg" page
+	 // register a new setting 
 	 register_setting( 'sws_wp_tweaks', 'sws_wp_tweaks_options' );
 	 
-	 // register a new section in the "wporg" page
+	 // register a new section 
 	 add_settings_section(
 	 'sws_wp_tweaks_section_developers',
 	 __( 'Customize your options:', 'sws_wp_tweaks' ),
@@ -48,7 +55,7 @@ function sws_wp_tweaks_register_settings() {
 	 'sws_wp_tweaks'
 	 );
 
-	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
 	 'show_server_name', // as of WP 4.6 this value is used only internally
 	 // use $args' label_for to populate the id inside the callback
@@ -63,10 +70,9 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 	 
-	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
-	 'fix_its_fontpath', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'fix_its_fontpath', 
 	 __( 'iThemes Security Font Path Bug', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -78,10 +84,9 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 
-	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
-	 'fix_pw_reset_msg', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'fix_pw_reset_msg', 
 	 __( 'Fix Password Reset link', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -93,10 +98,9 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 
-	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
-	 'disable_newUser_notice', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'disable_newUser_notice', 
 	 __( 'Disable notifications of new users', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -109,10 +113,9 @@ function sws_wp_tweaks_register_settings() {
 	 );
 	 
 	 
-	 	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field in 
 	 add_settings_field(
-	 'disable_pwChange_notice', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'disable_pwChange_notice', 
 	 __( 'Disable notifications of password changes', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -125,10 +128,9 @@ function sws_wp_tweaks_register_settings() {
 	 );
 	 
 	 
-	 	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
-	 'disable_xmlrpc', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'disable_xmlrpc', 
 	 __( 'Disable XML-RPC', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -141,10 +143,9 @@ function sws_wp_tweaks_register_settings() {
 	 );
 	 
 	 
-	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
-	 'screen_grav_forms', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'screen_grav_forms', 
 	 __( 'Gravity Form Screener', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
@@ -155,19 +156,30 @@ function sws_wp_tweaks_register_settings() {
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
 	 );
-	 
-	 
 	 	 
-	 // register a new field in the "wporg_section_developers" section, inside the "wporg" page
+	 // register a new field 
 	 add_settings_field(
-	 'screen_form_ids', // as of WP 4.6 this value is used only internally
-	 // use $args' label_for to populate the id inside the callback
+	 'screen_form_ids', 
 	 __( 'Form ID(s) ~ separate with comma', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_txt_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',
 	 [
 	 'label_for' => 'screen_form_ids',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );
+
+	 // register a new field 
+	 add_settings_field(
+	 'login_logo', 
+	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'login_logo',
 	 'class' => 'sws_wp_tweaks_row',
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
@@ -257,6 +269,8 @@ function sws_wp_tweaks_options_page_html()
 	 <div class="wrap">
 	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	 <form action="options.php" method="post">
+	 <input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
+	<input id="upload_image_button" type="button" class="button-primary" value="Insert Image" />
 	 <?php
 	 // output security fields for the registered setting "wporg"
 	 settings_fields( 'sws_wp_tweaks' );
