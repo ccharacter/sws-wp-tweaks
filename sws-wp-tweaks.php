@@ -23,9 +23,10 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'sws_wp_tweaks'
 );
 
-require_once plugin_dir_path(__FILE__).'options_page.php';
-require_once plugin_dir_path(__FILE__).'duplicate_pages.php';
-
+require_once plugin_dir_path(__FILE__).'func_duplicate.php';
+require_once plugin_dir_path(__FILE__).'func_options.php';
+require_once plugin_dir_path(__FILE__).'func_spreadsheet.php';
+require_once plugin_dir_path(__FILE__).'func_login.php';
 
 // add stylesheets
 function sws_wp_tweaks_enqueue_script() {   
@@ -308,22 +309,5 @@ if ('#<?php echo $itemID; ?>').length()) {
 // register shortcode
 add_shortcode('sws_accordion', 'sws_accordion_func'); 
 
-// LOGIN FUNCTIONS
-function sws_tweaks_login_logo() { ?>
-    <style type="text/css">
-        #login h1 a, .login h1 a {
-        background-image: url('/cc-dev/wp-content/uploads/2015/03/favicon.png');
-        height:200px !important;
-        width:200px !important;
-        background-size: contain;
-        padding-bottom: -25px;
-        }
-    </style>
-<?php }
-add_action( 'login_enqueue_scripts', 'sws_tweaks_login_logo' );
 
-function my_login_logo_url() {
-return get_bloginfo( 'url' );
-}
-add_filter( 'login_headerurl', 'my_login_logo_url' );
 ?>

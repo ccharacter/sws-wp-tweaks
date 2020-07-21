@@ -111,7 +111,34 @@ function sws_wp_tweaks_register_settings() {
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
 	 );
-	 
+
+	 // register a new field 
+	 add_settings_field(
+	 'email_banning', 
+	 __( 'Enable email ban lists', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'email_banning',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );
+
+	 // register a new field 
+	 add_settings_field(
+	 'delete_never_logged_in', 
+	 __( 'Remove users who have not logged in within 60 days of registration**', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'delete_never_logged_in',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );	 
 	 
 	 // register a new field in 
 	 add_settings_field(
@@ -175,9 +202,9 @@ function sws_wp_tweaks_register_settings() {
 	 add_settings_field(
 	 'login_logo', 
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_section_logofile',
+	 'sws_wp_tweaks_section_logofile_cb',
 	 'sws_wp_tweaks',
-	 'sws_wp_tweaks_section_logofile',
+	 'sws_wp_tweaks_section_logofile_cb',
 	 [
 	 'label_for' => 'login_logo',
 	 'input_type' => 'file',
@@ -195,11 +222,11 @@ add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 // the values are defined at the add_settings_section() function.
 function sws_wp_tweaks_section_developers_cb( $args ) {
  ?>
- <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( '* Appends near-translucent <span> to content of Home & About pages', 'sws_wp_tweaks' ); ?></p>
+ <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( '* Appends near-translucent <span> to content of Home & About pages', 'sws_wp_tweaks' ); ?><br />** Requires <em>Simple Login Log</em></p>
  <?php
 }
 
-function sws_wp_tweaks_section_logofile( $args ) {
+function sws_wp_tweaks_section_logofile_cb( $args ) {
  ?><p>Choose logo file that appears on login page</p>
 <input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
