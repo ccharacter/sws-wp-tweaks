@@ -234,7 +234,7 @@ function sws_wp_tweaks_register_settings() {
     add_settings_section('sws_tweaks_settings_header', __( 'Logo Options', 'sws_wp_tweaks' ), 'sws_tweaks_settings_header_text', 'sws_wp_tweaks');
  
     // Add Logo uploader
-    add_settings_field('sws_tweaks_settings_logo',  __( 'Logo', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo', 'sws_wp_tweaks', 'sws_tweaks_settings_header');
+    add_settings_field('sws_tweaks_setting_logo',  __( 'Logo', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo', 'sws_wp_tweaks', 'sws_tweaks_settings_header');
      /*add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  
 
 	 add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');*/
@@ -249,11 +249,11 @@ function sws_tweaks_settings_header_text() {
     <?php
 }
  
-function sws_tweaks_settings_logo() {
+function sws_tweaks_setting_logo() {
     $wptuts_options = get_option( 'sws_wp_tweaks_options' );
     ?>
         <input type="text" id="logo_url" name="sws_wp_tweaks_options[logo]" value="<?php echo esc_url( $wptuts_options['logo'] ); ?>" />
-        <input id="upload_logo_button" type="button" class="button" value="<?php _e( 'Upload Logo', 'sws_wp_tweaks' ); ?>" />
+        <input id="upload_logo_button" type="button" class="button-primary" value="<?php _e( 'Upload Logo', 'sws_wp_tweaks' ); ?>" />
         <span class="description"><?php _e('Upload an image for the banner.', 'sws_wp_tweaks' ); ?></span>
     <?php
 }
