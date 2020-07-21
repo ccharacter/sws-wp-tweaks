@@ -1,5 +1,37 @@
 <?php 
 
+function sws_tweaks_get_default_options() {
+    $options = array(
+        'show_server_name' => 'off',
+		'fix_its_fontpath' => 'off',
+		'fix_pw_reset_msg' => 'on',
+		'disable_newUser_notice' => 'on',
+		'email_banning' => 'off',
+		'delete_never_logged_in' => 'off',
+		'disable_pwChange_notice' => 'on',
+		'disable_xmlrpc' => 'on',
+		'screen_grav_forms' => 'off',
+		'screen_form_ids' => '',
+		'login_logo' => 'FILE.png'
+    );
+    return $options;
+}
+
+function sws_tweaks_options_init() {
+    $my_options = get_option( 'sws_wp_tweaks_options' );
+ 
+    // Are our options saved in the DB?
+    if ( false === $wptuts_options ) {
+        // If not, we'll save our default options
+        $my_options = sws_tweaks_get_default_options();
+        add_option( 'sws_wp_tweaks_options', $my_options );
+    }
+}
+ 
+// Initialize Theme options
+add_action( 'after_setup_theme', 'wptuts_options_init' );
+
+
 // ENQUEUE UPLOADER JS
 function sws_tweaks_uploader_enqueue() {
 	if( empty( $_GET['page'] ) || "sws_wp_tweaks" !== $_GET['page'] ) { return; }
@@ -205,7 +237,7 @@ function sws_wp_tweaks_register_settings() {
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
-function demo_file_display()
+/*function demo_file_display()
 {
    ?>
         <input type="file" name="demo-file" />
@@ -223,7 +255,7 @@ function handle_file_upload($option)
   }
  
   return $option;
-}
+}*/
 
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
@@ -324,7 +356,7 @@ function sws_wp_tweaks_options_page_html()
 	 </style>
 	 <div class="wrap">
 	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-	 <form action="options.php" method="post">
+	 <form action="options.php" method="post" enctype="multipart/form-data">
 	 <?php
 	 // output security fields for the registered setting "wporg"
 	 settings_fields( 'sws_wp_tweaks' );
