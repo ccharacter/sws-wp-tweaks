@@ -129,7 +129,7 @@ function sws_wp_tweaks_register_settings() {
 	 // register a new field 
 	 add_settings_field(
 	 'delete_never_logged_in', 
-	 __( 'Remove users who have not logged in within 60 days of registration**', 'sws_wp_tweaks' ),
+	 __( 'Remove users who have not logged in<br />within 60 days of registration**', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',
@@ -202,9 +202,9 @@ function sws_wp_tweaks_register_settings() {
 	 add_settings_field(
 	 'login_logo', 
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_section_logofile_cb',
+	 'sws_wp_tweaks_logofile_display',
 	 'sws_wp_tweaks',
-	 'sws_wp_tweaks_section_logofile_cb',
+	 'sws_wp_tweaks_logofile_cb',
 	 [
 	 'label_for' => 'login_logo',
 	 'input_type' => 'file',
@@ -216,6 +216,13 @@ function sws_wp_tweaks_register_settings() {
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
+function sws_wp_tweaks_logofile_display()
+{
+   ?>
+        <input type="file" name="login_logo" />
+        <?php echo get_option('login_logo'); ?>
+   <?php
+}
 
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
@@ -226,7 +233,7 @@ function sws_wp_tweaks_section_developers_cb( $args ) {
  <?php
 }
 
-function sws_wp_tweaks_section_logofile_cb( $args ) {
+function sws_wp_tweaks_logofile_cb( $args ) {
  ?><p>Choose logo file that appears on login page</p>
 <input id="background_image" type="text" name="background_image" value="<?php echo get_option('login_logo'); ?>" />
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
