@@ -308,7 +308,7 @@ if ('#<?php echo $itemID; ?>').length()) {
 // register shortcode
 add_shortcode('sws_accordion', 'sws_accordion_func'); 
 
-
+// LOGIN FUNCTIONS
 function sws_tweaks_login_logo() { ?>
     <style type="text/css">
         #login h1 a, .login h1 a {
@@ -322,4 +322,8 @@ function sws_tweaks_login_logo() { ?>
 <?php }
 add_action( 'login_enqueue_scripts', 'sws_tweaks_login_logo' );
 
+function my_login_logo_url() {
+return get_bloginfo( 'url' );
+}
+add_filter( 'login_headerurl', 'my_login_logo_url' );
 ?>
