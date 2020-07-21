@@ -204,13 +204,6 @@ function sws_wp_tweaks_register_settings() {
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
-function sws_tweaks_setting_logo_preview() {
-    $my_options = get_option( 'sws_wp_tweaks_options' );  ?>
-
-    <?php
-}
-
-
 
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
@@ -223,9 +216,9 @@ function sws_wp_tweaks_section_developers_cb( $args ) {
 
 function sws_tweaks_handle_file_upload($option)
 {
-  if(!empty($_FILES["login_logo"]["tmp_name"]))
+  if(!empty($_FILES["upload_image_button"]["tmp_name"]))
   {
-    $urls = wp_handle_upload($_FILES["login_logo"], array('test_form' => FALSE));
+    $urls = wp_handle_upload($_FILES["upload_image_button"], array('test_form' => FALSE));
     $temp = $urls["url"];
     return $temp;  
   }
