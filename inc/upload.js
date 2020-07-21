@@ -13,7 +13,7 @@ jQuery(document).ready(function($){
     }, multiple: false });
     mediaUploader.on('select', function() {
       var attachment = mediaUploader.state().get('selection').first().toJSON();
-      $('#background_image').val(attachment.url);
+      $('#login_logo').val(attachment.url);
     });
     mediaUploader.open();
   });
