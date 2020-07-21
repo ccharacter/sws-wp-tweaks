@@ -197,9 +197,9 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 	 
-     add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  
+     /*add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  
 
-	 /*add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');*/
+	 add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');*/
 
 	 
 }
