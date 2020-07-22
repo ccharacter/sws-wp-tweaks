@@ -300,7 +300,7 @@ function sws_tweaks_handle_file_upload($option)
 }
 
 function sws_wp_tweaks_logofile_cb( $args ) {
- ?><input id="login_logo" type="text" name="login_logo" value="<?php echo get_option('login_logo'); ?>" />
+ ?><input id="login_logo" type="text" name="sws_wp_tweaks_options[login_logo]" value="<?php echo get_option('login_logo'); ?>" />
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
     <div id="upload_logo_preview" style="min-height: 100px;">
         <img style="max-width:100%;" src="<?php echo esc_url( $my_options['login_logo'] ); ?>" />
