@@ -22,12 +22,14 @@ function sws_tweaks_csvToArray($file, $delimiter, $header_row="Y") {
 		  $i++; 
 		} 
 	} else { 
-		while (($lineArray = fgetcsv($handle, 4000, $delimiter, '"')) !== FALSE) { 
+		while (($row = fgetcsv($handle, 4000, $delimiter, '"')) !== FALSE) { 
 			$tmpArr=array();
-			for ($j = 0; $j < count($lineArray); $j++) { 
-			$tmpArr[] = $lineArray[$j]; 
-			} 
-			$arr[$i]=$tmpArr;
+			if (is_array($row)) {
+				for ($j = 0; $j < count($row); $j++) { 
+					$tmpArr[] = $row[$j]; 
+				} 
+				$arr[$i]=$tmpArr;
+			} else { $arr[]=$row;}
 			$i++; 
 		} 
 	}
