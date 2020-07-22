@@ -2,10 +2,13 @@
 
 
 // LOGIN FUNCTIONS
-function sws_tweaks_login_logo() { ?>
+function sws_tweaks_login_logo() { 
+	$optVals = get_option( 'sws_wp_tweaks_options' );
+	$logo_url=$optVals['login_logo'];
+?>
     <style type="text/css">
         #login h1 a, .login h1 a {
-        background-image: url('/cc-dev/wp-content/uploads/2015/03/favicon.png');
+        background-image: url('<?php echo $logo_url; ?>');
         height:200px !important;
         width:200px !important;
         background-size: contain;
