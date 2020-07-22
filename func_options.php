@@ -29,7 +29,7 @@ function sws_tweaks_options_init() {
 }
  
 // Initialize Theme options
-add_action( 'after_setup_theme', 'wptuts_options_init' );
+add_action( 'after_setup_theme', 'sws_tweaks_options_init' );
 
 
 // ENQUEUE UPLOADER JS
