@@ -42,7 +42,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
 	error_log(print_r($keyArr,true),0);
 	
-	list( $email_user, $email_domain ) = explode( '@', $user_email );
+	/*list( $email_user, $email_domain ) = explode( '@', $user_email );
 	
 	$valid=1;
 	
@@ -60,7 +60,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 			}
 		} 
 		
-	}
+	}*/
 	$errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
 	return $errors;
 }
