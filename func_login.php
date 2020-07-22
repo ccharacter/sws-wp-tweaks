@@ -52,14 +52,14 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	
 	foreach ($extArr as $key=>$test) { 
 		//error_log($key."|".$test,0); 
-		if ($email_extension==$test) { //error_log($test,0);
+		if ($email_extension==$test) { error_log($test,0);
 		$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
 		$valid=0;
 		}
 	} 
 
 	foreach ($keyArr as $key=>$test) { 
-		if (!(strpos($user_email,$test)===false)) { //error_log($test,0); 
+		if (!(strpos($user_email,$test)===false)) { error_log($test,0); 
 			$errors->add( 'email_error', __( '<strong>ERROR</strong>: Email address not allowed.', 'my_domain' ) );
 			$valid=0;
 			break;
@@ -67,10 +67,8 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	} 
 		
 	// Disable registration for testing purposes
-	// $errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
+	 $errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
 	return $errors;
 }
-
-add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 
 ?>

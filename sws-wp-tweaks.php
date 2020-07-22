@@ -255,6 +255,10 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 	}
 }
 
+// OFF BY DEFAULT 
+if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
+	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
+}
 
 function sws_console_log($output, $with_script_tags = true) {
 	if (is_array($output)) { $output=var_dump($output); }
