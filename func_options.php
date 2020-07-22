@@ -219,7 +219,7 @@ function sws_wp_tweaks_register_settings() {
 	 add_settings_field(
 	 'login_logo', 
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_logofile_cb',
+	 'sws_wp_tweaks_field_txt_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',
 	 [
@@ -235,9 +235,9 @@ function sws_wp_tweaks_register_settings() {
  
     // Add Logo uploader
     add_settings_field('sws_tweaks_setting_logo',  __( 'Logo', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo', 'sws_wp_tweaks', 'sws_tweaks_settings_header');
-     /*add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  
+     /*add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  */
 
-	 add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');*/
+	 add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');
 
 	 
 }
@@ -300,7 +300,7 @@ function sws_tweaks_handle_file_upload($option)
 }
 
 function sws_wp_tweaks_logofile_cb( $args ) {
- ?><input id="login_logo" type="text" name="sws_wp_tweaks_options[login_logo]" value="<?php echo get_option('login_logo'); ?>" />
+ ?><input id="login_logo" type="text" name="sws_wp_tweaks_options[login_logo]" value="<?php echo get_option('login_logo'); ?>" data-custom="<?php echo esc_attr( $args['sws_wp_tweaks_custom_data'] ); ?>"/>
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
     <div id="upload_logo_preview" style="min-height: 100px;">
         <img style="max-width:100%;" src="<?php echo esc_url( $my_options['login_logo'] ); ?>" />
