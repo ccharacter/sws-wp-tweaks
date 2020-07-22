@@ -65,6 +65,6 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	return $errors;
 }
 
-add_filter( 'registration_errors', 'disable_email_domain', 10, 3 );
+add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 
 ?>
