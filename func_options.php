@@ -346,6 +346,7 @@ function sws_wp_tweaks_options_page_html()
 		 text-align: right;
 		 padding: 8px 25px 8px 25px !important;
 	 }
+	 .sws-img-preview { height: 200px; width: 200px; background-size: contain; }
 	 </style>
 	 <div class="wrap">
 	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
