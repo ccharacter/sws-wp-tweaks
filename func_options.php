@@ -132,7 +132,7 @@ function sws_wp_tweaks_register_settings() {
 	 // register a new field 
 	 add_settings_field(
 	 'email_banning', 
-	 __( 'Enable email ban lists<br />See<a href=\'https://docs.google.com/spreadsheets/d/1eVOnL0-Kc6_KpwUtapogmW64iOSwaGjSl-P7b85scCA/edit?usp=sharing\'>here</a> and <a href=\'https://docs.google.com/spreadsheets/d/1lp7bsB8YxtjAINh97l2Nuh3VLpIZMYvdIlms6SJXK28/edit?usp=sharing\'>here</a>', 'sws_wp_tweaks' ),
+	 __( 'Enable email ban lists<br />See <a href=\'https://docs.google.com/spreadsheets/d/1eVOnL0-Kc6_KpwUtapogmW64iOSwaGjSl-P7b85scCA/edit?usp=sharing\'>here</a> and <a href=\'https://docs.google.com/spreadsheets/d/1lp7bsB8YxtjAINh97l2Nuh3VLpIZMYvdIlms6SJXK28/edit?usp=sharing\'>here</a>', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',

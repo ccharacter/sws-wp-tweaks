@@ -249,14 +249,15 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 	
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
 		$query="SELECT {$wpdb->prefix}users.ID FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)"; error_log($query,0);
-		$delArr=$wpdb->get_results($query);
+		//$delArr=$wpdb->get_results($query);
 		//sws_console_log($delArr);
-	}	else { //sws_console_log("Simple Login Log does not exist."); 
+	}	else { sws_console_log("Simple Login Log does not exist."); 
 	}
 }
 
 // OFF BY DEFAULT 
 if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
+	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
 	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 }
 
