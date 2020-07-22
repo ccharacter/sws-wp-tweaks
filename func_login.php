@@ -41,7 +41,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	$extArr=sws_tweaks_csvToArray($extensions,',',"N");
 	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
 	error_log(print_r($extArr,true),0);
-	
+	/*
 	list( $email_user, $email_domain ) = explode( '@', $user_email );
 	
 	$valid=1;
@@ -60,7 +60,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 			}
 		} 
 		
-	}
+	}*/
 
 	return $errors;
 }
