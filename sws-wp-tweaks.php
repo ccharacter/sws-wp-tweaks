@@ -255,7 +255,7 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID'];
-			if (!(user_can($thisID,'administrator'))) { 
+			if (!(user_can($thisID,'manage_options'))) { 
 				error_log($thisID."|".$row['user_login']);
 			}
 		}
