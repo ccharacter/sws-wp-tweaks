@@ -219,7 +219,7 @@ function sws_wp_tweaks_register_settings() {
 	 add_settings_field(
 	 'login_logo', 
 	 __( 'Choose logo that appears on login page', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_logofile_cb',
+	 'sws_wp_tweaks_fileupload_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',
 	 [
@@ -229,21 +229,11 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 	 
-	 
-	 // Add a form section for the Logo
-    add_settings_section('sws_tweaks_settings_header', __( 'Logo Options', 'sws_wp_tweaks' ), 'sws_tweaks_settings_header_text', 'sws_wp_tweaks');
- 
-    // Add Logo uploader
-    add_settings_field('sws_tweaks_setting_logo',  __( 'Logo', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo', 'sws_wp_tweaks', 'sws_tweaks_settings_header');
-     /*add_settings_field("demo-file", "Demo File", "demo_file_display", "sws_wp_tweaks", "sws_wp_tweaks_section_developers");  
 
-	 add_settings_field('login_logo_preview',  __( 'Logo Preview', 'sws_wp_tweaks' ), 'sws_tweaks_setting_logo_preview', 'sws_wp_tweaks', 'sws_wp_tweaks_section_developers');*/
-
-	 
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
-function sws_tweaks_settings_header_text() {
+/*function sws_tweaks_settings_header_text() {
     ?>
         <p><?php _e( 'Manage Logo Options for WpTuts Theme.', 'sws_wp_tweaks' ); ?></p>
     <?php
@@ -256,27 +246,8 @@ function sws_tweaks_setting_logo() {
         <input id="upload_logo_button" type="button" class="button-primary" value="<?php _e( 'Upload Logo', 'sws_wp_tweaks' ); ?>" />
         <span class="description"><?php _e('Upload an image for the banner.', 'sws_wp_tweaks' ); ?></span>
     <?php
-}
-
-/*function demo_file_display()
-{
-   ?>
-        <input type="file" name="demo-file" />
-        <?php echo get_option('demo-file'); ?>
-   <?php
-}
-
-function handle_file_upload($option)
-{
-  if(!empty($_FILES["demo-file"]["tmp_name"]))
-  {
-    $urls = wp_handle_upload($_FILES["demo-file"], array('test_form' => FALSE));
-    $temp = $urls["url"];
-    return $temp;  
-  }
- 
-  return $option;
 }*/
+
 
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
@@ -328,13 +299,12 @@ function sws_wp_tweaks_field_main_cb( $args ) {
  <?php
 }
 
-function sws_wp_tweaks_logofile_cb( $args ) {
+function sws_wp_tweaks_fileupload_cb( $args ) {
 	$options = get_option('sws_wp_tweaks_options');
 	if (isset($options[$args['label_for']])) { $myVal=$options[$args['label_for']]; } else { $myVal=""; }
  ?><input id="<?php echo esc_attr( $args['label_for'] ); ?>" type="text" name="sws_wp_tweaks_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="<?php echo  $myVal; ?>" data-custom="<?php echo esc_attr( $args['sws_wp_tweaks_custom_data'] ); ?>"/>
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
-    <div id="upload_logo_preview" style="min-height: 100px;">
-        <img style="max-width:100%;" src="<?php echo esc_url( $myVal ); ?>" />
+    <div id="sws-img-preview" style="background-image: url('<?php echo esc_url( $myVal ); ?>');">
     </div> <?php
 }
 function sws_wp_tweaks_field_txt_cb( $args ) {

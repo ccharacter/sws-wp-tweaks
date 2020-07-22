@@ -9,6 +9,9 @@
 </div>
 NOTE that IDs have to match for checkbox and label. Otherwise, it's pretty easy 
 */
+
+.sws-img-preview { height: 200px; width: 200px; background-size: contain; }
+
 .sws-acc-content {
     max-height: 0;
     overflow: hidden;
