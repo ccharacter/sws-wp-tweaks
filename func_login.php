@@ -33,56 +33,38 @@ add_action('login_head', 'sws_tweaks_login_head');
 
 // BAN DOMAINS
 function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email ) {
-	list( $email_user, $email_domain ) = explode( '@', $user_email );
-	$banArr=array();
+
+	$extensions="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMtU2xcD85-JGUC7YSyqA8gJSRE0S2jchGwx7pTEBM0Ctbwdtyfy6K0SGWc_3OxX7CRjeNyXYllAtQ/pub?output=csv";
+
+	$keywords="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbMPp5ITCS8-jUzN4bECUu5st9BmQ-9mZEXrqQpW3O0tcHKrNbvAk_-0l5ecoqgHV3Wka3uwnFegkG/pub?output=csv" // LOGIN BANNING
+
+	$extArr=sws_tweaks_csvToArray($extensions,',',"N");
+	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
+	error_log(print_r($extArr,true),0);
 	
-	$ext=array();
+	list( $email_user, $email_domain ) = explode( '@', $user_email );
 	
 	$valid=1;
 	
-	
 	while ($valid==1) {
-		if ( in_array( $email_domain,$banArr) ) {
+		if ( in_array( $email_domain,$extArr) ) {
 			$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
 			$valid=0;
 		} 
 	
-		foreach ($searchArr as $tmp) { 
-					if (!(strpos($email_domain,$tmp)===false)) { 
-						$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
-						$valid=0;
-						break;
-					}
+		foreach ($keyArr as $tmp) { 
+			if (!(strpos($user_email,$tmp)===false)) { 
+				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
+				$valid=0;
+				break;
+			}
 		} 
 		
-		$tmp2=substr($email_domain,0,strpos($email_domain,"."));
-		if (strlen($tmp2)>0) { 
-		
-			if (ctype_digit($tmp2)) { 
-				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );	
-				$valid=0;
-				break;			
-			}		
-		}
-		
-		foreach ($ext as $var) {
-			if (strpos($email_domain,".".$var)) {
-				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );	
-				$valid=0;
-				break;			
-			}			
-		}
-
-		$valid=0;
 	}
 
 	return $errors;
 }
 
-// add_filter( 'registration_errors', 'disable_email_domain', 10, 3 );
-
-
-
-
+add_filter( 'registration_errors', 'disable_email_domain', 10, 3 );
 
 ?>
