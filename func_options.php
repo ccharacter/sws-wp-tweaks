@@ -21,7 +21,7 @@ function sws_tweaks_options_init() {
     $my_options = get_option( 'sws_wp_tweaks_options' );
  
     // Are our options saved in the DB?
-    if ( false === $wptuts_options ) {
+    if ( false === $my_options ) {
         // If not, we'll save our default options
         $my_options = sws_tweaks_get_default_options();
         add_option( 'sws_wp_tweaks_options', $my_options );
