@@ -251,7 +251,7 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 	
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
 		$query="SELECT {$wpdb->prefix}users.ID FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)"; error_log($query,0);
-		$delArr=$wpdb->get_results($query, ARRAY);
+		$delArr=$wpdb->get_results($query, ARRAY_A);
 		error_log(print_r($delArr,true),0);
 	}	else { sws_console_log("Simple Login Log does not exist."); 
 	}
