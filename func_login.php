@@ -59,15 +59,15 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	} 
 
 	foreach ($keyArr as $key=>$test) { 
-		if (!(strpos($user_email,$test)===false)) { error_log($test,0); 
+		if (!(strpos($user_email,$test)===false)) { //error_log($test,0); 
 			$errors->add( 'email_error', __( '<strong>ERROR</strong>: Email address not allowed.', 'my_domain' ) );
 			$valid=0;
 			break;
 		}
 	} 
 		
-	
-	$errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
+	// Disable registration for testing purposes
+	// $errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
 	return $errors;
 }
 
