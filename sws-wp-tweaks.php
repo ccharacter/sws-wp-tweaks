@@ -255,8 +255,8 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 		error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; error_log($thisID,0);
-			$thisUser=get_user_by('id',$thisID);
-			/*if (!($thisUser->has_cap('manage_options'))) { 
+			/*$thisUser=get_user_by('id',$thisID);
+			if (!($thisUser->has_cap('manage_options'))) { 
 				error_log($thisID."|".$row['user_login']);
 			}*/
 		}
