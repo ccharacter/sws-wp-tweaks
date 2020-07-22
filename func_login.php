@@ -1,5 +1,6 @@
 <?php
 
+// NOTE TO SELF: in iThemes Security->WordPress Tweaks, make sure login errors are showing
 
 // LOGIN FUNCTIONS
 function sws_tweaks_login_logo() { 
@@ -19,7 +20,7 @@ function sws_tweaks_login_logo() {
 add_action( 'login_enqueue_scripts', 'sws_tweaks_login_logo' );
 
 function sws_tweaks_login_logo_url() {
-return get_bloginfo( 'url' );
+	return get_bloginfo( 'url' );
 }
 add_filter( 'login_headerurl', 'sws_tweaks_login_logo_url' );
 
@@ -40,9 +41,10 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 
 	$extArr=sws_tweaks_csvToArray($extensions,',',"N");
 	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
-	error_log(print_r($keyArr,true),0);
+	//error_log(print_r($extArr,true),0);
 	
-	/*list( $email_user, $email_domain ) = explode( '@', $user_email );
+	list( $email_user, $email_domain ) = explode( '@', $user_email );
+	error_log($user_email."|".$email_user."|".$email_domain,0);
 	
 	$valid=1;
 	
@@ -52,15 +54,15 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 			$valid=0;
 		} 
 	
-		foreach ($keyArr as $tmp) { 
+		/*foreach ($keyArr as $tmp) { 
 			if (!(strpos($user_email,$tmp)===false)) { 
 				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Email address not allowed.', 'my_domain' ) );
 				$valid=0;
 				break;
 			}
-		} 
+		} */
 		
-	}*/
+	}
 	$errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
 	return $errors;
 }
