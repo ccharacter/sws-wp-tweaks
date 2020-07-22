@@ -23,7 +23,7 @@ function sws_tweaks_csvToArray($file, $delimiter, $header_row="Y") {
 		} 
 	} else { 
 		while (($row = fgetcsv($handle, 4000, $delimiter, '"')) !== FALSE) { 
-			$arr[]=$row;
+			$arr[]=$row[0];
 		} 
 	}
 
