@@ -44,7 +44,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	error_log(print_r($extArr,true),0);
 	
 	list( $email_user, $email_domain ) = explode( '@', $user_email );
-	list($email_domain, $email_extension) = explode(".",$email_extension);
+	list($email_domain, $email_extension) = explode(".",$email_domain);
 	error_log($user_email."|".$email_user."|".$email_domain."|".$email_extension,0);
 
 
