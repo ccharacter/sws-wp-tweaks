@@ -44,12 +44,12 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	error_log(print_r($extArr,true),0);
 	
 	list( $email_user, $email_domain ) = explode( '@', $user_email );
-	// error_log($user_email."|".$email_user."|".$email_domain,0);
+	error_log($user_email."|".$email_user."|".$email_domain,0);
 	
 	$valid=1;
 	
 	foreach ($extArr as $key=>$test) { 
-		error_log($key."|".$test,0); 
+		//error_log($key."|".$test,0); 
 		if ($email_domain==$test) { error_log($test,0);
 		$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
 		$valid=0;
