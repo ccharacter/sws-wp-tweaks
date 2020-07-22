@@ -49,9 +49,11 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	$valid=1;
 	
 	while ($valid==1) {
-		if ( in_array( $email_domain,$extArr) ) {
+		foreach ($extArr as $key=>$test) { 
+			if ($email_domain==$test) { error_log($test,0);
 			$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
 			$valid=0;
+			}
 		} 
 	
 		/*foreach ($keyArr as $tmp) { 
