@@ -50,173 +50,120 @@ memory_limit = 1500M
 ... then sudo systemctl restart php-fpm
 */
 
-function sws_wp_tweaks_init_func() { // OVER-ARCHING FUNCTION
+// ON BY DEFAULT
+if ((!(isset($optVals['fix_its_fontpath']))) || ($optVals['fix_its_fontpath']=="on")) {
+	// FIX BUG IN iThemes Security path
+	if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
+			function it_icon_font_admin_enueue_scripts() {
+					$url=plugins_url();
 
-	// ON BY DEFAULT
-	if ((!(isset($optVals['fix_its_fontpath']))) || ($optVals['fix_its_fontpath']=="on")) {
-		// FIX BUG IN iThemes Security path
-		if ( ! function_exists( 'it_icon_font_admin_enueue_scripts' ) ) {
-				function it_icon_font_admin_enueue_scripts() {
-						$url=plugins_url();
+					if ( version_compare( $GLOBALS['wp_version'], '3.7.10', '>=' ) ) {
+							$dir = str_replace( '\\', '/', dirname( __FILE__ ) );
 
-						if ( version_compare( $GLOBALS['wp_version'], '3.7.10', '>=' ) ) {
-								$dir = str_replace( '\\', '/', dirname( __FILE__ ) );
+							$content_dir = rtrim( str_replace( '\\', '/', WP_CONTENT_DIR ), '/' );
+							$abspath = rtrim( str_replace( '\\', '/', ABSPATH ), '/' );
 
-								$content_dir = rtrim( str_replace( '\\', '/', WP_CONTENT_DIR ), '/' );
-								$abspath = rtrim( str_replace( '\\', '/', ABSPATH ), '/' );
+							if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
+									$url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
+							} else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
+									$url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
+							}
 
-								if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
-										$url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
-								} else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
-										$url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
-								}
+							if ( empty( $url ) ) {
+									$dir = realpath( $dir );
 
-								if ( empty( $url ) ) {
-										$dir = realpath( $dir );
+									if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
+											$url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
+									} else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
+											$url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
+									}
+							}
 
-										if ( empty( $content_dir ) || ( 0 === strpos( $dir, $content_dir ) ) ) {
-												$url = WP_CONTENT_URL . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $content_dir, '/' ) . '/', '', $dir ) );
-										} else if ( empty( $abspath ) || ( 0 === strpos( $dir, $abspath ) ) ) {
-												$url = get_option( 'siteurl' ) . str_replace( '\\', '/', preg_replace( '/^' . preg_quote( $abspath, '/' ) . '/', '', $dir ) );
-										}
-								}
-
-								if ( is_ssl() ) {
-										$url = preg_replace( '|^http://|', 'https://', $url );
-								} else {
-										$url = preg_replace( '|^https://|', 'http://', $url );
-								}
+							if ( is_ssl() ) {
+									$url = preg_replace( '|^http://|', 'https://', $url );
+							} else {
+									$url = preg_replace( '|^https://|', 'http://', $url );
+							}
 
 
-								wp_enqueue_style( 'ithemes-icon-font', "$url/better-wp-security/lib/icon-fonts/icon-fonts.css" );
-						}
-				}
-				add_action( 'admin_enqueue_scripts', 'it_icon_font_admin_enueue_scripts' );
-		}
-	}
-
-
-	// ON BY DEFAULT
-	if ((!(isset($optVals['fix_pw_reset_msg']))) || ($optVals['fix_pw_reset_msg']=="on")) {
-		
-		function sws_set_content_type(){
-			return "text/html";
-		}
-		add_filter( 'wp_mail_content_type','sws_set_content_type' );
-
-		
-		// FIX  BUG IN PASSWORD RESET MSG
-		add_filter("retrieve_password_message", "sws_custom_password_reset", 99, 4);
-
-		function sws_custom_password_reset($message, $key, $user_login, $user_data )    {
-			$message = "<p>Someone has requested a password reset for the following account:<br />" . sprintf(__('%s'), $user_data->user_email) . "<br />";
-			$message .= "If this was a mistake, just ignore this email and nothing will happen.</p>";
-			$message .= __( "<p>To set your password, <a href='", 'personalize-login' ) ;
-			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
-			$message .= __( "'>CLICK HERE</a> or visit the following address:<br />", 'personalize-login' );
-			$message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "</p><p>~The Friendly Script</p>";
-
-			return $message;
-		}
-	}
-
-	// ON BY DEFAULT
-	if ((!(isset($optVals['disable_newUser_notice']))) || ($optVals['disable_newUser_notice']=="on")) {
-		// DISABLE ADMIN default WordPress new user notification emails
-		if ( ! function_exists ( 'wp_new_user_notification' ) ) :
-			function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) {
-
-				global $wpdb, $wp_hasher;
-				$user = get_userdata( $user_id );
-
-				// The blogname option is escaped with esc_html on the way into the database in sanitize_option
-				// we want to reverse this for the plain text arena of emails.
-				$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-
-				// Generate something random for a password reset key.
-				$key = wp_generate_password( 20, false );
-
-				/** This action is documented in wp-login.php */
-				do_action( 'retrieve_password_key', $user->user_login, $key );
-
-				// Now insert the key, hashed, into the DB.
-				if ( empty( $wp_hasher ) ) {
-					$wp_hasher = new PasswordHash( 8, true );
-				}
-				$hashed = time() . ':' . $wp_hasher->HashPassword( $key );
-				$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
-
-				$switched_locale = switch_to_locale( get_user_locale( $user ) );
-
-				$message = "<p>Thank you for registering on $blogname.</p><p>".sprintf(__('Your username is: %s'), $user->user_login);
-				$message .= __( "</p><p>To set your password, <a href='", 'personalize-login' ) ;
-				$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' );
-				$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "</p>";
-				$message.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "<br /><br />~The Friendly Script";
-
-				wp_mail($user->user_email, sprintf(__('[%s]: Your username and password info'), $blogname), $message);
+							wp_enqueue_style( 'ithemes-icon-font', "$url/better-wp-security/lib/icon-fonts/icon-fonts.css" );
+					}
 			}
-		endif;
+			add_action( 'admin_enqueue_scripts', 'it_icon_font_admin_enueue_scripts' );
 	}
-
-	// ON BY DEFAULT
-	if ((!(isset($optVals['disable_xmlrpc']))) || ($optVals['disable_xmlrpc']=="on")) {
-		// Disable use XML-RPC
-		add_filter( 'xmlrpc_enabled', '__return_false' );
-	}
-
-
-// OFF BY DEFAULT
-if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="on")) {
-	// GRAVITY FORMS VALIDATION: FAIL HTML & FOREIGN CHARS
-	if (isset($optVals['screen_form_ids'])) { 
-		$idArr=explode(",",$optVals['screen_form_ids']);
-	}	
-	//error_log(print_r($idArr,true),0);
-
-	foreach ($idArr as $formID) {
-		if (strlen(trim($formID))>0) {
-			$formID=intval(trim ($formID));
-			
-			add_filter( 'gform_validation_'.$formID, 'sws_custom_validation' );
-			//error_log('gform_validation_'.$formID,0);
-		}
-	}
+	error_log("One",0);
 }
 
 
-	// OFF BY DEFAULT - THIS DOES NOT YET WORK!!!!
-	if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
-		// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
-		global $wpdb;
-		$tableName=$wpdb->prefix."simple_login_log"; error_log($tableName,0);
-		$pref=$wpdb->prefix;
-		
-		if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
-			$query="SELECT {$wpdb->prefix}users.ID FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)"; error_log($query,0);
-			$delArr=$wpdb->get_results($query);
-			error_log($delArr);
-		}	else { sws_console_log("Simple Login Log does not exist."); 
+// ON BY DEFAULT
+if ((!(isset($optVals['fix_pw_reset_msg']))) || ($optVals['fix_pw_reset_msg']=="on")) {
+	
+	function sws_set_content_type(){
+		return "text/html";
+	}
+	add_filter( 'wp_mail_content_type','sws_set_content_type' );
+
+	
+	// FIX  BUG IN PASSWORD RESET MSG
+	add_filter("retrieve_password_message", "sws_custom_password_reset", 99, 4);
+
+	function sws_custom_password_reset($message, $key, $user_login, $user_data )    {
+		$message = "<p>Someone has requested a password reset for the following account:<br />" . sprintf(__('%s'), $user_data->user_email) . "<br />";
+		$message .= "If this was a mistake, just ignore this email and nothing will happen.</p>";
+		$message .= __( "<p>To set your password, <a href='", 'personalize-login' ) ;
+		$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
+		$message .= __( "'>CLICK HERE</a> or visit the following address:<br />", 'personalize-login' );
+		$message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "</p><p>~The Friendly Script</p>";
+
+		return $message;
+	}
+	error_log("Two",0);
+}
+
+// ON BY DEFAULT
+if ((!(isset($optVals['disable_newUser_notice']))) || ($optVals['disable_newUser_notice']=="on")) {
+	// DISABLE ADMIN default WordPress new user notification emails
+	if ( ! function_exists ( 'wp_new_user_notification' ) ) :
+		function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) {
+
+			global $wpdb, $wp_hasher;
+			$user = get_userdata( $user_id );
+
+			// The blogname option is escaped with esc_html on the way into the database in sanitize_option
+			// we want to reverse this for the plain text arena of emails.
+			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+
+			// Generate something random for a password reset key.
+			$key = wp_generate_password( 20, false );
+
+			/** This action is documented in wp-login.php */
+			do_action( 'retrieve_password_key', $user->user_login, $key );
+
+			// Now insert the key, hashed, into the DB.
+			if ( empty( $wp_hasher ) ) {
+				$wp_hasher = new PasswordHash( 8, true );
+			}
+			$hashed = time() . ':' . $wp_hasher->HashPassword( $key );
+			$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
+
+			$switched_locale = switch_to_locale( get_user_locale( $user ) );
+
+			$message = "<p>Thank you for registering on $blogname.</p><p>".sprintf(__('Your username is: %s'), $user->user_login);
+			$message .= __( "</p><p>To set your password, <a href='", 'personalize-login' ) ;
+			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' );
+			$message .= __( "'>CLICK HERE</a> or visit the following address:", 'personalize-login' ) . "</p>";
+			$message.= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login') . "<br /><br />~The Friendly Script";
+
+			wp_mail($user->user_email, sprintf(__('[%s]: Your username and password info'), $blogname), $message);
 		}
-	}
+	endif;
+}
 
-	// OFF BY DEFAULT 
-	if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
-		// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
-		add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
-	}
-
-	// ON BY DEFAULT
-	if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="on")) {
-		$shortcode=new DisplayServerName();
-		$shortcode->init();
-	}
-
-	// register shortcode
-	add_shortcode('sws_accordion', 'sws_accordion_func'); 
-
-} // END OVER-ARCHING FUNCTION
-
+// ON BY DEFAULT
+if ((!(isset($optVals['disable_xmlrpc']))) || ($optVals['disable_xmlrpc']=="on")) {
+	// Disable use XML-RPC
+	add_filter( 'xmlrpc_enabled', '__return_false' );
+}
 
 function sws_test_input($value) {
 	//error_log($value,0);
@@ -276,6 +223,46 @@ function sws_custom_validation( $validation_result ) {
 }
 	
 
+// OFF BY DEFAULT
+if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="on")) {
+	// GRAVITY FORMS VALIDATION: FAIL HTML & FOREIGN CHARS
+	if (isset($optVals['screen_form_ids'])) { 
+		$idArr=explode(",",$optVals['screen_form_ids']);
+	}	
+	//error_log(print_r($idArr,true),0);
+
+	foreach ($idArr as $formID) {
+		if (strlen(trim($formID))>0) {
+			$formID=intval(trim ($formID));
+			
+			add_filter( 'gform_validation_'.$formID, 'sws_custom_validation' );
+			//error_log('gform_validation_'.$formID,0);
+		}
+	}
+}
+
+
+// OFF BY DEFAULT - THIS DOES NOT YET WORK!!!!
+if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
+	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
+	global $wpdb;
+	$tableName=$wpdb->prefix."simple_login_log"; error_log($tableName,0);
+	$pref=$wpdb->prefix;
+	
+	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
+		$query="SELECT {$wpdb->prefix}users.ID FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)"; error_log($query,0);
+		$delArr=$wpdb->get_results($query);
+		error_log($delArr);
+	}	else { sws_console_log("Simple Login Log does not exist."); 
+	}
+}
+
+// OFF BY DEFAULT 
+if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
+	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
+	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
+}
+
 function sws_console_log($output, $with_script_tags = true) {
 	if (is_array($output)) { $output=var_dump($output); }
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
@@ -308,6 +295,11 @@ class DisplayServerName
     }
 }
 
+// ON BY DEFAULT
+if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="on")) {
+	$shortcode=new DisplayServerName();
+	$shortcode->init();
+}
 
 // SHORTCODE FOR COLLAPSING DIVS  
 function sws_accordion_func($atts) {
@@ -337,7 +329,8 @@ if ('#<?php echo $itemID; ?>').length()) {
 	ob_end_clean();
 }
 
-add_action( 'plugins_loaded', 'sws_wp_tweaks_init_func' );
+// register shortcode
+add_shortcode('sws_accordion', 'sws_accordion_func'); 
 
 
 ?>
