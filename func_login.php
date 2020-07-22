@@ -36,7 +36,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 
 	$extensions="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMtU2xcD85-JGUC7YSyqA8gJSRE0S2jchGwx7pTEBM0Ctbwdtyfy6K0SGWc_3OxX7CRjeNyXYllAtQ/pub?output=csv";
 
-	$keywords="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbMPp5ITCS8-jUzN4bECUu5st9BmQ-9mZEXrqQpW3O0tcHKrNbvAk_-0l5ecoqgHV3Wka3uwnFegkG/pub?output=csv" // LOGIN BANNING
+	$keywords="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbMPp5ITCS8-jUzN4bECUu5st9BmQ-9mZEXrqQpW3O0tcHKrNbvAk_-0l5ecoqgHV3Wka3uwnFegkG/pub?output=csv"; // LOGIN BANNING
 
 	$extArr=sws_tweaks_csvToArray($extensions,',',"N");
 	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
