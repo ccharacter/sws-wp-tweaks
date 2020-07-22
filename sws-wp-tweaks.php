@@ -255,9 +255,9 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=intval($row['ID']);
-			if (!(user_can($thisID,'manage_options'))) { 
+			/*if (!(user_can($thisID,'manage_options'))) { 
 				error_log($thisID."|".$row['user_login']);
-			}
+			}*/
 		}
 	}	else { sws_console_log("Simple Login Log does not exist."); 
 	}
