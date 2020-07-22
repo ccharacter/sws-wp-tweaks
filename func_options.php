@@ -304,7 +304,7 @@ function sws_wp_tweaks_fileupload_cb( $args ) {
 	if (isset($options[$args['label_for']])) { $myVal=$options[$args['label_for']]; } else { $myVal=""; }
  ?><input id="<?php echo esc_attr( $args['label_for'] ); ?>" type="text" name="sws_wp_tweaks_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="<?php echo  $myVal; ?>" data-custom="<?php echo esc_attr( $args['sws_wp_tweaks_custom_data'] ); ?>"/>
 	<input id="upload_image_button" type="button" class="button-primary" value="CHOOSE LOGO" />
-    <div id="sws-img-preview" style="background-image: url('<?php echo esc_url( $myVal ); ?>');">
+    <div class="sws-img-preview" style="background-image: url('<?php echo esc_url( $myVal ); ?>');">
     </div> <?php
 }
 function sws_wp_tweaks_field_txt_cb( $args ) {
@@ -346,7 +346,14 @@ function sws_wp_tweaks_options_page_html()
 		 text-align: right;
 		 padding: 8px 25px 8px 25px !important;
 	 }
-	 .sws-img-preview { height: 200px; width: 200px; background-size: contain; }
+	 .sws-img-preview { 
+		height: 200px; 
+		width: 200px; 
+		background-size: contain;
+		position: absolute;
+		right:10%;
+		margin-top:-200px;
+	 }
 	 </style>
 	 <div class="wrap">
 	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
