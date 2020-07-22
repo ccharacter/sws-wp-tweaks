@@ -23,14 +23,7 @@ function sws_tweaks_csvToArray($file, $delimiter, $header_row="Y") {
 		} 
 	} else { 
 		while (($row = fgetcsv($handle, 4000, $delimiter, '"')) !== FALSE) { 
-			$tmpArr=array();
-			if (is_array($row)) {
-				for ($j = 0; $j < count($row); $j++) { 
-					$tmpArr[] = $row[$j]; 
-				} 
-				$arr[$i]=$tmpArr;
-			} else { $arr[]=$row;}
-			$i++; 
+			$arr[]=$row;
 		} 
 	}
 
