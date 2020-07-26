@@ -242,9 +242,19 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 }
 
 
-// OFF BY DEFAULT - THIS DOES NOT YET WORK!!!!
+// OFF BY DEFAULT 
 if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
 	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
+	add_action('plugins_loaded','sws_ck_logged');
+}
+
+// OFF BY DEFAULT 
+if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
+	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
+	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
+}
+
+function sws_ck_logged() {
 	global $wpdb;
 	$tableName=$wpdb->prefix."simple_login_log"; //error_log($tableName,0);
 	$pref=$wpdb->prefix;
@@ -264,12 +274,6 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 	} else { 
 		sws_console_log("Simple Login Log does not exist."); 
 	}
-}
-
-// OFF BY DEFAULT 
-if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
-	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
-	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 }
 
 function sws_console_log($output, $with_script_tags = true) {
