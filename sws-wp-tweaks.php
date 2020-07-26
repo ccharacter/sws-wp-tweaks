@@ -264,8 +264,8 @@ function sws_ck_logged() {
 		$delArr=$wpdb->get_results($query, ARRAY_A);
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
-			$thisID=$row['ID']; error_log($thisID,0);
-			if (user_can($thisID,'manage_options')) { error_log( "IS ADMIN",0); } else { error_log("NOT ADMIN",0);}
+			$thisID=$row['ID']; 
+			if (!(user_can($thisID,'edit_posts')) { error_log($thisID,0); }
 			//$thisUser=get_user_by('id',2);
 			//if (!($thisUser->has_cap('manage_options'))) { 
 			//	error_log($thisID."|".$row['user_login']);
