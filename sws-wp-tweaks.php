@@ -252,14 +252,15 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
 		$query="SELECT `ID`,`user_login` FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)"; //error_log($query,0);
 		$delArr=$wpdb->get_results($query, ARRAY_A);
-		error_log(print_r($delArr,true),0);
-		/*foreach ($delArr as $row) { 
+		//error_log(print_r($delArr,true),0);
+		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; error_log($thisID,0);
-			$thisUser=get_user_by('id',2);
-			if (!($thisUser->has_cap('manage_options'))) { 
-				error_log($thisID."|".$row['user_login']);
-			}
-		}*/
+			if (user_can($thisID,'manage_options')) { echo "IS ADMIN"; } else { echo "NOT ADMIN";}
+			//$thisUser=get_user_by('id',2);
+			//if (!($thisUser->has_cap('manage_options'))) { 
+			//	error_log($thisID."|".$row['user_login']);
+			//}
+		}
 	} else { 
 		sws_console_log("Simple Login Log does not exist."); 
 	}
