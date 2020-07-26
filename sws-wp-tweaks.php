@@ -265,7 +265,7 @@ function sws_ck_logged() {
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; error_log($thisID,0);
-			if (user_can($thisID,'manage_options')) { echo "IS ADMIN"; } else { echo "NOT ADMIN";}
+			if (user_can($thisID,'manage_options')) { error_log( "IS ADMIN",0); } else { error_log("NOT ADMIN",0);}
 			//$thisUser=get_user_by('id',2);
 			//if (!($thisUser->has_cap('manage_options'))) { 
 			//	error_log($thisID."|".$row['user_login']);
