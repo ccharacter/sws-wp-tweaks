@@ -91,7 +91,7 @@ if ((!(isset($optVals['fix_its_fontpath']))) || ($optVals['fix_its_fontpath']=="
 			}
 			add_action( 'admin_enqueue_scripts', 'it_icon_font_admin_enueue_scripts' );
 	}
-	error_log("One",0);
+	//error_log("One",0);
 }
 
 
@@ -117,7 +117,7 @@ if ((!(isset($optVals['fix_pw_reset_msg']))) || ($optVals['fix_pw_reset_msg']=="
 
 		return $message;
 	}
-	error_log("Two",0);
+	//error_log("Two",0);
 }
 
 // ON BY DEFAULT
@@ -265,11 +265,9 @@ function sws_ck_logged() {
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
-			if (!(user_can($thisID,'edit_posts'))) { error_log($thisID,0); }
-			//$thisUser=get_user_by('id',2);
-			//if (!($thisUser->has_cap('manage_options'))) { 
-			//	error_log($thisID."|".$row['user_login']);
-			//}
+			if (!(user_can($thisID,'edit_posts'))) { //error_log($thisID,0); 
+				if (!(delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+			}
 		}
 	} else { 
 		sws_console_log("Simple Login Log does not exist."); 
