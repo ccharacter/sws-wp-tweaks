@@ -251,7 +251,7 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 // OFF BY DEFAULT 
 if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
-	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
+	//add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 }
 
 function sws_ck_logged() {
