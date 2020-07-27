@@ -266,7 +266,7 @@ function sws_ck_logged() {
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
 			if (!(user_can($thisID,'edit_posts'))) { //error_log($thisID,0); 
-				if (!(delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
 			}
 		}
 	} else { 
