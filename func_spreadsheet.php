@@ -1,7 +1,5 @@
 <?php
 
-header('Content-type: application/json');
-
 // Function to convert CSV into associative array
 function sws_tweaks_csvToArray($file, $delimiter, $header_row="Y") { 
   if (($handle = fopen($file, 'r')) !== FALSE) { 
