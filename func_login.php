@@ -43,7 +43,7 @@ function sws_tweaks_ck_old_banned () {
 	
 	$args=array("role"=>"member");
 	$members = get_users($args);
-	foreach ($users as $user) { 
+	foreach ($members as $user) { 
 		$user_email=$user->user_email;
 		list( $email_user, $email_domain ) = explode( '@', $user_email );
 		list($email_domain, $email_extension) = explode(".",$email_domain);
