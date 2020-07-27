@@ -4,7 +4,7 @@
 
 // LOGIN FUNCTIONS
 // OFF BY DEFAULT
-if (isset($optVals['login_logo']))  {
+if ((isset($optVals['login_logo'])) && (strlen($optVals['login_logo'])>0))  {
 	function sws_tweaks_login_logo() { 
 		$optVals = get_option( 'sws_wp_tweaks_options' );
 		$logo_url=$optVals['login_logo'];
@@ -41,6 +41,31 @@ function sws_tweaks_ck_old_banned () {
 	$extArr=sws_tweaks_csvToArray($extensions,',',"N");
 	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
 	
+	$args=array("role"=>"member");
+	$members = get_users($args);
+	foreach ($users as $user) { 
+		$user_email=$user->user_email;
+		list( $email_user, $email_domain ) = explode( '@', $user_email );
+		list($email_domain, $email_extension) = explode(".",$email_domain);
+		$valid=1;
+		
+		foreach ($extArr as $key=>$test) { 
+			//error_log($key."|".$test,0); 
+			if ($email_extension==$test) { error_log($test,0);
+			$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
+			$valid=0;
+			}
+		} 
+
+		foreach ($keyArr as $key=>$test) { 
+			if (!(strpos($user_email,$test)===false)) { error_log($test,0); 
+				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Email address not allowed.', 'my_domain' ) );
+				$valid=0;
+				break;
+			}
+		} 
+
+	}
 }
 
 

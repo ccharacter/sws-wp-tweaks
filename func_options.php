@@ -11,8 +11,7 @@ function sws_tweaks_get_default_options() {
 		'disable_pwChange_notice' => 'on',
 		'disable_xmlrpc' => 'on',
 		'screen_grav_forms' => 'off',
-		'screen_form_ids' => '',
-		'login_logo' => 'FILE.png'
+		'screen_form_ids' => ''
     );
     return $options;
 }
