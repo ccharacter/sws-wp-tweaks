@@ -251,6 +251,7 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 // OFF BY DEFAULT 
 if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
+	add_action('wp_loaded','sws_tweaks_ck_old_banned');
 	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 }
 
@@ -271,7 +272,7 @@ function sws_ck_logged() {
 			}
 		}
 	} else { 
-		sws_console_log("Simple Login Log does not exist."); 
+		error_log("Simple Login Log does not exist.",0); 
 	}
 }
 

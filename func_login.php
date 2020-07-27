@@ -47,23 +47,20 @@ function sws_tweaks_ck_old_banned () {
 		$user_email=$user->user_email;
 		list( $email_user, $email_domain ) = explode( '@', $user_email );
 		list($email_domain, $email_extension) = explode(".",$email_domain);
-		$valid=1;
 		
 		foreach ($extArr as $key=>$test) { 
-			//error_log($key."|".$test,0); 
-			if ($email_extension==$test) { error_log($test,0);
-			$errors->add( 'email_error', __( '<strong>ERROR</strong>: Domain not allowed.', 'my_domain' ) );
-			$valid=0;
+			error_log($key."|".$test,0); 
+			if ($email_extension==$test) { error_log($user_email,0);
 			}
 		} 
 
-		foreach ($keyArr as $key=>$test) { 
+		/*foreach ($keyArr as $key=>$test) { 
 			if (!(strpos($user_email,$test)===false)) { error_log($test,0); 
 				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Email address not allowed.', 'my_domain' ) );
 				$valid=0;
 				break;
 			}
-		} 
+		} */
 
 	}
 }
