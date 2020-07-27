@@ -42,7 +42,7 @@ function sws_tweaks_ck_old_banned () {
 	$keyArr=sws_tweaks_csvToArray($keywords,',',"N");
 	
 	$args=array("role"=>"member");
-	$members = get_users($args);
+	$members = get_users();
 	foreach ($members as $user) { 
 		$user_email=$user->user_email;
 		list( $email_user, $email_domain ) = explode( '@', $user_email );
@@ -60,7 +60,7 @@ function sws_tweaks_ck_old_banned () {
 				$valid=0;
 				break;
 			}
-		} */
+		}*/ 
 
 	}
 }
