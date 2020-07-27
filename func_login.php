@@ -49,7 +49,6 @@ function sws_tweaks_ck_old_banned () {
 		list($email_domain, $email_extension) = explode(".",$email_domain);
 		
 		foreach ($extArr as $key=>$test) { 
-			error_log($key."|".$test,0); 
 			if ($email_extension==$test) { error_log($user_email,0);
 			}
 		} 
