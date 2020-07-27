@@ -255,6 +255,11 @@ if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 }
 
 function sws_ck_logged() {
+	if (is_multisite()) { 
+		require_once(ABSPATH.'wp-admin/includes/user.php');
+	} else {
+		require_once( ABSPATH . 'wp-admin/includes/ms.php' );
+	}
 	global $wpdb;
 	$tableName=$wpdb->prefix."simple_login_log"; //error_log($tableName,0);
 	$pref=$wpdb->prefix;
