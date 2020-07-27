@@ -258,14 +258,14 @@ function sws_ck_logged() {
 	global $wpdb;
 	$tableName=$wpdb->prefix."simple_login_log"; //error_log($tableName,0);
 	$pref=$wpdb->prefix;
-	
+	$today=date("Y-m-d", strtotime("-60 days"));
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
-		$query="SELECT `ID`,`user_login` FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName)"; //error_log($query,0);
+		$query="SELECT `ID`,`user_registered` FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName) and `user_registered`<'$today'"; error_log($query,0);
 		$delArr=$wpdb->get_results($query, ARRAY_A);
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
-			if (!(user_can($thisID,'edit_posts')) { error_log($thisID,0); }
+			if (!(user_can($thisID,'edit_posts'))) { error_log($thisID,0); }
 			//$thisUser=get_user_by('id',2);
 			//if (!($thisUser->has_cap('manage_options'))) { 
 			//	error_log($thisID."|".$row['user_login']);
