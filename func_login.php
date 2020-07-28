@@ -49,7 +49,10 @@ function sws_tweaks_ck_old_banned () {
 		list($email_domain, $email_extension) = explode(".",$email_domain);
 		
 		foreach ($extArr as $key=>$test) { 
-			if ($email_extension==$test) { error_log($user_email,0);
+			if ($email_extension==$test) { //error_log($user_email,0);
+				error_log("DELETING: $user_email",0); 
+				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $user_email",0); }
+			}
 			}
 		} 
 
