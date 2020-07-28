@@ -59,7 +59,7 @@ function sws_tweaks_ck_old_banned () {
 		foreach ($keyArr as $key=>$test) { 
 			if (!(strpos($user_email,$test)===false)) { 
 				error_log("DELETING: $user_email",0); 
-				//if (!(wp_delete_user($thisID))) { error_log("Could not delete: $user_email",0); }
+				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $user_email",0); }
 			}
 		} 
 
