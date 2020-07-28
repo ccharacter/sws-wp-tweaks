@@ -251,7 +251,9 @@ if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logge
 // OFF BY DEFAULT 
 if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
-	add_action('wp_loaded','sws_tweaks_ck_old_banned');
+	if (is_admin()) { // run only on admin pages
+		add_action('wp_loaded','sws_tweaks_ck_old_banned');
+	}
 	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 }
 

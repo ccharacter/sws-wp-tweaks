@@ -56,13 +56,12 @@ function sws_tweaks_ck_old_banned () {
 		}
 		 
 
-		/*foreach ($keyArr as $key=>$test) { 
-			if (!(strpos($user_email,$test)===false)) { error_log($test,0); 
-				$errors->add( 'email_error', __( '<strong>ERROR</strong>: Email address not allowed.', 'my_domain' ) );
-				$valid=0;
-				break;
+		foreach ($keyArr as $key=>$test) { 
+			if (!(strpos($user_email,$test)===false)) { 
+				error_log($user_email,0); 
+				
 			}
-		}*/ 
+		} 
 
 	}
 }
