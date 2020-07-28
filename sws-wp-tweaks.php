@@ -245,7 +245,7 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 // OFF BY DEFAULT 
 if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
 	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
-	add_action('wp_loaded','sws_ck_logged');
+	//add_action('wp_loaded','sws_ck_logged');
 }
 
 // OFF BY DEFAULT 
