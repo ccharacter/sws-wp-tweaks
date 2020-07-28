@@ -58,7 +58,7 @@ function sws_tweaks_ck_old_banned () {
 
 		foreach ($keyArr as $key=>$test) { 
 			if (!(strpos($user_email,$test)===false)) { 
-				error_log($user_email,0); 
+				error_log($test."|".$user_email,0); 
 				
 			}
 		} 
