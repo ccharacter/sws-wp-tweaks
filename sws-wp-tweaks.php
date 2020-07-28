@@ -165,8 +165,6 @@ if ((!(isset($optVals['disable_xmlrpc']))) || ($optVals['disable_xmlrpc']=="on")
 	add_filter( 'xmlrpc_enabled', '__return_false' );
 }
 
-
-
 // OFF BY DEFAULT
 if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="on")) {
 	// GRAVITY FORMS VALIDATION: FAIL HTML & FOREIGN CHARS
@@ -187,17 +185,8 @@ if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="o
 
 
 // OFF BY DEFAULT 
-if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
-	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
-	add_action('admin_init','sws_ck_logged');
-}
-
-// OFF BY DEFAULT 
 if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
-	if (is_admin()) { // run only on admin pages
-		add_action('admin_init','sws_tweaks_ck_old_banned');
-	}
 	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
 }
 
@@ -205,6 +194,50 @@ if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="on")) {
 	$shortcode=new DisplayServerName();
 	$shortcode->init();
+}
+
+// SET UP CRON JOBS
+register_activation_hook( __FILE__, 'sws_tweaks_cron_activation' );
+function sws_tweaks_cron_activation() {
+    if ( ! wp_next_scheduled( 'sws_tweaks_cron' ) ) {
+        wp_schedule_event( strtotime('3am tomorrow'), 'daily', 'sws_tweaks_cron' );
+    }
+}
+
+// CLEAN UP CRON JOB IF DEACTIVATED
+register_deactivation_hook( __FILE__, 'sws_tweaks_cron_deactivation' );
+
+// SET UP CRON SCHEDULE
+/*add_filter( 'cron_schedules', 'wpshout_add_cron_interval' );
+function wpshout_add_cron_interval( $schedules ) {
+    $schedules['everyminute'] = array(
+            'interval'  => 60, // time in seconds
+            'display'   => 'Every Minute'
+    );
+    return $schedules;
+}*/
+
+
+function sws_tweaks_cron_deactivation() {
+    wp_clear_scheduled_hook( 'sws_tweaks_cron' );
+}
+
+
+function sws_tweaks_cron() { 
+	error_log("RUNNING CRON JOB",0);
+	// OFF BY DEFAULT 
+	if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
+		// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
+		error_log("not logged in",0);
+		sws_ck_logged();
+	}
+
+	// OFF BY DEFAULT 
+	if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
+		// REMOVE ANY EXISTING BANNED 
+		error_log("old banned",0);
+		sws_tweaks_ck_old_banned();
+	}
 }
 
 function sws_test_input($value) {
