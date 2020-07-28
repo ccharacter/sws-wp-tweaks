@@ -124,7 +124,7 @@ function sws_tweaks_email_banning ( $errors, $sanitized_user_login, $user_email 
 	} 
 		
 	// Disable registration for testing purposes
-	 $errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
+	// $errors->add( 'email_error', __( '<strong>ERROR</strong>: Test error.', 'my_domain' ) );
 	return $errors;
 }
 
