@@ -165,6 +165,48 @@ if ((!(isset($optVals['disable_xmlrpc']))) || ($optVals['disable_xmlrpc']=="on")
 	add_filter( 'xmlrpc_enabled', '__return_false' );
 }
 
+
+
+// OFF BY DEFAULT
+if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="on")) {
+	// GRAVITY FORMS VALIDATION: FAIL HTML & FOREIGN CHARS
+	if (isset($optVals['screen_form_ids'])) { 
+		$idArr=explode(",",$optVals['screen_form_ids']);
+	}	
+	//error_log(print_r($idArr,true),0);
+
+	foreach ($idArr as $formID) {
+		if (strlen(trim($formID))>0) {
+			$formID=intval(trim ($formID));
+			
+			add_filter( 'gform_validation_'.$formID, 'sws_custom_validation' );
+			//error_log('gform_validation_'.$formID,0);
+		}
+	}
+}
+
+
+// OFF BY DEFAULT 
+if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
+	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
+	add_action('admin_init','sws_ck_logged');
+}
+
+// OFF BY DEFAULT 
+if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
+	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
+	if (is_admin()) { // run only on admin pages
+		add_action('admin_init','sws_tweaks_ck_old_banned');
+	}
+	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
+}
+
+// ON BY DEFAULT
+if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="on")) {
+	$shortcode=new DisplayServerName();
+	$shortcode->init();
+}
+
 function sws_test_input($value) {
 	//error_log($value,0);
 	// TEST RUSSIAN: Это образец символов на запрещенном языке.
@@ -223,61 +265,6 @@ function sws_custom_validation( $validation_result ) {
 }
 	
 
-// OFF BY DEFAULT
-if ((isset($optVals['screen_grav_forms'])) && ($optVals['screen_grav_forms']=="on")) {
-	// GRAVITY FORMS VALIDATION: FAIL HTML & FOREIGN CHARS
-	if (isset($optVals['screen_form_ids'])) { 
-		$idArr=explode(",",$optVals['screen_form_ids']);
-	}	
-	//error_log(print_r($idArr,true),0);
-
-	foreach ($idArr as $formID) {
-		if (strlen(trim($formID))>0) {
-			$formID=intval(trim ($formID));
-			
-			add_filter( 'gform_validation_'.$formID, 'sws_custom_validation' );
-			//error_log('gform_validation_'.$formID,0);
-		}
-	}
-}
-
-
-// OFF BY DEFAULT 
-if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
-	// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
-	add_action('wp_loaded','sws_ck_logged');
-}
-
-// OFF BY DEFAULT 
-if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
-	// USE A LIST OF KEYWORDS AND EXTENSIONS TO BLOCK SPAMMISH REGISTRATIONS
-	if (is_admin()) { // run only on admin pages
-		add_action('wp_loaded','sws_tweaks_ck_old_banned');
-	}
-	add_filter( 'registration_errors', 'sws_tweaks_email_banning', 10, 3 );
-}
-
-function sws_ck_logged() {
-
-	global $wpdb;
-	$tableName=$wpdb->prefix."simple_login_log"; //error_log($tableName,0);
-	$pref=$wpdb->prefix;
-	$today=date("Y-m-d", strtotime("-60 days"));
-	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
-		$query="SELECT `ID`,`user_registered` FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName) and `user_registered`<'$today'"; //error_log($query,0);
-		$delArr=$wpdb->get_results($query, ARRAY_A);
-		//error_log(print_r($delArr,true),0);
-		foreach ($delArr as $row) { 
-			$thisID=$row['ID']; 
-			if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0); 
-				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
-			}
-		}
-	} else { 
-		error_log("Simple Login Log does not exist.",0); 
-	}
-}
-
 function sws_console_log($output, $with_script_tags = true) {
 	if (is_array($output)) { $output=var_dump($output); }
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
@@ -310,11 +297,7 @@ class DisplayServerName
     }
 }
 
-// ON BY DEFAULT
-if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="on")) {
-	$shortcode=new DisplayServerName();
-	$shortcode->init();
-}
+
 
 // SHORTCODE FOR COLLAPSING DIVS  
 function sws_accordion_func($atts) {
