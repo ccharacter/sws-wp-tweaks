@@ -186,7 +186,34 @@ function sws_wp_tweaks_register_settings() {
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
 	 );
-	 
+
+	 // register a new field 
+	 add_settings_field(
+	 'hide_author', 
+	 __( 'Disable Author Page', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'hide_author',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );
+
+	 // register a new field 
+	 add_settings_field(
+	 'post_counter', 
+	 __( 'Count Post Views', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'post_counter',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );	 
 	 
 	 // register a new field 
 	 add_settings_field(
