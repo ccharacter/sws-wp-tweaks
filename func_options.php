@@ -176,7 +176,7 @@ function sws_wp_tweaks_register_settings() {
 	 // register a new field 
 	 add_settings_field(
 	 'disable_xmlrpc', 
-	 __( 'Disable XML-RPC!!!!', 'sws_wp_tweaks' ),
+	 __( 'Disable XML-RPC', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',

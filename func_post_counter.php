@@ -5,8 +5,10 @@
 
 // ON BY DEFAULT
 if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
-
+	error_log("counter on!",0);
+	
 	function sws_tweaks_track_post_views ($post_id) {
+		error_log("TRACK",0);
 		if ( !is_single() ) return;
 		if ( empty ( $post_id) ) {
 			global $post;
@@ -18,6 +20,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 
 
 	function sws_tweaks_set_post_views($postID) {
+		error_log("SET",0);
 		$count_key = 'sws_post_views_count';
 		$count = get_post_meta($postID, $count_key, true);
 		if($count==''){
