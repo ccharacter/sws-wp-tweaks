@@ -190,7 +190,7 @@ function sws_wp_tweaks_register_settings() {
 	 // register a new field 
 	 add_settings_field(
 	 'hide_author', 
-	 __( 'Disable Author Page', 'sws_wp_tweaks' ),
+	 __( 'Disable Author Page<br />(security issue!)', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
 	 'sws_wp_tweaks_section_developers',
@@ -261,20 +261,6 @@ function sws_wp_tweaks_register_settings() {
 }
 add_action( 'admin_init', 'sws_wp_tweaks_register_settings' );
 
-/*function sws_tweaks_settings_header_text() {
-    ?>
-        <p><?php _e( 'Manage Logo Options for WpTuts Theme.', 'sws_wp_tweaks' ); ?></p>
-    <?php
-}
- 
-function sws_tweaks_setting_logo() {
-    $wptuts_options = get_option( 'sws_wp_tweaks_options' );
-    ?>
-        <input type="text" id="logo_url" name="sws_wp_tweaks_options[logo]" value="<?php echo esc_url( $wptuts_options['logo'] ); ?>" />
-        <input id="upload_logo_button" type="button" class="button-primary" value="<?php _e( 'Upload Logo', 'sws_wp_tweaks' ); ?>" />
-        <span class="description"><?php _e('Upload an image for the banner.', 'sws_wp_tweaks' ); ?></span>
-    <?php
-}*/
 
 
 // section callbacks can accept an $args parameter, which is an array.
@@ -298,9 +284,6 @@ function sws_tweaks_handle_file_upload($option)
   return $option;
 }
 
-
- 
-// pill field cb
  
 // field callbacks can accept an $args parameter, which is an array.
 // $args is defined at the add_settings_field() function.
