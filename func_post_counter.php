@@ -9,7 +9,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 	
 	function sws_tweaks_track_post_views ($post_id) {
 		error_log("TRACK",0);
-		if ( !is_single() ) return;
+		//if ( !is_single() ) return;
 		if ( empty ( $post_id) ) {
 			global $post;
 			$post_id = $post->ID;    
