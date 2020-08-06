@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.41
+ * Version:           4.5
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -27,6 +27,7 @@ require_once plugin_dir_path(__FILE__).'func_duplicate.php';
 require_once plugin_dir_path(__FILE__).'func_options.php';
 require_once plugin_dir_path(__FILE__).'func_spreadsheet.php';
 require_once plugin_dir_path(__FILE__).'func_login.php';
+require_once plugin_dir_path(__FILE__).'func_post_counter.php';
 
 // add stylesheets
 function sws_wp_tweaks_enqueue_script() {   
@@ -49,6 +50,17 @@ memory_limit = 1500M
 
 ... then sudo systemctl restart php-fpm
 */
+
+// ON BY DEFAULT
+if ((!(isset($optVals['hide_author']))) || ($optVals['hide_author']=="on")) {
+	function sws_tweaks_hide_author_page() {
+		 if ( is_author() ) {
+			 wp_redirect( home_url() );
+			 die;
+		 }
+	 }
+	 add_action( 'template_redirect', 'sws_tweaks_hide_author_page' );
+}
 
 // ON BY DEFAULT
 if ((!(isset($optVals['fix_its_fontpath']))) || ($optVals['fix_its_fontpath']=="on")) {

@@ -15,3 +15,4 @@ This is a catch-all plugin for tweaks that I want to make to most or all of my s
 * Custom logo/URL on login page
 * Delete any users (below Author) who have not logged in for at least 60 days
 * Ban user registrations from spammish domains/extensions
+* Hide the default author page (which exposes usernames)
