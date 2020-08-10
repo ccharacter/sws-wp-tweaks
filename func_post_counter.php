@@ -58,7 +58,7 @@ function sws_top_posts_grid_func($atts) {
 	$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
 	ob_start();
 	$counter=0;
-	echo "TEST THIS!";
+	echo "TEST THIS!"; error_log("TEST THIS!",0);
 	$popularpost = new WP_Query( array( 'posts_per_page' => 4, 'meta_key' => 'sws_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
 		$this_post_count=get_field('sws_post_views_count');
