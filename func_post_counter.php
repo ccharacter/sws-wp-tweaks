@@ -59,7 +59,21 @@ function sws_top_posts_grid_func($atts) {
 	ob_start();
 	$counter=0;
 	error_log("Once again?",0);
-	$popularpost = new WP_Query( array( 'posts_per_page' => -1, 'meta_key' => 'sws_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
+	
+	$args = array(
+	'meta_key'=> 'sws_posts_view_count',
+	'orderby'=> 'meta_value',
+	'order'=> 'DESC',
+    'post_type' => 'page',
+    'post_status' => 'publish',
+    'meta_query' => array(
+			'key'=>'sws_post_views_count',
+			'value'=>'0',
+			'compare'=> '>'
+	)
+	);
+
+	$popularpost = new WP_Query( $args );
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
 		$postID=$popularpost->ID; error_log($postID,0);
 		$this_post_count=get_post_meta('sws_post_views_count');
