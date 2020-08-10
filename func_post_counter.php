@@ -47,35 +47,35 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 	}
 	
 	
-	// SHORTCODE FOR MOST POPULAR POSTS 
-	function sws_top_posts_grid_func($atts) {
-		$a=shortcode_atts(array(
-		  'display_count' => 6,
-		  'test' => 'foobar'
-		), $atts);
-		$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
-		ob_start();
-		$counter=0;
-		$popularpost = new WP_Query( array( 'posts_per_page' => 4, 'meta_key' => 'sws_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
-		while ( $popularpost->have_posts() ) : $popularpost->the_post();
-			$this_post_count=get_field('sws_post_views_count');
-			if ($this_post_count) { // HAS a count
-				if (($counter<$display_count) && (!$this_post_count==0)) { // greater than zero
-					echo get_the_title();
-					$counter++;
-				} 
-			}
-		endwhile;
-	
-		ob_end_clean();
-	}
-
-	// register shortcode
-	add_shortcode('sws_top_posts_grid', 'sws_top_posts_grid_func'); 
-
-	
-	
 }
+
+// SHORTCODE FOR MOST POPULAR POSTS 
+function sws_top_posts_grid_func($atts) {
+	$a=shortcode_atts(array(
+	  'display_count' => 6,
+	  'test' => 'foobar'
+	), $atts);
+	$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
+	ob_start();
+	$counter=0;
+	$popularpost = new WP_Query( array( 'posts_per_page' => 4, 'meta_key' => 'sws_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
+	while ( $popularpost->have_posts() ) : $popularpost->the_post();
+		$this_post_count=get_field('sws_post_views_count');
+		if ($this_post_count) { // HAS a count
+			if (($counter<$display_count) && (!$this_post_count==0)) { // greater than zero
+				echo get_the_title();
+				$counter++;
+			} 
+		}
+	endwhile;
+
+	ob_end_clean();
+}
+
+// register shortcode
+add_shortcode('sws_top_posts_grid', 'sws_top_posts_grid_func'); 
+
+
 
 // SAMPLE TO SORT BY VIEW COUNT
 /*
