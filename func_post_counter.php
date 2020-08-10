@@ -51,6 +51,9 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 
 // SHORTCODE FOR MOST POPULAR POSTS 
 function sws_top_posts_grid_func($atts) {
+	
+	global $wpdb;
+	
 	$a=shortcode_atts(array(
 	  'display_count' => 6,
 	  'test' => 'foobar'
@@ -73,7 +76,7 @@ function sws_top_posts_grid_func($atts) {
 	)
 	);
 
-	$popularpost = new WP_Query( $args );
+	$popularpost = new WP_Query( $args ); error_log($popularpost->request);
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
 		$postID=$popularpost->ID; error_log($postID,0);
 		$this_post_count=get_post_meta('sws_post_views_count');
