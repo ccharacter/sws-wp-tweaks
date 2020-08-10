@@ -58,10 +58,11 @@ function sws_top_posts_grid_func($atts) {
 	$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
 	ob_start();
 	$counter=0;
-	
+	error_log("Once again?",0);
 	$popularpost = new WP_Query( array( 'posts_per_page' => -1, 'meta_key' => 'sws_post_views_count', 'orderby' => 'meta_value_num', 'order' => 'DESC'  ) );
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
-		$this_post_count=get_field('sws_post_views_count');
+		$postID=$popularpost->ID; error_log($postID,0);
+		$this_post_count=get_post_meta('sws_post_views_count');
 		if ($this_post_count) { // HAS a count
 			if (($counter<$display_count) && (!$this_post_count==0)) { // greater than zero
 				error_log( get_the_title(),0);
