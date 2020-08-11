@@ -107,14 +107,14 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					}
 				
 					echo "<div class=\"sws-tweaks-tposts-column\">";
-					echo get_the_title();
+					echo get_the_title(); error_log(get_the_ID()." | ".get_the_title(),0); 
 					echo "</div>";
 					
 					$post_counter++; 
 					$grid_counter++;
 					if ($grid_counter==$a['grid_width']) { $grid_counter=0; }
 					
-				} else { break; }
+				} 
 			endwhile;
 			
 			echo "</div></div>";	
