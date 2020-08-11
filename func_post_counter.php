@@ -62,7 +62,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		  'grid_width' => 2,
 		  'max_img_w' => "400px",
 		  'max_img_h' => "400px",
-		  'parent_div_class' => 'pad--primary spacing',
+		  'parent_div_class' => '',
 		  'title_class' => 'font--tertiary--1 theme--primary-text-color pad-double--top pad-half--btm',
 		  'heading_class' =>'media-block__title block__title',
 		  'grid_class'=> '',
