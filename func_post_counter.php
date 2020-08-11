@@ -61,7 +61,6 @@ function sws_top_posts_grid_func($atts) {
 	$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
 	ob_start();
 	$counter=0;
-	error_log("Once again?",0);
 	
 	$args = array(
 	'post_type' => 'page',
@@ -81,9 +80,9 @@ function sws_top_posts_grid_func($atts) {
 
 	$popularpost = new WP_Query( $args ); //error_log($popularpost->request);
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
-		$postID=get_the_ID(); error_log($postID,0);
+		$postID=get_the_ID(); 
 		if (!(get_post_meta('hide_me')) || (get_post_meta('hide_me')!="Yes")) { // NOT HIDDEN
-			the_title();
+			error_log(get_the_title(),0);
 			$counter++;
 		}
 	endwhile;
