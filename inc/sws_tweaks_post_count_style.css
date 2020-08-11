@@ -17,7 +17,7 @@
 .sws-alt-txt { opacity:0; }
 
 .sws-tweaks-tposts-img-div {
-	background-image-size: cover;
+	background-size: cover !important;
 	width:100%;
 	min-height:25vw;
 }
