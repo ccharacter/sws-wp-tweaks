@@ -67,12 +67,18 @@ function sws_top_posts_grid_func($atts) {
 	'post_type' => 'page',
     'post_status' => 'publish',
     'meta_query' => array(
+		'relation'=>'AND',
 		array(
 			'key'=>'sws_post_views_count',
 			'value'=>0,
 			'type'=>'numeric',
 			'compare'=> '>'
-	)),
+		),
+		array(
+			'key'=>'hide_me',
+			'value'=>'No'
+		)
+	),
 	'orderby'=>'meta_value',
 	'order'=>'DESC',
 	'posts_per_page'=> '-1'
