@@ -100,13 +100,13 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				if (($post_counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
-				
+					$thisPostID=$popularpost->ID;
 					if ($grid_counter==0) { 
 						if ($post_counter>1) { echo "</div>"; }
 						echo "<div class=\"sws-tweaks-tposts-row\">";
 					}
 					
-					if (get_the_post_thumnail_url()) { 
+					if (get_the_post_thumnail_url($thisPostID)) { 
 						$featured_img = get_the_post_thumnail_url(); 
 						$featured_img_alt = get_post_meta(get_post_thumbnail_id(),'_wp_attachment_image_alt',true);
 					} else { $featured_img=$a['default_img_url']; $featured_img_alt="Site Logo"; }
