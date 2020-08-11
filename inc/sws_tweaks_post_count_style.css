@@ -24,6 +24,10 @@
 	height:100px;
 }
 
+.sws-tweaks-tpost-para {
+	font-size: .8125rem;
+}
+
 @media only screen and (max-width: 780px) {
 	.sws-tweaks-tpost-img-div { min-width: 40vw; }
 	
