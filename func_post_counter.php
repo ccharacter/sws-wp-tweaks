@@ -67,17 +67,11 @@ function sws_top_posts_grid_func($atts) {
 	'post_type' => 'page',
     'post_status' => 'publish',
     'meta_query' => array(
-		'relation'=>'AND',
 		array(
 			'key'=>'sws_post_views_count',
 			'value'=>0,
 			'type'=>'numeric',
 			'compare'=> '>'
-		),
-		array(
-			'key'=>'hide_me',
-			'value'=>'Yes',
-			'compare'=>'!='
 		)
 	),
 	'orderby'=>'meta_value',
@@ -85,15 +79,12 @@ function sws_top_posts_grid_func($atts) {
 	'posts_per_page'=> '-1'
 	);
 
-	$popularpost = new WP_Query( $args ); error_log($popularpost->request);
+	$popularpost = new WP_Query( $args ); //error_log($popularpost->request);
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
 		$postID=get_the_ID(); error_log($postID,0);
-		$this_post_count=get_post_meta('sws_post_views_count');
-		if ($this_post_count) { // HAS a count
-			if (($counter<$display_count) && (!$this_post_count==0)) { // greater than zero
-				error_log( get_the_title(),0);
-				$counter++;
-			} 
+		if (!(get_post_meta('hide_me')) || (get_post_meta('hide_me')!="Yes")) { // NOT HIDDEN
+			the_title();
+			$counter++;
 		}
 	endwhile;
 
