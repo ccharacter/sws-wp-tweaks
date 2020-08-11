@@ -126,8 +126,8 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 			
 			echo "</div></div>";	
 			echo "<script>
-			alert($('.sws-tweaks-tposts-img-div').width());
-			$('.sws-tweaks-tposts-img-div').height($('.sws-tweaks-tposts-img-div').width());
+			alert(jQuery('.sws-tweaks-tposts-img-div').width());
+			jQuery('.sws-tweaks-tposts-img-div').height(jQuery('.sws-tweaks-tposts-img-div').width());
 			</script>";
 
 		endif;

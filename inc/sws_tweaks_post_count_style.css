@@ -18,6 +18,7 @@
 
 .sws-tweaks-tposts-img-div {
 	background-size: cover !important;
+	background-position: center;
 	width:100%;
 	min-height:25vw;
 }
