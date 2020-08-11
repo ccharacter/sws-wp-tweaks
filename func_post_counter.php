@@ -96,7 +96,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		
 		if ( $popularpost->have_posts() ) :
 		
-			echo "<div class=\"sws-tweaks-tposts ".$a['parent_div_class']."\">";
+			echo "<div class=\"sws-tweaks-tpost ".$a['parent_div_class']."\">";
 			echo "<h2 class=\"".$a['title_class']."\">".$a['title']."</h3>";
 		
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
@@ -105,7 +105,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					//$thisPostID=$popularpost->ID; error_log($thisPostID,0);
 					if ($grid_counter==0) { 
 						if ($post_counter>1) { echo "</div>"; }
-						echo "<div class=\"sws-tweaks-tposts-row\">";
+						echo "<div class=\"sws-tweaks-tpost-row\">";
 					}
 					
 					if (get_the_post_thumbnail_url()) { 
@@ -113,9 +113,9 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 						$featured_img_alt = get_post_meta(get_post_thumbnail_id(),'_wp_attachment_image_alt',true);
 					} else { $featured_img=$a['default_img_url']; $featured_img_alt="Site Logo"; }
 					
-					echo "<div class=\"sws-tweaks-tposts-column\">";
-					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tposts-img-div\" id='sws-tweaks-tpost-$post_counter' ".$a['img_class']."\" style=\"background: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
-					echo "<h3 class=\"sws-tweaks-tposts-heading ".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
+					echo "<div class=\"sws-tweaks-tpost-column\">";
+					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tpost-img-div\" id='sws-tweaks-tpost-$post_counter' ".$a['img_class']."\" style=\"background: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
+					echo "<h3 class=\"sws-tweaks-tpost-heading ".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
 					echo "<p>".wp_trim_words(get_the_excerpt(),$a['excerpt_length'],'...')."</p>";
 					echo "</div>";
 					

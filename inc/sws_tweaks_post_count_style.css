@@ -1,11 +1,11 @@
-.sws-tweaks-tposts-row {
+.sws-tweaks-tpost-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
 }
 
-.sws-tweaks-tposts-column {
+.sws-tweaks-tpost-column {
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
@@ -13,11 +13,11 @@
   padding: 1.5rem;
 }
 
-.sws-tweaks-tposts-heading  { padding: .5rem 0; }
+.sws-tweaks-tpost-heading  { padding: .5rem 0; }
 
 .sws-alt-txt { opacity:0; }
 
-.sws-tweaks-tposts-img-div {
+.sws-tweaks-tpost-img-div {
 	background-size: cover !important;
 	background-position: center !important;
 	width:100%;
@@ -25,6 +25,6 @@
 }
 
 @media only screen and (max-width: 780px) {
-	.sws-tweaks-tposts-img-div { min-width: 40vw; }
+	.sws-tweaks-tpost-img-div { min-width: 40vw; }
 	
 }
