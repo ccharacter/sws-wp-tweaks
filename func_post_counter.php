@@ -108,6 +108,11 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 						echo "<div class=\"sws-tweaks-tpost-row\">";
 					}
 					
+					$excerpt=get_the_excerpt();
+					if ((get_post_meta('intro')) && (strlen(get_post_meta('intro'))>0)) {
+						$excerpt=get_post_meta('intro');
+					}
+					
 					if (get_the_post_thumbnail_url()) { 
 						$featured_img = get_the_post_thumbnail_url(); 
 						$featured_img_alt = get_post_meta(get_post_thumbnail_id(),'_wp_attachment_image_alt',true);
@@ -116,7 +121,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					echo "<div class=\"sws-tweaks-tpost-column\">";
 					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tpost-img-div\" id='sws-tweaks-tpost-$post_counter' ".$a['img_class']."\" style=\"background: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
 					echo "<h3 class=\"sws-tweaks-tpost-heading ".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
-					echo "<p>".wp_trim_words(get_the_excerpt(),$a['excerpt_length'],'...')."</p>";
+					echo "<p>".wp_trim_words($excerpt,$a['excerpt_length'],'...')."</p>";
 					echo "</div>";
 					
 					$post_counter++; 
