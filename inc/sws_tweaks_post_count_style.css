@@ -21,6 +21,10 @@
 	background-size: cover !important;
 	background-position: center !important;
 	width:100%;
-	min-width: 40vw;
 	min-height:100px;
+}
+
+@media only screen and (max-width: 780px) {
+	.sws-tweaks-tposts-img-div { min-width: 40vw; }
+	
 }
