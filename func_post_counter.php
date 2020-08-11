@@ -48,6 +48,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 	
 	function sws_wp_tweaks_enqueue_script2() {   
 		wp_enqueue_style( 'swsPostCountStyles', plugin_dir_url(__FILE__).'inc/sws_tweaks_post_count_style.css');
+		wp_enqueue_script( 'swsPostCountScript', plugin_dir_url( __FILE__ ) . 'inc/sws_tweaks_post_count_script.js',array( 'jquery' ) );
 	}
 	add_action('wp_enqueue_scripts', 'sws_wp_tweaks_enqueue_script2');
 
@@ -100,6 +101,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				if (($post_counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
+					
 					//$thisPostID=$popularpost->ID; error_log($thisPostID,0);
 					if ($grid_counter==0) { 
 						if ($post_counter>1) { echo "</div>"; }
@@ -112,7 +114,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					} else { $featured_img=$a['default_img_url']; $featured_img_alt="Site Logo"; }
 					
 					echo "<div class=\"sws-tweaks-tposts-column\">";
-					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tposts-img-div ".$a['img_class']."\" style=\"background: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
+					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tposts-img-div id='sws-tweaks-tpost-$post_counter' ".$a['img_class']."\" style=\"background: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
 					echo "<h3 class=\"".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
 					echo "<p>".wp_trim_words(get_the_excerpt(),$a['excerpt_length'],'...')."</p>";
 					echo "</div>";
@@ -125,11 +127,6 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 			endwhile;
 			
 			echo "</div></div>";	
-			echo "<script>
-			alert(jQuery('.sws-tweaks-tposts-img-div').width());
-			jQuery('.sws-tweaks-tposts-img-div').height(jQuery('.sws-tweaks-tposts-img-div').width());
-			</script>";
-
 		endif;
 
 		return ob_get_clean();
