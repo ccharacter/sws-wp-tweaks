@@ -95,7 +95,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		
 		if ( $popularpost->have_posts() ) :
 		
-			echo "<div class=\"".$a['parent_div_class']."\">";
+			echo "<div class=\"sws-tweaks-tposts ".$a['parent_div_class']."\">";
 			echo "<h2 class=\"".$a['title_class']."\">".$a['title']."</h3>";
 		
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
@@ -111,6 +111,8 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					echo "</div>";
 					
 					$post_counter++; 
+					$grid_counter++;
+					if ($grid_counter==$a['grid_width']) { $grid_counter=0; }
 					
 				} else { break; }
 			endwhile;
