@@ -77,7 +77,7 @@ function sws_top_posts_grid_func($atts) {
 		array(
 			'key'=>'hide_me',
 			'value'=>'Yes',
-			'compare'='!='
+			'compare'=>'!='
 		)
 	),
 	'orderby'=>'meta_value',
