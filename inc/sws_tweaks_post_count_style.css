@@ -13,3 +13,11 @@
   padding: 1.5rem;
   border: 2px solid green;
 }
+
+.sws-alt-txt { opacity:0; }
+
+.sws-tweaks-tposts-img-div {
+	background-image-size: cover;
+	width:100%;
+	
+}
