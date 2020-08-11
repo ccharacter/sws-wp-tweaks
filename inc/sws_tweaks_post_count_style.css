@@ -21,5 +21,6 @@
 	background-size: cover !important;
 	background-position: center !important;
 	width:100%;
+	min-width: 40vw;
 	min-height:100px;
 }
