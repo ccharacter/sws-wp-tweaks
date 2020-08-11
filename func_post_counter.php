@@ -114,7 +114,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					echo "<div class=\"sws-tweaks-tposts-column\">";
 					echo "<a href=\"".get_the_permalink()."\"><img src=\"$featured_img\"  alt =\"$featured_img_alt\" class=\"sws-tweaks-tposts-img ".$a['img_class']."\"></a>";
 					echo "<h3 class=\"".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
-					echo "<p>".get_the_excerpt($a['excerpt_length'])."</p>";
+					echo "<p>".wp_trim_words(get_the_excerpt(),$a['excerpt_length'],'...')."</p>";
 					echo "</div>";
 					
 					$post_counter++; 
