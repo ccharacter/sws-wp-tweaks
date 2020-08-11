@@ -46,8 +46,6 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		return $count.' Views';
 	}
 	
-	
-}
 
 // SHORTCODE FOR MOST POPULAR POSTS 
 function sws_top_posts_grid_func($atts) {
@@ -59,7 +57,6 @@ function sws_top_posts_grid_func($atts) {
 	  'test' => 'foobar'
 	), $atts);
 	$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
-	ob_start();
 	$counter=0;
 	
 	$args = array(
@@ -86,12 +83,15 @@ function sws_top_posts_grid_func($atts) {
 			$counter++;
 		}
 	endwhile;
-
-	ob_end_clean();
 }
 
 // register shortcode
 add_shortcode('sws_top_posts_grid', 'sws_top_posts_grid_func'); 
+
+
+
+	
+}
 
 
 
