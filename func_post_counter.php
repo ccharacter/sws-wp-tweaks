@@ -67,6 +67,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		  'title_class' => 'font--tertiary--1 theme--primary-text-color pad-double--top pad-half--btm',
 		  'heading_class' =>'media-block__title block__title',
 		  'img_class'=> '',
+		  'paragraph_class' => '',
 		  'default_img_url'=> '/aiQu9o/uploads/2018/07/favicon-denim.png',
 		  'excerpt_length'=>'25'
 		), $atts);
@@ -102,14 +103,14 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				if (($post_counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
 					
-					$thisPostID=get_the_ID(); error_log($thisPostID,0);
+					$thisPostID=get_the_ID(); //error_log($thisPostID,0);
 					if ($grid_counter==0) { 
 						if ($post_counter>1) { echo "</div>"; }
 						echo "<div class=\"sws-tweaks-tpost-row\">";
 					}
 					
 					$excerpt=get_the_excerpt(); // PATCH FOR OLD ALPS
-					$intro = get_post_meta($thisPostID,'intro',true); error_log($intro,0);
+					$intro = get_post_meta($thisPostID,'intro',true); //error_log($intro,0);
 					if (($intro) && (strlen($intro)>0)) {
 						$excerpt=$intro;
 					}
@@ -122,7 +123,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					echo "<div class=\"sws-tweaks-tpost-column\">";
 					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tpost-img-div\" id='sws-tweaks-tpost-$post_counter' ".$a['img_class']."\" style=\"background: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
 					echo "<h3 class=\"sws-tweaks-tpost-heading ".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
-					echo "<p>".wp_trim_words($excerpt,$a['excerpt_length'],'...')."</p>";
+					echo "<p class=\"sws-tweaks-tpost-para ".$a['paragraph_class']."\">".wp_trim_words($excerpt,$a['excerpt_length'],'...')."</p>";
 					echo "</div>";
 					
 					$post_counter++; 
