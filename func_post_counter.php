@@ -46,10 +46,10 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		return $count.' Views';
 	}
 	
-	function sws_wp_tweaks_enqueue_script() {   
+	function sws_wp_tweaks_enqueue_script2() {   
 		wp_enqueue_style( 'swsPostCountStyles', plugin_dir_url(__FILE__).'inc/sws_tweaks_post_count_style.css');
 	}
-	add_action('wp_enqueue_scripts', 'sws_wp_tweaks_enqueue_script');
+	add_action('wp_enqueue_scripts', 'sws_wp_tweaks_enqueue_script2');
 
 	// SHORTCODE FOR MOST POPULAR POSTS 
 	function sws_top_posts_grid_func($atts) {
