@@ -72,7 +72,7 @@ function sws_top_posts_grid_func($atts) {
 			'value'=>0,
 			'type'=>'numeric',
 			'compare'=> '>'
-	)
+	))
 	);
 
 	$popularpost = new WP_Query( $args ); error_log($popularpost->request);
