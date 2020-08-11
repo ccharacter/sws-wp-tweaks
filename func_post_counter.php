@@ -102,15 +102,16 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				if (($post_counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
 					
-					//$thisPostID=$popularpost->ID; error_log($thisPostID,0);
+					$thisPostID=$popularpost->ID; //error_log($thisPostID,0);
 					if ($grid_counter==0) { 
 						if ($post_counter>1) { echo "</div>"; }
 						echo "<div class=\"sws-tweaks-tpost-row\">";
 					}
 					
-					$excerpt=get_the_excerpt(); error_log(get_post_meta('intro'),0);
-					if ((get_post_meta('intro')) && (strlen(get_post_meta('intro'))>0)) {
-						$excerpt=get_post_meta('intro');
+					$excerpt=get_the_excerpt(); // PATCH FOR OLD ALPS
+					$intro = get_post_meta($thisPostID,'intro',true); error_log($intro,0);
+					if (($intro) && (strlen($intro)>0)) {
+						$excerpt=$intro;
 					}
 					
 					if (get_the_post_thumbnail_url()) { 
