@@ -64,14 +64,13 @@ function sws_top_posts_grid_func($atts) {
 	error_log("Once again?",0);
 	
 	$args = array(
-	'meta_key'=> 'sws_posts_view_count',
-	'orderby'=> 'meta_value',
-	'order'=> 'DESC',
-    'post_type' => 'page',
+	'post_type' => 'page',
     'post_status' => 'publish',
     'meta_query' => array(
+		array(
 			'key'=>'sws_post_views_count',
-			'value'=>'0',
+			'value'=>0,
+			'type'=>'numeric',
 			'compare'=> '>'
 	)
 	);
