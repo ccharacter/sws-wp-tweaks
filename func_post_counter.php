@@ -102,7 +102,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				if (($post_counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
 					
-					$thisPostID=$popularpost->ID; error_log($thisPostID,0);
+					$thisPostID=get_the_ID(); error_log($thisPostID,0);
 					if ($grid_counter==0) { 
 						if ($post_counter>1) { echo "</div>"; }
 						echo "<div class=\"sws-tweaks-tpost-row\">";
