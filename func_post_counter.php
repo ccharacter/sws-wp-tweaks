@@ -45,54 +45,54 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		}
 		return $count.' Views';
 	}
-
-	// SHORTCODE FOR MOST POPULAR POSTS 
-	function sws_top_posts_grid_func($atts) {
-		
-		global $wpdb;
-		
-		$a=shortcode_atts(array(
-		  'display_count' => 6,
-		  'test' => 'foobar'
-		), $atts);
-		$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
-		ob_start();
-		$counter=0;
-		
-		$args = array(
-		'post_type' => 'page',
-		'post_status' => 'publish',
-		'meta_query' => array(
-			array(
-				'key'=>'sws_post_views_count',
-				'value'=>0,
-				'type'=>'numeric',
-				'compare'=> '>'
-			)
-		),
-		'orderby'=>'meta_value',
-		'order'=>'DESC',
-		'posts_per_page'=> '-1'
-		);
-
-		$popularpost = new WP_Query( $args ); //error_log($popularpost->request);
-		while ( $popularpost->have_posts() ) : $popularpost->the_post();
-			$postID=get_the_ID(); 
-			if (($counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
-				error_log(get_the_title(),0); echo get_the_title();
-				$counter++;
-			}
-		endwhile;
-
-		ob_end_clean();
-	}
-
-	// register shortcode
-	add_shortcode('sws_top_posts_grid', 'sws_top_posts_grid_func'); 
-
 	
 	
 }
+
+// SHORTCODE FOR MOST POPULAR POSTS 
+function sws_top_posts_grid_func($atts) {
+	
+	global $wpdb;
+	
+	$a=shortcode_atts(array(
+	  'display_count' => 6,
+	  'test' => 'foobar'
+	), $atts);
+	$display_count=$a['display_count']; // NOTE TO SELF: SHORTCODE_ATTS DOESN'T LIKE UPPERCASE!!!!
+
+	ob_start();
+	$counter=0;
+	
+	$args = array(
+	'post_type' => 'page',
+    'post_status' => 'publish',
+    'meta_query' => array(
+		array(
+			'key'=>'sws_post_views_count',
+			'value'=>0,
+			'type'=>'numeric',
+			'compare'=> '>'
+		)
+	),
+	'orderby'=>'meta_value',
+	'order'=>'DESC',
+	'posts_per_page'=> '-1'
+	);
+
+	$popularpost = new WP_Query( $args ); //error_log($popularpost->request);
+	while ( $popularpost->have_posts() ) : $popularpost->the_post();
+		$postID=get_the_ID(); 
+		if (($counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
+			error_log(get_the_title(),0); echo get_the_title();
+			$counter++;
+		}
+	endwhile;
+
+	return ob_get_clean();
+}
+
+// register shortcode
+add_shortcode('sws_top_posts_grid', 'sws_top_posts_grid_func'); 
 
 
 
