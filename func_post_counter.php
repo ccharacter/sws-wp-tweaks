@@ -81,8 +81,8 @@ function sws_top_posts_grid_func($atts) {
 	$popularpost = new WP_Query( $args ); //error_log($popularpost->request);
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
 		$postID=get_the_ID(); 
-		if (!(get_post_meta('hide_me')) || (get_post_meta('hide_me')!="Yes")) { // NOT HIDDEN
-			error_log(get_the_title(),0);
+		if (($counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
+			error_log(get_the_title(),0); echo get_the_title();
 			$counter++;
 		}
 	endwhile;
