@@ -96,6 +96,14 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		$popularpost = new WP_Query( $args ); //error_log($popularpost->request);
 		
 		if ( $popularpost->have_posts() ) :
+			if ($a['grid_width']==1) { // style overrides
+				echo "<style>
+				.sws-tweaks-tpost-img-div { width: 150px !important; height: 150px !important; float:left; margin-right: 1.5rem; }
+				.sws-tweaks-tpost-column { display: inline-block; }
+				
+				</style>";
+
+			}			
 		
 			echo "<div class=\"sws-tweaks-tpost ".$a['parent_div_class']."\">";
 			echo "<h2 class=\"".$a['title_class']."\">".$a['title']."</h3>";
