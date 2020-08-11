@@ -11,8 +11,9 @@
   flex-basis: 100%;
   flex: 1;
   padding: 1.5rem;
-  border: 2px solid green;
 }
+
+.sws-tweaks-tposts-heading  { padding: .5rem 0; }
 
 .sws-alt-txt { opacity:0; }
 
