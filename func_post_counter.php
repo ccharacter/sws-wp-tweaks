@@ -65,8 +65,8 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 		  'parent_div_class' => '',
 		  'title_class' => 'font--tertiary--1 theme--primary-text-color pad-double--top pad-half--btm',
 		  'heading_class' =>'media-block__title block__title',
-		  'grid_class'=> '',
 		  'img_class'=> '',
+		  'default_img_url'=> '/aiQu9o/uploads/2018/07/favicon-denim.png',
 		  'excerpt_length'=>'25'
 		), $atts);
 		$display_count=$a['display_count']; 
@@ -105,9 +105,16 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 						if ($post_counter>1) { echo "</div>"; }
 						echo "<div class=\"sws-tweaks-tposts-row\">";
 					}
-				
+					
+					if (get_the_post_thumnail_url()) { 
+						$featured_img = get_the_post_thumnail_url(); 
+						$featured_img_alt = get_post_meta(get_post_thumbnail_id(),'_wp_attachment_image_alt',true);
+					} else { $featured_img=$a['default_img_url']; $featured_img_alt="Site Logo"; }
+					
 					echo "<div class=\"sws-tweaks-tposts-column\">";
-					echo get_the_title(); error_log(get_the_ID()." | ".get_the_title(),0); 
+					echo "<a href=\"".get_the_permalink()."\"><img src=\"$featured_img\"  alt =\"$featured_img_alt\" class=\"sws-tweaks-tposts-img ".$a['img_class']."\"></a>";
+					echo "<h3 class=\"".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
+					echo "<p>".get_the_excerpt($a['excerpt_length'])."</p>";
 					echo "</div>";
 					
 					$post_counter++; 
