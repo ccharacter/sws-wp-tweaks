@@ -76,7 +76,8 @@ function sws_top_posts_grid_func($atts) {
 		),
 		array(
 			'key'=>'hide_me',
-			'value'=>'No'
+			'value'=>'Yes',
+			'compare'='!='
 		)
 	),
 	'orderby'=>'meta_value',
@@ -86,7 +87,7 @@ function sws_top_posts_grid_func($atts) {
 
 	$popularpost = new WP_Query( $args ); error_log($popularpost->request);
 	while ( $popularpost->have_posts() ) : $popularpost->the_post();
-		$postID=$popularpost->ID; error_log($postID,0);
+		$postID=get_the_ID(); error_log($postID,0);
 		$this_post_count=get_post_meta('sws_post_views_count');
 		if ($this_post_count) { // HAS a count
 			if (($counter<$display_count) && (!$this_post_count==0)) { // greater than zero
