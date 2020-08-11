@@ -108,7 +108,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 						echo "<div class=\"sws-tweaks-tpost-row\">";
 					}
 					
-					$excerpt=get_the_excerpt();
+					$excerpt=get_the_excerpt(); error_log(get_post_meta('intro'),0);
 					if ((get_post_meta('intro')) && (strlen(get_post_meta('intro'))>0)) {
 						$excerpt=get_post_meta('intro');
 					}
