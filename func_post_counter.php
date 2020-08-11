@@ -112,7 +112,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 					} else { $featured_img=$a['default_img_url']; $featured_img_alt="Site Logo"; }
 					
 					echo "<div class=\"sws-tweaks-tposts-column\">";
-					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tposts-img-div ".$a['img_class']."\" style=\"background-url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
+					echo "<a href=\"".get_the_permalink()."\"><div class=\"sws-tweaks-tposts-img-div ".$a['img_class']."\" style=\"background-img: url($featured_img);\"><span class='sws-alt-txt'>$featured_img_alt</span></div></a>";
 					echo "<h3 class=\"".$a['heading_class']."\"><a href=\"".get_the_permalink()."\">".get_the_title()."</a></h3>";
 					echo "<p>".wp_trim_words(get_the_excerpt(),$a['excerpt_length'],'...')."</p>";
 					echo "</div>";
