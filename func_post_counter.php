@@ -106,7 +106,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 			}			
 		
 			echo "<div class=\"sws-tweaks-tpost ".$a['parent_div_class']."\">";
-			echo "<h2 class=\"".$a['title_class']."\">".$a['title']."</h3>";
+			echo "<h2 class=\"".$a['title_class']."\">".$a['title']."</h2>";
 		
 			while ( $popularpost->have_posts() ) : $popularpost->the_post();
 				if (($post_counter<$display_count) && (!(get_field('hide_me')) || (get_field('hide_me')!="Yes"))) { // NOT HIDDEN
