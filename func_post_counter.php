@@ -9,7 +9,7 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 	
 	function sws_tweaks_track_post_views ($post_id) {
 		//error_log("TRACK",0);
-		if (! (is_admin() )) {
+		if ( is_single() || is_page() ) { // ignore admin pages
 			if ( empty ( $post_id) ) {
 				global $post;
 				$post_id = $post->ID;    
