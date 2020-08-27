@@ -9,12 +9,13 @@ if ((!(isset($optVals['post_counter']))) || ($optVals['post_counter']=="on")) {
 	
 	function sws_tweaks_track_post_views ($post_id) {
 		//error_log("TRACK",0);
-		if ( is_admin() ) return;
-		if ( empty ( $post_id) ) {
-			global $post;
-			$post_id = $post->ID;    
+		if (! (is_admin() )) {
+			if ( empty ( $post_id) ) {
+				global $post;
+				$post_id = $post->ID;    
+			}
+			sws_tweaks_set_post_views($post_id);
 		}
-		sws_tweaks_set_post_views($post_id);
 	}
 	add_action( 'wp_head', 'sws_tweaks_track_post_views');
 
