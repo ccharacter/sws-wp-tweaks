@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.62
+ * Version:           4.63
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -62,7 +62,7 @@ if ((!(isset($optVals['hide_author']))) || ($optVals['hide_author']=="on")) {
 				 wp_redirect( home_url() );
 				 die;
 			}
-		 } else { return true; }
+		 } else { return; }
 	 }
 	 add_action( 'template_redirect', 'sws_tweaks_hide_author_page' );
 }
