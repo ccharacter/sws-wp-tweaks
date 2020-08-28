@@ -13,6 +13,7 @@ function sws_tweaks_get_default_options() {
 		'disable_pwChange_notice' => 'on',
 		'disable_xmlrpc' => 'on',
 		'screen_grav_forms' => 'off',
+		'screen_url' => 'off',
 		'screen_form_ids' => ''
     );
     return $options;
@@ -229,6 +230,20 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );
 	 	 
+	 // register a new field 
+	 add_settings_field(
+	 'screen_url', 
+	 __( 'URL Screener', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'screen_url',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );		 
+		 
 	 // register a new field 
 	 add_settings_field(
 	 'screen_form_ids', 

@@ -4,7 +4,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           4.65
+ * Version:           4.66
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -53,6 +53,21 @@ memory_limit = 1500M
 
 // ADD FEATURE TO REDIRECT LIST OF THINGS LIKE /wp-content/, /blogs/, /portal/, etc.
 // ADD JAVASCRIPT STUFF FROM VERSACARE
+
+// ON BY DEFAULT
+if ((!(isset($optVals['screen_urls']))) || ($optVals['screen_urls']=="on")) {
+	function sws_tweaks_screen_url() {
+		$terms="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3Yr5nkluQS8q87oUMx9-8jHgfli67zJvU4TUgfuWDAPZSxPpK8N7tPOLIKde8S3-5fBntmTivxnO_/pub?output=csv";
+		$banArr=sws_tweaks_csvToArray($terms,',',"N");
+		foreach ($banArr as $term) { 
+			if (false !== strpos($_SERVER['REQUEST_URI'], $term))  {
+				wp_redirect( home_url() );
+				die;
+			}
+		} 
+	 }
+	 add_action( 'template_redirect', 'sws_tweaks_screen_url' );
+}
 
 // ON BY DEFAULT
 if ((!(isset($optVals['hide_author']))) || ($optVals['hide_author']=="on")) {
@@ -262,7 +277,10 @@ function sws_test_input($value) {
 	// TEST RUSSIAN: Это образец символов на запрещенном языке.
 	// TEST CHINESE: 这是一种禁止语言字符的示例。
 	$test=""; $ret=true;
-	$testHTML=strip_tags($value,"<p><br><span><em><strong><li><ul>");				
+	$testHTML=strip_tags($value,"<p><br><span><em><strong><li><ul>");	
+	$testHTML=str_replace("http","",$testHTML); // filter out web addresses
+	$testHTML=str_replace("www","",$testHTML); // filter out web addresses
+	
 	$testLang=preg_replace('/[^\00-\255]+/u', '', $value);
 	if ($value!=$testHTML) { 
 		$test=" HTML is not allowed in this field."; 
