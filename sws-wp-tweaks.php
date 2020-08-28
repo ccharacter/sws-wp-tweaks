@@ -61,7 +61,7 @@ if ((!(isset($optVals['screen_urls']))) || ($optVals['screen_urls']=="on")) {
 		$banArr=sws_tweaks_csvToArray($terms,',',"N");
 		foreach ($banArr as $term) { 
 			if (false !== strpos($_SERVER['REQUEST_URI'], $term))  {
-				wp_redirect( home_url() );
+				wp_redirect( home_url()."/bad-url" );
 				die;
 			}
 		} 
@@ -74,7 +74,7 @@ if ((!(isset($optVals['hide_author']))) || ($optVals['hide_author']=="on")) {
 	function sws_tweaks_hide_author_page() {
 		 if (false !== strpos($_SERVER['REQUEST_URI'], '?'))  {
 			 if (!(empty($_GET['author']))) {
-				 wp_redirect( home_url() );
+				 wp_redirect( home_url()."/bad-author" );
 				 die;
 			}
 		 } else { return; }
