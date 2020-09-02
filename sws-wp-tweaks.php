@@ -1,4 +1,5 @@
 <?php
+/** This is a test comment to test stuff that requires testing ~ Beth */
 
 /**
  * Plugin Name:       SWS WordPress Tweaks
