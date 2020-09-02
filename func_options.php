@@ -216,19 +216,6 @@ function sws_wp_tweaks_register_settings() {
 	 ]
 	 );	 
 	 
-	 // register a new field 
-	 add_settings_field(
-	 'screen_grav_forms', 
-	 __( 'Gravity Form Screener', 'sws_wp_tweaks' ),
-	 'sws_wp_tweaks_field_main_cb',
-	 'sws_wp_tweaks',
-	 'sws_wp_tweaks_section_developers',
-	 [
-	 'label_for' => 'screen_grav_forms',
-	 'class' => 'sws_wp_tweaks_row',
-	 'sws_wp_tweaks_custom_data' => 'custom',
-	 ]
-	 );
 	 	 
 	 // register a new field 
 	 add_settings_field(
@@ -242,7 +229,22 @@ function sws_wp_tweaks_register_settings() {
 	 'class' => 'sws_wp_tweaks_row',
 	 'sws_wp_tweaks_custom_data' => 'custom',
 	 ]
-	 );		 
+	 );	
+
+	 // register a new field 
+	 add_settings_field(
+	 'screen_grav_forms', 
+	 __( 'Gravity Form Screener', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'screen_grav_forms',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
+	 );
+	 
 		 
 	 // register a new field 
 	 add_settings_field(
