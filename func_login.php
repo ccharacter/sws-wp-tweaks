@@ -66,6 +66,47 @@ function sws_tweaks_ck_old_banned () {
 	}
 }
 
+// Create sws_removed_users table
+function sws_removed_users_table() {
+  global $wpdb;
+
+  $sws_tweaks_db = 1.0;
+
+  $table_name = $wpdb->prefix . 'sws_removed_users';
+
+  $charset_collate = $wpdb->get_charset_collate();
+
+  $sql = "
+    CREATE TABLE IF NOT EXISTS $table_name (
+      `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+      `user_login` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `user_pass` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `user_nicename` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `user_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `user_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+      `user_activation_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `user_status` int(11) NOT NULL DEFAULT 0,
+      `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+      `spam` tinyint(2) NOT NULL DEFAULT 0,
+      `deleted` tinyint(2) NOT NULL DEFAULT 0,
+      PRIMARY KEY (`ID`)
+    ) $charset_collate;";
+
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta( $sql );
+    add_option( 'sws_tweaks_db', $sws_tweaks_db);
+}
+
+function record_removed_user($row){
+  $query = "INSERT INTO sws_removed_users 
+    (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`,
+    `user_activation_key`, `user_status`, `display_name`, `spam`, `deleted`)";
+
+  require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+  dbDelta( $query );
+}
+
 function sws_ck_logged() {
 
 	global $wpdb;
@@ -78,7 +119,11 @@ function sws_ck_logged() {
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
-			if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0); 
+      if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0);
+        // Insert into removed_users
+        record_removed_user($row);
+
+
 				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
 			}
 		}
