@@ -93,7 +93,7 @@ function sws_removed_users_table() {
       PRIMARY KEY (`ID`)
     ) $charset_collate;";
 
-    //require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta( $sql );
     add_option( 'sws_tweaks_db', $sws_tweaks_db);
 }
@@ -103,7 +103,7 @@ function record_removed_user($row){
     (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`,
     `user_activation_key`, `user_status`, `display_name`, `spam`, `deleted`)";
 
-  //require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+  require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
   dbDelta( $query );
 }
 
