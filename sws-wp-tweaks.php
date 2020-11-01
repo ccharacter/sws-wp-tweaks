@@ -239,7 +239,7 @@ function sws_tweaks_cron_activation() {
 }
 
 // CLEAN UP CRON JOB IF DEACTIVATED
-register_deactivation_hook( __FILE__, 'sws_tweaks_cron_deactivation' );
+//register_deactivation_hook( __FILE__, 'sws_tweaks_cron_deactivation' );
 
 // SET UP CRON SCHEDULE
 add_filter( 'cron_schedules', 'sws_add_cron_interval' );
@@ -257,7 +257,8 @@ function sws_tweaks_cron_deactivation() {
 }
 
 
-function sws_tweaks_cron($optVals) { 
+function sws_tweaks_cron() { 
+	global $optVals;
 	error_log("RUNNING CRON JOB",0);
 	// OFF BY DEFAULT 
 	if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
