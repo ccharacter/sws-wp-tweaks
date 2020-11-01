@@ -108,7 +108,8 @@ function record_removed_user($row){
 }
 
 function sws_ck_logged() {
-
+	sws_removed_users_table();
+	
 	global $wpdb;
 	$tableName=$wpdb->prefix."simple_login_log"; //error_log($tableName,0);
 	$pref=$wpdb->prefix;
@@ -119,12 +120,12 @@ function sws_ck_logged() {
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
-      if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0);
-        // Insert into removed_users
-        record_removed_user($row);
+			if (!(user_can($thisID,'publish_posts'))) { error_log("DELETING: $thisID",0);
+			// Insert into removed_users
+			//record_removed_user($row);
 
 
-				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+				//	if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
 			}
 		}
 	} else { 
