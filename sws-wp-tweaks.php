@@ -17,8 +17,6 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require_once plugin_dir_path(__FILE__).'inc/classes.php';
-
 require_once plugin_dir_path(__FILE__).'inc/plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'https://raw.githubusercontent.com/ccharacter/sws-wp-tweaks/main/plugin.json',
