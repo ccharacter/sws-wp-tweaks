@@ -234,7 +234,7 @@ register_activation_hook( __FILE__, 'sws_tweaks_cron_activation' );
 function sws_tweaks_cron_activation() {
 	sws_tweaks_cron_deactivation();
     if ( ! wp_next_scheduled( 'sws_tweaks_cron' ) ) {
-        wp_schedule_event( time(), 'daily', 'sws_tweaks_cron' );
+        wp_schedule_event( time(), 'everyminute', 'sws_tweaks_cron' );
     }
 }
 
