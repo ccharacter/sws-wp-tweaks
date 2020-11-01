@@ -233,7 +233,7 @@ if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="
 register_activation_hook( __FILE__, 'sws_tweaks_cron_activation' );
 function sws_tweaks_cron_activation() {
     if ( ! wp_next_scheduled( 'sws_tweaks_cron' ) ) {
-        wp_schedule_event( strtotime('3am tomorrow'), 'daily', 'sws_tweaks_cron' );
+        wp_schedule_event( time(), 'daily', 'sws_tweaks_cron' );
     }
 }
 
@@ -241,14 +241,14 @@ function sws_tweaks_cron_activation() {
 register_deactivation_hook( __FILE__, 'sws_tweaks_cron_deactivation' );
 
 // SET UP CRON SCHEDULE
-/*add_filter( 'cron_schedules', 'wpshout_add_cron_interval' );
-function wpshout_add_cron_interval( $schedules ) {
+add_filter( 'cron_schedules', 'sws_add_cron_interval' );
+function sws_add_cron_interval( $schedules ) {
     $schedules['everyminute'] = array(
             'interval'  => 60, // time in seconds
             'display'   => 'Every Minute'
     );
     return $schedules;
-}*/
+}
 
 
 function sws_tweaks_cron_deactivation() {
@@ -256,7 +256,7 @@ function sws_tweaks_cron_deactivation() {
 }
 
 
-function sws_tweaks_cron() { 
+function sws_tweaks_cron($optVals) { 
 	error_log("RUNNING CRON JOB",0);
 	// OFF BY DEFAULT 
 	if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
