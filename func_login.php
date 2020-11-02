@@ -112,7 +112,7 @@ function record_removed_user($id){
 
 function sws_ck_logged() {
 	sws_removed_users_table();
-	
+	require_once(ABSPATH.'wp-admin/includes/user.php' );
 	global $wpdb;
 	$tableName=$wpdb->prefix."simple_login_log"; //error_log($tableName,0);
 	$pref=$wpdb->prefix;
