@@ -89,8 +89,7 @@ function sws_removed_users_table() {
       `user_status` int(11) NOT NULL DEFAULT 0,
       `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
       `spam` tinyint(2) NOT NULL DEFAULT 0,
-      `deleted` tinyint(2) NOT NULL DEFAULT 0,
-      PRIMARY KEY (`ID`)
+      `deleted` tinyint(2) NOT NULL DEFAULT 0
     ) $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -126,7 +125,11 @@ function sws_ck_logged() {
 			if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0);
 				// Insert into removed_users
 				record_removed_user($thisID);
-				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+				if (is_multisite()) { 
+					if (!(wpmu_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+				} else {
+					if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+				}
 			}
 		}
 	} else { 
