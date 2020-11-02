@@ -101,10 +101,9 @@ function sws_removed_users_table() {
 function record_removed_user($row){
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'sws_removed_users';
+	$id=$row['ID'];
 	error_log(print_r($row,true),0);
-  $query = "INSERT INTO $table_name 
-    (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`,
-    `user_activation_key`, `user_status`, `display_name`, `spam`, `deleted`) values ";
+	$query = "INSERT INTO $table_name select * from {$wpdb->prefix}.users where `ID`=$id";
 	error_log($query,0);
 
   require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
