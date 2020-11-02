@@ -106,8 +106,8 @@ function record_removed_user($id){
 	$query = "INSERT INTO $table_name select * from {$wpdb->prefix}users where `ID`=$id";
 	//error_log($query,0);
 
-  require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
-  //dbDelta( $query );
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta( $query );
 }
 
 function sws_ck_logged() {
