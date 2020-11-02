@@ -98,13 +98,13 @@ function sws_removed_users_table() {
     add_option( 'sws_tweaks_db', $sws_tweaks_db);
 }
 
-function record_removed_user($row){
+function record_removed_user($id){
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'sws_removed_users';
-	$id=$row['ID'];
-	error_log(print_r($row,true),0);
-	$query = "INSERT INTO $table_name select * from {$wpdb->prefix}.users where `ID`=$id";
-	error_log($query,0);
+	
+	//error_log(print_r($row,true),0);
+	$query = "INSERT INTO $table_name select * from {$wpdb->prefix}users where `ID`=$id";
+	//error_log($query,0);
 
   require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
   //dbDelta( $query );
@@ -123,12 +123,10 @@ function sws_ck_logged() {
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
-			if (!(user_can($thisID,'publish_posts'))) { error_log("DELETING: $thisID",0);
-			// Insert into removed_users
-			record_removed_user($row);
-
-
-				//	if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+			if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0);
+				// Insert into removed_users
+				record_removed_user($thisID);
+				if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
 			}
 		}
 	} else { 

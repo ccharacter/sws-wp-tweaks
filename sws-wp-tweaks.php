@@ -264,18 +264,18 @@ function sws_tweaks_cron_deactivation() {
 
 function sws_tweaks_cron_function() { 
 	global $optVals;
-	error_log("RUNNING CRON JOB",0);
+	//error_log("RUNNING CRON JOB",0);
 	// OFF BY DEFAULT 
 	if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
 		// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION
-		error_log("not logged in",0);
+		//error_log("not logged in",0);
 		sws_ck_logged();
 	}
 
 	// OFF BY DEFAULT 
 	if ((isset($optVals['email_banning'])) && ($optVals['email_banning']=="on")) {
 		// REMOVE ANY EXISTING BANNED 
-		error_log("old banned",0);
+		//error_log("old banned",0);
 		sws_tweaks_ck_old_banned();
 	}
 }
