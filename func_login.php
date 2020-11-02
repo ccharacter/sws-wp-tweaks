@@ -99,7 +99,10 @@ function sws_removed_users_table() {
 }
 
 function record_removed_user($row){
-  $query = "INSERT INTO sws_removed_users 
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'sws_removed_users';
+	
+  $query = "INSERT INTO $table_name 
     (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`,
     `user_activation_key`, `user_status`, `display_name`, `spam`, `deleted`)";
 
@@ -122,7 +125,7 @@ function sws_ck_logged() {
 			$thisID=$row['ID']; 
 			if (!(user_can($thisID,'publish_posts'))) { error_log("DELETING: $thisID",0);
 			// Insert into removed_users
-			//record_removed_user($row);
+			record_removed_user($row);
 
 
 				//	if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
