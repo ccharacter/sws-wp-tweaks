@@ -125,6 +125,7 @@ function sws_ck_logged() {
 			if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0);
 				// Insert into removed_users
 				record_removed_user($thisID);
+				// note that user-created content is NOT preserved, but that shouldn't be an issue, since this looks for users who have never logged in
 				if (is_multisite()) { 
 					if (!(wpmu_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
 				} else {
