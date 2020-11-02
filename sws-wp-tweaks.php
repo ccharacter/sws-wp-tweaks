@@ -5,7 +5,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           5.0
+ * Version:           5.1
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -239,7 +239,7 @@ register_activation_hook( __FILE__, 'sws_tweaks_cron_activation' );
 function sws_tweaks_cron_activation() {
 	sws_tweaks_cron_deactivation();
     if ( ! wp_next_scheduled( 'sws_tweaks_cron' ) ) {
-        wp_schedule_event( time(), 'everyminute', 'sws_tweaks_cron' );
+        wp_schedule_event( time(), 'daily', 'sws_tweaks_cron' );
     }
 }
 

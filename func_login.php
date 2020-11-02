@@ -78,7 +78,7 @@ function sws_removed_users_table() {
 
   $sql = "
     CREATE TABLE IF NOT EXISTS $table_name (
-      `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+      `ID` bigint(20) unsigned NOT NULL,
       `user_login` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
       `user_pass` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
       `user_nicename` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
