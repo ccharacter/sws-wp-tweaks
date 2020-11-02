@@ -230,6 +230,11 @@ if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="
 }
 
 // SET UP CRON JOBS
+add_action('wp','sws_tweaks_cron_activation');
+
+//hook that function onto our scheduled event:
+add_action ('sws_tweaks_cron','sws_tweaks_cron_function');
+
 register_activation_hook( __FILE__, 'sws_tweaks_cron_activation' );
 function sws_tweaks_cron_activation() {
 	sws_tweaks_cron_deactivation();
@@ -257,7 +262,7 @@ function sws_tweaks_cron_deactivation() {
 }
 
 
-function sws_tweaks_cron() { 
+function sws_tweaks_cron_function() { 
 	global $optVals;
 	error_log("RUNNING CRON JOB",0);
 	// OFF BY DEFAULT 
