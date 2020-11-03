@@ -116,7 +116,7 @@ function sws_ck_logged() {
 	$pref=$wpdb->prefix;
 	$today=date("Y-m-d", strtotime("-60 days"));
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
-		$query="SELECT * FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName) and `user_registered`<'$today'"; //error_log($query,0);
+		$query="SELECT ID, user_login, user_pass, user_nicename, user_email, user_url, user_registered, user_activation_key, user_status, display_name FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName) and `user_registered`<'$today'"; //error_log($query,0);
 		$delArr=$wpdb->get_results($query, ARRAY_A);
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
