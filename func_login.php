@@ -87,9 +87,7 @@ function sws_removed_users_table() {
       `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
       `user_activation_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
       `user_status` int(11) NOT NULL DEFAULT 0,
-      `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-      `spam` tinyint(2) NOT NULL DEFAULT 0,
-      `deleted` tinyint(2) NOT NULL DEFAULT 0
+      `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
     ) $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -97,16 +95,17 @@ function sws_removed_users_table() {
     add_option( 'sws_tweaks_db', $sws_tweaks_db);
 }
 
-function record_removed_user($id){
+function record_removed_user($arr){
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'sws_removed_users';
 	
+	$test = $wpdb->insert($table_name,$arr);
 	//error_log(print_r($row,true),0);
-	$query = "INSERT INTO $table_name select * from {$wpdb->prefix}users where `ID`=$id";
+	//$query = "INSERT INTO $table_name select * from {$wpdb->prefix}users where `ID`=$id";
 	//error_log($query,0);
 
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
-	dbDelta( $query );
+	// require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+	if ($test) { error_log("SUCCESS!",0); return true;  } else { error_log("FAIL!",0); return false; }
 }
 
 function sws_ck_logged() {
@@ -117,19 +116,20 @@ function sws_ck_logged() {
 	$pref=$wpdb->prefix;
 	$today=date("Y-m-d", strtotime("-60 days"));
 	if($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
-		$query="SELECT `ID`,`user_registered` FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName) and `user_registered`<'$today'"; //error_log($query,0);
+		$query="SELECT * FROM {$wpdb->prefix}users where `ID` not in (select uid from $tableName) and `user_registered`<'$today'"; //error_log($query,0);
 		$delArr=$wpdb->get_results($query, ARRAY_A);
 		//error_log(print_r($delArr,true),0);
 		foreach ($delArr as $row) { 
 			$thisID=$row['ID']; 
 			if (!(user_can($thisID,'publish_posts'))) { //error_log("DELETING: $thisID",0);
 				// Insert into removed_users
-				record_removed_user($thisID);
-				// note that user-created content is NOT preserved, but that shouldn't be an issue, since this looks for users who have never logged in
-				if (is_multisite()) { 
-					if (!(wpmu_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
-				} else {
-					if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+				if (record_removed_user($row)) { // only delete if the record succeeded
+					// note that user-created content is NOT preserved, but that shouldn't be an issue, since this looks for users who have never logged in
+					if (is_multisite()) { 
+						if (!(wpmu_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+					} else {
+						if (!(wp_delete_user($thisID))) { error_log("Could not delete: $thisID",0); }
+					}
 				}
 			}
 		}
