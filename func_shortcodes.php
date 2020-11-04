@@ -10,6 +10,7 @@ function sws_display_childpages_func($atts) {
     $atts = shortcode_atts( array(
         'parent' => 'our-ministry',
 		'list_class' => 'sws-childpages',
+		'depth' => 1,
 		'show' => 'children',
     ), $atts, 'childpages' );
 
@@ -19,9 +20,10 @@ function sws_display_childpages_func($atts) {
         if ( $parent ) {
             $parent_id = $parent->ID;
         }
-    } else { // if no parent passed, then show children of current page
-        $parent_id = get_the_ID();
-    }
+    } else { // if no parent passed, then show siblings of current page
+        //$parent_id = get_the_ID();
+		$parent_id=wp_get_post_parent_id();
+	}
 
     $result = '';
     if ( ! $parent_id ) {  // don't waste time getting pages, if we couldn't get parent page
@@ -29,9 +31,10 @@ function sws_display_childpages_func($atts) {
     }
 
     $childpages = wp_list_pages( array(
-        'sort_column' => 'menu_order',
+        'sort_column' => 'post_title',
         'title_li' => '',
         'child_of' => $parent_id,
+		'depth' => $a['depth'],
         'echo' => 0
     ) );
 
