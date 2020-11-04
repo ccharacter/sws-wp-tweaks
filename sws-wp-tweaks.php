@@ -30,6 +30,7 @@ require_once plugin_dir_path(__FILE__).'func_spreadsheet.php';
 require_once plugin_dir_path(__FILE__).'func_login.php';
 require_once plugin_dir_path(__FILE__).'func_post_counter.php';
 require_once plugin_dir_path(__FILE__).'func_cron.php';
+require_once plugin_dir_path(__FILE__).'func_shortcodes.php';
 
 // add stylesheets
 function sws_wp_tweaks_enqueue_script() {   
