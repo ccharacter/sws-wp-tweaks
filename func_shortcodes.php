@@ -18,9 +18,9 @@ add_shortcode('sws_override_sidebar', 'sws_override_sidebar_func');
 
 // SHORTCODE FOR Displaying CHILD/SIBLING PAGES
 function sws_display_childpages_func($atts) {
-
+	global $post;
     $atts = shortcode_atts( array(
-        'parent' => 'our-ministry',
+        'parent' => '',
 		'list_class' => 'sws-childpages',
 		'sub_class' => 'sws-childpages-sub',
 		'depth' => 1,
@@ -30,7 +30,7 @@ function sws_display_childpages_func($atts) {
     ), $atts, 'childpages' );
 
     $parent_id = false;
-    if ( $atts['parent'] ) {
+    if ( !$atts['parent']="" ) {
         $parent = get_page_by_path( $atts['parent'] ); 
         if ( $parent ) {
             $parent_id = $parent->ID;
@@ -55,6 +55,7 @@ function sws_display_childpages_func($atts) {
     $childpages = wp_list_pages( array(
         'sort_column' => 'post_title',
         'title_li' => '',
+		'exclude' => $post->ID,
         'child_of' => $parent_id,
 		'depth' => $atts['depth'],
         'echo' => 0
