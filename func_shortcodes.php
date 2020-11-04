@@ -1,17 +1,29 @@
 <?php
 
 
+function sws_override_sidebar_func() {
+	global $post;
+	global $active_sidebar;
+	global $entry_hide_sidebar;
+	global $theme_hide_sidebar;
+	
+	echo $active_sidebar."|".$entry_hide_sidebar."|".$theme_hide_sidebar;
+	
+	
+}
+// register shortcode
+add_shortcode('sws_override_sidebar', 'sws_override_sidebar_func'); 
 
 
 
-// SHORTCODE FOR Displaying CATEGORIES
+// SHORTCODE FOR Displaying CHILD/SIBLING PAGES
 function sws_display_childpages_func($atts) {
 
     $atts = shortcode_atts( array(
         'parent' => 'our-ministry',
 		'list_class' => 'sws-childpages',
 		'depth' => 1,
-		'show' => 'children',
+		'show' => 'siblings',
     ), $atts, 'childpages' );
 
     $parent_id = false;
@@ -21,8 +33,11 @@ function sws_display_childpages_func($atts) {
             $parent_id = $parent->ID;
         }
     } else { // if no parent passed, then show siblings of current page
-        //$parent_id = get_the_ID();
-		$parent_id=wp_get_post_parent_id();
+        if ($atts['show']=="siblings") {
+			$parent_id=wp_get_post_parent_id();	
+		} else { 
+			$parent_id = get_the_ID();
+		}
 	}
 
     $result = '';
