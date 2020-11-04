@@ -49,7 +49,7 @@ function sws_display_childpages_func($atts) {
     $childpages = wp_list_pages( array(
         'sort_column' => 'post_title',
         'title_li' => '',
-		'exclude' => $post->ID,
+		//'exclude' => $post->ID,
         'child_of' => $parent_id,
 		'depth' => $atts['depth'],
         'echo' => 0
