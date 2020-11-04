@@ -30,7 +30,7 @@ function sws_display_childpages_func($atts) {
     ), $atts, 'childpages' );
 
     if ( $atts['parent']==0 ) {
-        $parent_id = wp_get_post_parent_id(); 
+        $parent_id = wp_get_post_parent_id($post); 
 	} else {
 		$parent_id=$atts['parent_id'];
     }
