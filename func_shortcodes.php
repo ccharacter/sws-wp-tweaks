@@ -22,6 +22,7 @@ function sws_display_childpages_func($atts) {
     $atts = shortcode_atts( array(
         'parent' => 'our-ministry',
 		'list_class' => 'sws-childpages',
+		'sub_class' => 'sws-childpages-sub',
 		'depth' => 1,
 		'show' => 'siblings',
     ), $atts, 'childpages' );
@@ -56,6 +57,7 @@ function sws_display_childpages_func($atts) {
     if ( $childpages ) {
         $result = '<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
+	$result=str_replace("class=\"children\"","class='".$a['sub_class']."'",$result);
 
     return $result;
 
