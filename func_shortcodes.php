@@ -34,12 +34,12 @@ function sws_display_childpages_func($atts) {
         'sort_column' => 'post_title',
         'title_li' => '',
         'child_of' => $parent_id,
-		'depth' => $a['depth'],
+		'depth' => $atts['depth'],
         'echo' => 0
     ) );
 
     if ( $childpages ) {
-        $result = '<ul>' . $childpages . '</ul>';
+        $result = '<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
 
     return $result;
