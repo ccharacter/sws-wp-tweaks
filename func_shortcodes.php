@@ -8,7 +8,7 @@
 function sws_display_childpages_func($atts) {
 
     $atts = shortcode_atts( array(
-        'parent' => true,
+        'parent' => 'our-ministry',
 		'list_class' => 'sws-childpages',
 		'show' => 'children',
     ), $atts, 'childpages' );
