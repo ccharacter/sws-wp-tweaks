@@ -20,7 +20,7 @@ add_shortcode('sws_override_sidebar', 'sws_override_sidebar_func');
 function sws_display_childpages_func($atts) {
 	global $post;
     $atts = shortcode_atts( array(
-        'parent' => '',
+        'parent_id' => 0,
 		'list_class' => 'sws-childpages',
 		'sub_class' => 'sws-childpages-sub',
 		'depth' => 1,
@@ -29,23 +29,17 @@ function sws_display_childpages_func($atts) {
 		'title_class'=> 'c-block__heading-title u-theme--color--darker',
     ), $atts, 'childpages' );
 
-    $parent_id = false;
-    if ( !$atts['parent']="" ) {
-        $parent = get_page_by_path( $atts['parent'] ); 
-        if ( $parent ) {
-            $parent_id = $parent->ID;
-        }
-    } else { // if no parent passed, then show siblings of current page
-        if ($atts['show']=="siblings") {
-			$parent_id=wp_get_post_parent_id();	
-		} else { 
-			$parent_id = get_the_ID();
-		}
-	}
-	$result = '';
-    if ( ! $parent_id ) {  // don't waste time getting pages, if we couldn't get parent page
-         return $result;
+    if ( $atts['parent']==0 ) {
+        $parent_id = wp_get_post_parent_id(); 
+	} else {
+		$parent_id=$atts['parent_id'];
     }
+	
+    if (!$atts['show']=="siblings") {
+		$parent_id = get_the_ID();
+	}
+	
+	$result = '';
 
 	if (!$atts['title']=="") {
 		if ($atts['title']=="PARENT") { $myTitle=get_the_title($parent_id); } else { $myTitle=$atts['title']; }
