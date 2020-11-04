@@ -25,6 +25,8 @@ function sws_display_childpages_func($atts) {
 		'sub_class' => 'sws-childpages-sub',
 		'depth' => 1,
 		'show' => 'siblings',
+		'title' => 'PARENT',
+		'title_class'=> 'c-block__heading-title u-theme--color--darker',
     ), $atts, 'childpages' );
 
     $parent_id = false;
@@ -40,8 +42,11 @@ function sws_display_childpages_func($atts) {
 			$parent_id = get_the_ID();
 		}
 	}
-
-    $result = '';
+	if ($atts['title']=="") {     $result = ''; }
+	else { 
+		if ($atts['title']=="PARENT") { $myTitle=get_the_title($parent_id); } else { $myTitle=$atts['title']; }
+		$result="<h3 class=\"".$atts['title_class']."\">$myTitle</h3>"; 
+	}
     if ( ! $parent_id ) {  // don't waste time getting pages, if we couldn't get parent page
          return $result;
     }
