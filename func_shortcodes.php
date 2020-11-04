@@ -42,15 +42,16 @@ function sws_display_childpages_func($atts) {
 			$parent_id = get_the_ID();
 		}
 	}
-	if ($atts['title']=="") {     $result = ''; }
-	else { 
-		if ($atts['title']=="PARENT") { $myTitle=get_the_title($parent_id); } else { $myTitle=$atts['title']; }
-		$result="<h3 class=\"".$atts['title_class']."\">$myTitle</h3>"; 
-	}
+	$result = '';
     if ( ! $parent_id ) {  // don't waste time getting pages, if we couldn't get parent page
          return $result;
     }
 
+	if (!$atts['title']=="") {
+		if ($atts['title']=="PARENT") { $myTitle=get_the_title($parent_id); } else { $myTitle=$atts['title']; }
+		$result="<h3 class=\"".$atts['title_class']."\">$myTitle</h3>"; 
+	}
+	
     $childpages = wp_list_pages( array(
         'sort_column' => 'post_title',
         'title_li' => '',
@@ -60,7 +61,7 @@ function sws_display_childpages_func($atts) {
     ) );
 
     if ( $childpages ) {
-        $result = '<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
+        $result .= '<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
 	$result=str_replace("class=\"children\"","class='".$a['sub_class']."'",$result);
 
