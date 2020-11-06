@@ -61,7 +61,7 @@ function sws_display_childpages_func($atts) {
 
     if ( $childpages ) {
         $result .= '<style>.current_page_item a { font-weight: bold; text-decoration: none !important; }
-		.'.$atts['sub_class'].' > li::before { font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f0da"; }
+		.'.$atts['sub_class'].' > li::before { font-family: "Font Awesome 5 Free"; font-size: 120%; font-weight: 900; content: "\f0da"; padding-right: 1rem; }
 		</style>
 		<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
