@@ -30,7 +30,7 @@ function sws_display_childpages_func($atts) {
 		'title_class'=> 'c-block__heading-title u-theme--color--darker',
     ), $atts, 'childpages' );
 
-    if ( $atts['parent']==0 ) {
+    if ( $atts['parent_id']==0 ) {
         $parent_id = wp_get_post_parent_id($post); 
 	} else {
 		$parent_id=$atts['parent_id'];
@@ -59,7 +59,7 @@ function sws_display_childpages_func($atts) {
     if ( $childpages ) {
         $result .= '<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
-	$result=str_replace("class=\"children\"","class='".$a['sub_class']."'",$result);
+	$result=str_replace("class=\"children\"","class='".$atts['sub_class']."'",$result);
 
     return $result;
 
