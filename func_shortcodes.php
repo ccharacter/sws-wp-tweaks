@@ -60,10 +60,12 @@ function sws_display_childpages_func($atts) {
     ) );
 
     if ( $childpages ) {
-        $result .= '<style>.current_page_item a { font-weight: bold; text-decoration: none !important; }</style>
+        $result .= '<style>.current_page_item a { font-weight: bold; text-decoration: none !important; }
+		.'.$atts['sub_class'].' > li::before { font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f0da"; }
+		</style>
 		<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
-	$result=str_replace("class=\"children\"","class='".$atts['sub_class']."'",$result);
+	$result=str_replace('class="children"','class="'.$atts['sub_class'].'"',$result);
 
     return $result;
 
