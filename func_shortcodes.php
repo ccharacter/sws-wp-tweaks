@@ -67,7 +67,7 @@ function sws_display_childpages_func($atts) {
     }
 	
 	$myClass='class="'.$atts['sub_class'].'"';
-	$result=str_replace('class="children"',$myClass,$result);
+	$result=str_replace("class='children'",$myClass,$result);
 	
     return $result;
 
