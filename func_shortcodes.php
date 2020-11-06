@@ -65,8 +65,10 @@ function sws_display_childpages_func($atts) {
 		</style>
 		<ul class="'.$atts['list_class'].'">' . $childpages . '</ul>';
     }
-	$result=str_replace('class="children"','class="'.$atts['sub_class'].'"',$result);
-
+	
+	$myClass='class="'.$atts['sub_class'].'"';
+	$result=str_replace('class="children"',$myClass,$result);
+	
     return $result;
 
 }
