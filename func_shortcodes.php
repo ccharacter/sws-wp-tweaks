@@ -34,7 +34,7 @@ function sws_display_childpages_func($atts) {
 
     if ( $atts['parent_id']==0 ) {
         $parent_id = wp_get_post_parent_id($post); 
-		if (($parent_id==0) || (!$parent_id)) { $show="children"; } else { $show="siblings"; }
+		if (($parent_id==0) || (!$parent_id)) { $parent_id = get_the_ID(); }
 	} else {
 		$parent_id=$atts['parent_id'];
     }
