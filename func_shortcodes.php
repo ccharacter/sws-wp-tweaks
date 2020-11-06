@@ -25,6 +25,7 @@ function sws_display_childpages_func($atts) {
 		'sub_class' => 'sws-childpages-sub',
 		'depth' => 1,
 		'show' => 'siblings',
+		'exclude' => "",
 		'title' => 'PARENT',
 		'title_class'=> 'c-block__heading-title u-theme--color--darker',
     ), $atts, 'childpages' );
@@ -49,7 +50,7 @@ function sws_display_childpages_func($atts) {
     $childpages = wp_list_pages( array(
         'sort_column' => 'post_title',
         'title_li' => '',
-		//'exclude' => $post->ID,
+		'exclude' => $atts['exclude'],
         'child_of' => $parent_id,
 		'depth' => $atts['depth'],
         'echo' => 0
