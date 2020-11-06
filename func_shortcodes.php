@@ -30,13 +30,16 @@ function sws_display_childpages_func($atts) {
 		'title_class'=> 'c-block__heading-title u-theme--color--darker',
     ), $atts, 'childpages' );
 
+	$show=$atts['show'];
+
     if ( $atts['parent_id']==0 ) {
         $parent_id = wp_get_post_parent_id($post); 
+		if (($parent_id==0) || (!$parent_id)) { $show="children"; } else { $show="siblings"; }
 	} else {
 		$parent_id=$atts['parent_id'];
     }
 	
-    if (!$atts['show']=="siblings") {
+    if (!$show=="siblings") {
 		$parent_id = get_the_ID();
 	}
 	
