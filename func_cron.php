@@ -36,7 +36,7 @@ function sws_tweaks_cron_deactivation() {
 
 function sws_tweaks_cron_daily_function() { 
 	global $optVals;
-	error_log("RUNNING CRON JOB",0);
+	//error_log("RUNNING CRON JOB",0);
 	// OFF BY DEFAULT 
 	if ((isset($optVals['delete_never_logged_in'])) && ($optVals['delete_never_logged_in']=="on")) {
 		// REMOVE USERS WHO HAVE NOT LOGGED IN WITHIN 60 DAYS OF REGISTRATION

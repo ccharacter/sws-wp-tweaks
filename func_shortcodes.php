@@ -1,21 +1,6 @@
 <?php
 
 
-function sws_override_sidebar_func() {
-	global $post;
-	global $active_sidebar;
-	global $entry_hide_sidebar;
-	global $theme_hide_sidebar;
-	
-	echo $active_sidebar."|".$entry_hide_sidebar."|".$theme_hide_sidebar;
-	
-	
-}
-// register shortcode
-add_shortcode('sws_override_sidebar', 'sws_override_sidebar_func'); 
-
-
-
 // SHORTCODE FOR Displaying CHILD/SIBLING PAGES
 function sws_display_childpages_func($atts) {
 	global $post;
