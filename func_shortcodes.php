@@ -22,7 +22,7 @@ function sws_list_by_cat_func($atts)   {
 
     switch($a['format']) {
 		case("list"):
-			$content.="<li><a href='.$link.' target="_top">'.$title.' ('.$date. ')</a></li>";
+			$content.="<li><a href='".$link."' target=\"_top\">".$title." (".$date. ")</a></li>";
 			break;
 		default:
 		$content .= '<div class="sws-list-posts">';
