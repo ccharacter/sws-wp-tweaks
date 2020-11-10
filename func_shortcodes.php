@@ -34,7 +34,7 @@ function sws_list_by_cat_func($atts)   {
 		
 	endwhile;
 
-	if ($a['format']=="list") { $content="<ul>".$content."</ul>";
+	if ($a['format']=="list") { $content="<ul>".$content."</ul>"; }
 
 	return $content;
 }
