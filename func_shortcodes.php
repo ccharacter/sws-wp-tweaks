@@ -52,6 +52,7 @@ function sws_display_childpages_func($atts) {
 		'show' => 'siblings',
 		'exclude' => "",
 		'title' => 'PARENT',
+		'title_link'=>'',
 		'title_class'=> 'c-block__heading-title u-theme--color--darker',
     ), $atts, 'childpages' );
 
@@ -72,7 +73,10 @@ function sws_display_childpages_func($atts) {
 
 	if (!$atts['title']=="") {
 		if ($atts['title']=="PARENT") { $myTitle=get_the_title($parent_id); } else { $myTitle=$atts['title']; }
-		$result="<h3 class=\"".$atts['title_class']."\">$myTitle</h3>"; 
+		$result="<h3 class=\"".$atts['title_class']."\"><a href='".get_permalink($parent_id)."'>$myTitle</a></h3>"; 
+	} else { 
+		$myTitle=$atts['title'];
+		$result="<h3 class=\"".$atts['title_class']."\"><a href='".$atts['title_link']."'>$myTitle</a></h3>"; 
 	}
 	
     $childpages = wp_list_pages( array(
