@@ -1,5 +1,40 @@
 <?php
 
+function sws_list_by_cat_func($atts)   {
+	
+	$a=shortcode_atts(array(
+	  'num_posts' => -1,
+	  'category' => "uncategorized",
+	  'post_type' => 'post',
+	  'format' => 'list',
+	  ), $atts);
+	
+    $args = array( 'posts_per_page' => $a['num_posts'], 'category_name' => $a['category']);                  
+    $myQuery = new WP_Query( $args );
+    while($myQuery->have_posts()) : 
+        $myQuery->the_post();
+        $link = get_permalink();
+        $title = get_the_title();
+        $date = get_the_date();                              
+	
+	$content="";
+
+    switch($a['format']) {
+	
+	default:
+		$content .= '<div class="sws-list-posts">';
+        $content .= '<h3><a href='.$link.' target="_top">'.$title.' / '.$date. '</a></h3>';
+        $content .= '<p class="excerpt">' .get_the_excerpt(). '</p>';
+        $content .= '</div>';
+		break;
+	}
+	
+	endwhile;
+
+	return $content;
+}
+
+add_shortcode('sws_list_by_cat', 'sws_list_by_cat_func' );
 
 // SHORTCODE FOR Displaying CHILD/SIBLING PAGES
 function sws_display_childpages_func($atts) {
