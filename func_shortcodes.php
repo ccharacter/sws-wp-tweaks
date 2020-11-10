@@ -31,8 +31,10 @@ function sws_list_by_cat_func($atts)   {
         $content .= '</div>';
 			break;
 	}
-	
+		
 	endwhile;
+
+	if ($a['format']=="list") { $content="<ul>".$content."</ul>";
 
 	return $content;
 }
