@@ -11,23 +11,27 @@ function sws_list_by_cat_func($atts)   {
 	
     $args = array( 'posts_per_page' => $a['num_posts'], 'category_name' => $a['category']);                  
     $myQuery = new WP_Query( $args );
+	$content="<ul>";
+
     while($myQuery->have_posts()) : 
         $myQuery->the_post();
         $link = get_permalink();
         $title = get_the_title();
         $date = get_the_date();                              
 	
-	$content="";
 
     switch($a['format']) {
-	
-	default:
+		case("list"):
+			$content.="<li><a href='.$link.' target="_top">'.$title.' ('.$date. ')</a></li>";
+			break;
+		default:
 		$content .= '<div class="sws-list-posts">';
         $content .= '<h3><a href='.$link.' target="_top">'.$title.' / '.$date. '</a></h3>';
         $content .= '<p class="excerpt">' .get_the_excerpt(). '</p>';
         $content .= '</div>';
-		break;
+			break;
 	}
+	if ($a['format']=="list") { $content.="</ul>"; }
 	
 	endwhile;
 
