@@ -11,7 +11,7 @@ function sws_list_by_cat_func($atts)   {
 	
     $args = array( 'posts_per_page' => $a['num_posts'], 'category_name' => $a['category']);                  
     $myQuery = new WP_Query( $args );
-	$content="<ul>";
+	$content="";
 
     while($myQuery->have_posts()) : 
         $myQuery->the_post();
@@ -31,7 +31,6 @@ function sws_list_by_cat_func($atts)   {
         $content .= '</div>';
 			break;
 	}
-	if ($a['format']=="list") { $content.="</ul>"; }
 	
 	endwhile;
 
