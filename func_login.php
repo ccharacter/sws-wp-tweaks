@@ -5,6 +5,7 @@
 // LOGIN FUNCTIONS
 // OFF BY DEFAULT
 if ((isset($optVals['login_logo'])) && (strlen($optVals['login_logo'])>0))  {
+	
 	function sws_tweaks_login_logo() { 
 		$optVals = get_option( 'sws_wp_tweaks_options' );
 		$logo_url=$optVals['login_logo'];
