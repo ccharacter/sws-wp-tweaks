@@ -5,7 +5,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           5.4
+ * Version:           5.5
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -359,6 +359,20 @@ if ('#<?php echo $itemID; ?>').length()) {
 
 // register shortcode
 add_shortcode('sws_accordion', 'sws_accordion_func'); 
+
+// FIX SVG CROPPING ERROR
+add_action( 'after_setup_theme', 'sws_bodhi_svg_theme_support', 11 );
+function sws_bodhi_svg_theme_support() {
+
+	remove_theme_support( 'custom-logo' );
+
+	add_theme_support( 'custom-logo', array(
+		'flex-width'  => true,
+		'flex-height' => true,
+	) );
+
+}
+
 
 
 ?>
