@@ -381,6 +381,7 @@ function sws_wp_tweaks_options_page_html()
 		position: absolute;
 		right:10%;
 		margin-top:-200px;
+		background-repeat: no-repeat;
 	 }
 	 </style>
 	 <div class="wrap">
