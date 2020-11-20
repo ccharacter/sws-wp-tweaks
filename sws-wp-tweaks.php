@@ -69,9 +69,12 @@ if ((!(isset($optVals['screen_urls']))) || ($optVals['screen_urls']=="on")) {
 		if (is_string($reqURI)) {
 			$banArr=sws_tweaks_csvToArray($terms,',',"N");
 			foreach ($banArr as $term) { 
-				if (false !== strpos($reqURI, $term))  {
-					wp_redirect( home_url()."/bad-url" );
-					die;
+				$term=strval($term);
+					if (strlen($term)>0) {
+					if (!(strpos($reqURI, $term)===false))  {
+						wp_redirect( home_url()."/bad-url" );
+						die;
+					}
 				}
 			} 
 		} // has $reqURI
