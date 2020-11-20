@@ -59,8 +59,8 @@ memory_limit = 1500M
 // ADD FEATURE TO REDIRECT LIST OF THINGS LIKE /wp-content/, /blogs/, /portal/, etc.
 // ADD JAVASCRIPT STUFF FROM VERSACARE
 
-// ON BY DEFAULT
-if ((!(isset($optVals['screen_urls']))) || ($optVals['screen_urls']=="on")) {
+// OFF BY DEFAULT - DISABLED UNTIL I CAN TROUBLESHOOT THIS FUNC
+/*if (($optVals['screen_urls']=="on")) {
 	function sws_tweaks_screen_url() {
 		$terms="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3Yr5nkluQS8q87oUMx9-8jHgfli67zJvU4TUgfuWDAPZSxPpK8N7tPOLIKde8S3-5fBntmTivxnO_/pub?output=csv";
 		
@@ -80,7 +80,7 @@ if ((!(isset($optVals['screen_urls']))) || ($optVals['screen_urls']=="on")) {
 		} // has $reqURI
 	 }
 	 add_action( 'template_redirect', 'sws_tweaks_screen_url' );
-}
+}*/
 
 // ON BY DEFAULT
 if ((!(isset($optVals['hide_author']))) || ($optVals['hide_author']=="on")) {
