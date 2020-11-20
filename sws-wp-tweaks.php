@@ -65,7 +65,7 @@ if ((!(isset($optVals['screen_urls']))) || ($optVals['screen_urls']=="on")) {
 		$terms="https://docs.google.com/spreadsheets/d/e/2PACX-1vR3Yr5nkluQS8q87oUMx9-8jHgfli67zJvU4TUgfuWDAPZSxPpK8N7tPOLIKde8S3-5fBntmTivxnO_/pub?output=csv";
 		
 		$reqURI=$_SERVER['REQUEST_URI'];
-		error_log($reqURI,0);
+		//error_log($reqURI,0);
 		if (is_string($reqURI)) {
 			$banArr=sws_tweaks_csvToArray($terms,',',"N");
 			foreach ($banArr as $term) { 
