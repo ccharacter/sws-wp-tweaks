@@ -39,6 +39,9 @@ function sws_tweaks_options_init() {
         // If not, we'll save our default options
 		add_option( 'sws_wp_tweaks_options', $my_defaults );
     }
+
+    $my_options = get_option( 'sws_wp_tweaks_options' );
+
 }
  
 // Initialize Theme options
