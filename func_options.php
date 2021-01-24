@@ -31,14 +31,14 @@ function sws_tweaks_options_init() {
 		$new_options=$my_options;
 		// is set, check against existing
 		foreach ($my_defaults as $key=>$value) {
-			if (!(isset($new_options[$key]))) { $new_options[$key]=$value; error_log($key." | ".$value,0); }
+			if (!(isset($new_options[$key]))) { $new_options[$key]=$value; }
 		}
 		
 		update_option('sws_wp_tweaks_options', $new_options );
 		
 	}
     $my_options = get_option( 'sws_wp_tweaks_options' );
-    error_log(print_r($my_options,true),0);
+    
 }
  
 // Initialize Theme options

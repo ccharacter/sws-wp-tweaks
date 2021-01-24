@@ -1,7 +1,7 @@
 {
 	"name": "SWS WordPress Tweaks",
-	"version": "5.9",
-	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v5.9.zip",
+	"version": "6.0",
+	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v6.0.zip",
 
 	"homepage": "https://ccharacter.com/custom-plugins/sws-wp-tweaks/",
 	"requires": "4.0",
