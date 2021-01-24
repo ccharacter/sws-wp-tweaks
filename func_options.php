@@ -27,7 +27,7 @@ function sws_tweaks_options_init() {
 
     $my_defaults = sws_tweaks_get_default_options();
     foreach ($my_defaults as $key=>value) {
-		if (!(isset($my_options[$key]))) { $my_options[$key]=$value; }
+		//if (!(isset($my_options[$key]))) { $my_options[$key]=$value; }
 	}
 	error_log("UPDATED:",0);
 	error_log(print_r($my_options,true),0);
