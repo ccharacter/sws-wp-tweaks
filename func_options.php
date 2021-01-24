@@ -31,7 +31,7 @@ function sws_tweaks_options_init() {
 
 		// is set, check against existing
 		foreach ($my_defaults as $key=>$value) {
-			if (!(isset($my_options[$key]))) { $my_options[$key]=$value; }
+			if (!(isset($my_options[$key]))) { $my_options[$key]=$value; error_log($key." | ".$value,0); }
 		}
 		add_option( 'sws_wp_tweaks_options', $my_options );
 		
