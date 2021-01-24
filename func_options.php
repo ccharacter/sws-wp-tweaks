@@ -78,7 +78,7 @@ function sws_wp_tweaks_register_settings() {
 
 	 // register a new field 
 	 add_settings_field(
-	 'show_server_name', 
+	 'maintenance_mode', 
 	 __( 'Put site in MAINTENANCE MODE', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_field_main_cb',
 	 'sws_wp_tweaks',
