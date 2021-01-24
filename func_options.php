@@ -22,13 +22,14 @@ function sws_tweaks_get_default_options() {
 
 function sws_tweaks_options_init() {
     $my_options = get_option( 'sws_wp_tweaks_options' );
+	error_log(print_r($my_options,true),0);
+        
  
     // Are our options saved in the DB?
     if ( false === $my_options ) {
         // If not, we'll save our default options
         $my_options = sws_tweaks_get_default_options();
-		error_log(print_r($my_options,true),0);
-        add_option( 'sws_wp_tweaks_options', $my_options );
+		add_option( 'sws_wp_tweaks_options', $my_options );
     }
 }
  
