@@ -28,15 +28,17 @@ function sws_tweaks_options_init() {
         // If not, we'll save our default options
 		add_option( 'sws_wp_tweaks_options', $my_defaults );
     } else {
-
+		$new_options=$my_options;
 		// is set, check against existing
 		foreach ($my_defaults as $key=>$value) {
-			if (!(isset($my_options[$key]))) { $my_options[$key]=$value; error_log($key." | ".$value,0); }
+			if (!(isset($new_options[$key]))) { $new_options[$key]=$value; error_log($key." | ".$value,0); }
 		}
-		update_option('sws_wp_tweaks_options', $my_options );
- 	
+		
+		update_option('sws_wp_tweaks_options', $new_options );
+		
 	}
-    
+    $my_options = get_option( 'sws_wp_tweaks_options' );
+    error_log(print_r($my_options,true),0);
 }
  
 // Initialize Theme options
