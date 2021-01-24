@@ -5,7 +5,7 @@
  * Plugin Name:       SWS WordPress Tweaks
  * Plugin URI:        https://ccharacter.com/custom-plugins/sws-wp-tweaks/
  * Description:       Various tweaks that I'll want on most or all of my WordPress sites
- * Version:           5.7
+ * Version:           5.8
  * Requires at least: 5.2
  * Requires PHP:      5.5
  * Author:            Sharon Stromberg
@@ -241,6 +241,15 @@ if ((!(isset($optVals['show_server_name']))) || ($optVals['show_server_name']=="
 	$shortcode->init();
 }
 
+// OFF BY DEFAULT 
+if ((isset($optVals['maintenance_mode'])) && ($optVals['maintenance_mode']=="on")) {
+	function sws_maintenance_mode() {
+		if (!current_user_can('edit_themes') || !is_user_logged_in()) {
+			wp_die('<h1>NOT AVAILABLE</h1><br />This site is not presently available. Check with an administrator.');
+		}
+	}
+	add_action('get_header', 'sws_maintenance_mode');
+}
 
 function sws_test_input($value) {
 	//error_log($value,0);

@@ -3,6 +3,7 @@
 function sws_tweaks_get_default_options() {
     $options = array(
         'show_server_name' => 'off',
+		'maintenance_mode' => 'off',
 		'fix_its_fontpath' => 'off',
 		'fix_pw_reset_msg' => 'on',
 		'disable_newUser_notice' => 'on',
@@ -73,6 +74,20 @@ function sws_wp_tweaks_register_settings() {
 	 __( 'Customize your options:', 'sws_wp_tweaks' ),
 	 'sws_wp_tweaks_section_developers_cb',
 	 'sws_wp_tweaks'
+	 );
+
+	 // register a new field 
+	 add_settings_field(
+	 'show_server_name', 
+	 __( 'Put site in MAINTENANCE MODE', 'sws_wp_tweaks' ),
+	 'sws_wp_tweaks_field_main_cb',
+	 'sws_wp_tweaks',
+	 'sws_wp_tweaks_section_developers',
+	 [
+	 'label_for' => 'maintenance_mode',
+	 'class' => 'sws_wp_tweaks_row',
+	 'sws_wp_tweaks_custom_data' => 'custom',
+	 ]
 	 );
 
 	 // register a new field 
