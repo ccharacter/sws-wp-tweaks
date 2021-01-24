@@ -1,7 +1,7 @@
 {
 	"name": "SWS WordPress Tweaks",
-	"version": "5.8",
-	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v5.8.zip",
+	"version": "5.9",
+	"download_url": "https://github.com/ccharacter/sws-wp-tweaks/archive/v5.9.zip",
 
 	"homepage": "https://ccharacter.com/custom-plugins/sws-wp-tweaks/",
 	"requires": "4.0",
@@ -13,7 +13,7 @@
 	"author_homepage": "http://ccharacter.com/",
 
 	"sections": {
-		"description": "This plugin is a repository for tweaks that I want to make to most or all of my sites. At present, it includes the following features, which may be independently turned off or on...<ul style='line-height:.8'><li>Increase default max upload size</li><li>Fix bug in password reset message</li><li>Fix bug in iThemes Security font path</li><li>Disable new user notifications</li><li>Disable password change notifications</li><li>Disable xml-rpc</li><li>Add server tag to bottom of <em>Home</em> and <em>About</em> pages</li><li>Fail validation for specified Gravity Forms field containing HTML or non-English characters</li><li>Add function to log php to JS console</li><li>Add styles for collapsing divs, with a shortcode to apply it to specific elements by id.</li><li>Customize login page logo/URL</li><li>Ban user registrations from a variety of spammish domains/extensions</li><li>Delete users (below Author) who have not logged in within 60 days of registration</li><li>Utility for displaying most popular posts</li></ul>"
+		"description": "This plugin is a repository for tweaks that I want to make to most or all of my sites. At present, it includes the following features, which may be independently turned off or on...<ul style='line-height:.8'><li>Increase default max upload size</li><li>Fix bug in password reset message</li><li>Fix bug in iThemes Security font path</li><li>Disable new user notifications</li><li>Disable password change notifications</li><li>Disable xml-rpc</li><li>Add server tag to bottom of <em>Home</em> and <em>About</em> pages</li><li>Fail validation for specified Gravity Forms field containing HTML or non-English characters</li><li>Add function to log php to JS console</li><li>Add styles for collapsing divs, with a shortcode to apply it to specific elements by id.</li><li>Customize login page logo/URL</li><li>Ban user registrations from a variety of spammish domains/extensions</li><li>Delete users (below Author) who have not logged in within 60 days of registration</li><li>Utility for displaying most popular posts</li><li>Implement Maintenance Mode from plugin dashboard</li></ul>"
 	}
 
 }
